@@ -1,0 +1,56 @@
+import 'package:go_router/go_router.dart';
+
+import 'screens/feed/feed_screen.dart';
+import 'screens/history/history_screen.dart';
+import 'screens/main_screen.dart';
+import 'screens/schedule/schedule_screen.dart';
+import 'screens/settings/settings_screen.dart';
+
+final GoRouter appRouter = GoRouter(
+  initialLocation: '/feed',
+  routes: [
+    StatefulShellRoute.indexedStack(
+      builder: (context, state, navigationShell) {
+        return MainScreen(navigationShell: navigationShell);
+      },
+      branches: [
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/feed',
+              name: 'feed',
+              builder: (context, state) => const FeedScreen(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/schedule',
+              name: 'schedule',
+              builder: (context, state) => const ScheduleScreen(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/history',
+              name: 'history',
+              builder: (context, state) => const HistoryScreen(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/settings',
+              name: 'settings',
+              builder: (context, state) => const SettingsScreen(),
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);
