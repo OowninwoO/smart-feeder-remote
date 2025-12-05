@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../widgets/buttons/icon_text_button.dart';
+
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
@@ -8,28 +10,16 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Center(
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFF2F2F2),
-              foregroundColor: const Color(0xFF1F1F1F),
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
+          child: IconTextButton(
+            bgColor: const Color(0xFFF2F2F2),
+            fgColor: const Color(0xFF1F1F1F),
+            icon: Image.asset(
+              'assets/icons/google_logo.png',
+              width: 20,
+              height: 20,
             ),
+            label: 'Sign in with Google',
             onPressed: () {},
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset(
-                  'assets/icons/google_logo.png',
-                  width: 20,
-                  height: 20,
-                ),
-                const SizedBox(width: 10),
-                const Text('Sign in with Google'),
-              ],
-            ),
           ),
         ),
       ),
