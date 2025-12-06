@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../services/auth/auth_service.dart';
 import '../../widgets/buttons/icon_text_button.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -19,7 +20,13 @@ class LoginScreen extends StatelessWidget {
               height: 20,
             ),
             label: 'Sign in with Google',
-            onPressed: () {},
+            onPressed: () async {
+              try {
+                await AuthService().signInWithGoogle();
+              } catch (e) {
+                print(e);
+              }
+            },
           ),
         ),
       ),
