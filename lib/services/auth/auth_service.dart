@@ -5,6 +5,8 @@ class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn.instance;
 
+  User? get currentUser => _firebaseAuth.currentUser;
+
   Future<UserCredential> signInWithGoogle() async {
     await _googleSignIn.initialize();
     final googleUser = await _googleSignIn.authenticate();
