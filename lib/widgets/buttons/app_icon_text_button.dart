@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class IconTextButton extends StatelessWidget {
-  const IconTextButton({
+class AppIconTextButton extends StatelessWidget {
+  const AppIconTextButton({
     super.key,
     this.bgColor,
     this.fgColor,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../services/auth/auth_service.dart';
 import '../../utils/toast_utils.dart';
-import '../../widgets/buttons/icon_text_button.dart';
+import '../../widgets/buttons/app_icon_text_button.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -12,7 +12,7 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Center(
-          child: IconTextButton(
+          child: AppIconTextButton(
             bgColor: const Color(0xFFF2F2F2),
             fgColor: const Color(0xFF1F1F1F),
             icon: Image.asset(
