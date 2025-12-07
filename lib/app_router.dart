@@ -9,17 +9,14 @@ import 'screens/settings/settings_screen.dart';
 import 'services/auth/auth_service.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/login',
+  initialLocation: '/feed',
   redirect: (context, state) {
     final isLoggedIn = AuthService.currentUser != null;
+
     final isLoginScreen = state.matchedLocation == '/login';
 
     if (!isLoggedIn && !isLoginScreen) {
       return '/login';
-    }
-
-    if (isLoggedIn && isLoginScreen) {
-      return '/feed';
     }
 
     return null;
