@@ -25,7 +25,7 @@ class LoginScreen extends StatelessWidget {
               try {
                 await AuthService.signInWithGoogle();
               } catch (e) {
-                ToastUtils.error('로그인에 실패했어요. 다시 시도해 주세요.');
+                ToastUtils.error('로그인에 실패했습니다. 다시 시도해 주세요.');
               }
             },
           ),

@@ -37,7 +37,7 @@ dependencies:
   go_router: ^17.0.0
   flutter_dotenv: ^6.0.0
   dio: ^5.9.0
-  toastification: ^3.0.3
+  fluttertoast: ^9.0.0
   firebase_core: ^4.2.1
   firebase_auth: ^6.1.2
   google_sign_in: ^7.2.0
