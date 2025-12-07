@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../services/auth/auth_service.dart';
 import '../../utils/toast_utils.dart';
@@ -24,6 +25,7 @@ class LoginScreen extends StatelessWidget {
             onPressed: () async {
               try {
                 await AuthService.signInWithGoogle();
+                context.go('/feed');
               } catch (e) {
                 ToastUtils.error('로그인에 실패했습니다. 다시 시도해 주세요.');
               }
