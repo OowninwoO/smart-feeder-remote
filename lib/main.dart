@@ -6,6 +6,7 @@ import 'package:toastification/toastification.dart';
 import 'app_router.dart';
 import 'firebase_options.dart';
 import 'screens/auth/login_screen.dart';
+import 'services/auth/auth_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         title: 'Smart Feeder Remote',
         builder: (context, child) {
           return StreamBuilder<User?>(
-            stream: FirebaseAuth.instance.authStateChanges(),
+            stream: AuthService.firebaseAuth.authStateChanges(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
