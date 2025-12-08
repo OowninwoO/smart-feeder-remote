@@ -23,7 +23,7 @@ class AppIconTextButton extends StatelessWidget {
         backgroundColor: bgColor ?? Colors.white,
         foregroundColor: fgColor ?? Colors.black,
         disabledBackgroundColor: bgColor ?? Colors.white,
-        disabledForegroundColor: fgColor ?? Colors.white,
+        disabledForegroundColor: fgColor ?? Colors.black,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
