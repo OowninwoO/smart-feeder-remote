@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../constants/app_colors.dart';
-
 class AppListTile extends StatelessWidget {
   const AppListTile({
     super.key,
@@ -19,19 +17,9 @@ class AppListTile extends StatelessWidget {
     return ListTile(
       title: Text(
         title,
-        style: const TextStyle(
-          color: AppColors.textPrimary,
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-        ),
+        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
       ),
-      subtitle:
-          subtitle != null
-              ? Text(
-                subtitle!,
-                style: const TextStyle(color: AppColors.textSecondary),
-              )
-              : null,
+      subtitle: subtitle != null ? Text(subtitle!) : null,
       trailing: onTap != null ? const Icon(Icons.chevron_right) : null,
       onTap: onTap,
     );

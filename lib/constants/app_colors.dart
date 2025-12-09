@@ -7,12 +7,12 @@ class AppColors {
   static const Color textPrimary = Color(0xFFF5F5F5);
   static const Color textSecondary = Color(0xFFF0E6D8);
 
-  static const Color appBarBackground = Color(0xFF292A2D);
-  static const Color scaffoldBackground = Color(0xFF202124);
-  static const Color bottomNavBackground = Color(0xFF26272B);
+  static const Color appBarBackground = Color(0xFF323234);
+  static const Color scaffoldBackground = Color(0xFF27282B);
+  static const Color bottomNavBackground = Color(0xFF2F3034);
 
-  static const Color cardPrimary = Color(0xFF80674F);
-  static const Color cardSecondary = Color(0xFFAF9D89);
+  static const Color cardPrimary = Color(0xFFB59C82);
+  static const Color cardSecondary = Color(0xFFCBB59A);
 
-  static const Color divider = Color(0xFF44464A);
+  static const Color divider = Color(0xFF3A3B3F);
 }
