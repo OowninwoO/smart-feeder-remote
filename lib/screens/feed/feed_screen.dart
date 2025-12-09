@@ -20,9 +20,10 @@ class FeedScreen extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.all(8),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    '스마트 급식기를 등록해 보세요',
+                    '스마트 급식기 리모컨',
                     style: TextStyle(
                       color: AppColors.textPrimary,
                       fontSize: 20,
