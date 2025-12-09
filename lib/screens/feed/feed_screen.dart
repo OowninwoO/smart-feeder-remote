@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../widgets/buttons/app_text_button.dart';
 import '../../widgets/list_tiles/app_list_tile.dart';
+import '../../widgets/cards/app_card.dart';
 
 class FeedScreen extends StatelessWidget {
   const FeedScreen({super.key});
@@ -15,9 +16,7 @@ class FeedScreen extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Card(
-            margin: EdgeInsets.zero,
-            clipBehavior: Clip.antiAlias,
+          AppCard(
             color: AppColors.cardPrimary,
             child: Padding(
               padding: EdgeInsets.all(8),
@@ -37,9 +36,7 @@ class FeedScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: 16),
-          Card(
-            margin: EdgeInsets.zero,
-            clipBehavior: Clip.antiAlias,
+          AppCard(
             color: AppColors.cardPrimary,
             child: Padding(
               padding: EdgeInsets.all(8),
@@ -61,23 +58,17 @@ class FeedScreen extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Card(
-                          margin: EdgeInsets.zero,
-                          clipBehavior: Clip.antiAlias,
+                        AppCard(
                           color: AppColors.cardSecondary,
                           child: AppListTile(title: '키트명', subtitle: '-'),
                         ),
                         SizedBox(height: 8),
-                        Card(
-                          margin: EdgeInsets.zero,
-                          clipBehavior: Clip.antiAlias,
+                        AppCard(
                           color: AppColors.cardSecondary,
                           child: AppListTile(title: '장소', subtitle: '-'),
                         ),
                         SizedBox(height: 8),
-                        Card(
-                          margin: EdgeInsets.zero,
-                          clipBehavior: Clip.antiAlias,
+                        AppCard(
                           color: AppColors.cardSecondary,
                           child: AppListTile(title: 'MAC 주소', subtitle: '-'),
                         ),
