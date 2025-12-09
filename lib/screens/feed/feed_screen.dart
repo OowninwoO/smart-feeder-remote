@@ -2,21 +2,23 @@ import 'package:flutter/material.dart';
 
 import '../../constants/app_colors.dart';
 import '../../widgets/buttons/app_text_button.dart';
+import '../../widgets/list_tiles/app_list_tile.dart';
 
 class FeedScreen extends StatelessWidget {
   const FeedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+    return const SingleChildScrollView(
+      padding: EdgeInsets.all(16),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Card(
+          Card(
             margin: EdgeInsets.zero,
             clipBehavior: Clip.antiAlias,
-            color: AppColors.cardBackground,
+            color: AppColors.cardPrimary,
             child: Padding(
               padding: EdgeInsets.all(8),
               child: Column(
@@ -39,24 +41,58 @@ class FeedScreen extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 16),
-          const Icon(Icons.pets, size: 80, color: AppColors.primary),
-          const SizedBox(height: 16),
-          const Text(
-            '등록된 급식기가 없어요',
-            style: TextStyle(
-              color: AppColors.textPrimary,
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
+          SizedBox(height: 16),
+          Card(
+            margin: EdgeInsets.zero,
+            clipBehavior: Clip.antiAlias,
+            color: AppColors.cardPrimary,
+            child: Padding(
+              padding: EdgeInsets.all(8),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.pets, size: 80, color: Colors.black),
+                        SizedBox(height: 8),
+                        AppTextButton(label: '스마트 급식기 등록하기', onPressed: null),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Card(
+                          margin: EdgeInsets.zero,
+                          clipBehavior: Clip.antiAlias,
+                          color: AppColors.cardSecondary,
+                          child: AppListTile(title: '키트명', subtitle: '-'),
+                        ),
+                        SizedBox(height: 8),
+                        Card(
+                          margin: EdgeInsets.zero,
+                          clipBehavior: Clip.antiAlias,
+                          color: AppColors.cardSecondary,
+                          child: AppListTile(title: '장소', subtitle: '-'),
+                        ),
+                        SizedBox(height: 8),
+                        Card(
+                          margin: EdgeInsets.zero,
+                          clipBehavior: Clip.antiAlias,
+                          color: AppColors.cardSecondary,
+                          child: AppListTile(title: 'MAC 주소', subtitle: '-'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-          const SizedBox(height: 8),
-          const Text(
-            '아래 버튼을 눌러 스마트 급식기를 등록해 주세요.',
-            style: TextStyle(color: AppColors.textSecondary),
-          ),
-          const SizedBox(height: 16),
-          const AppTextButton(label: '스마트 급식기 등록하기', onPressed: null),
         ],
       ),
     );
