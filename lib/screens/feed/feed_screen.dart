@@ -40,41 +40,50 @@ class FeedScreen extends StatelessWidget {
             color: AppColors.cardPrimary,
             child: Padding(
               padding: EdgeInsets.all(8),
-              child: Row(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Expanded(
-                    flex: 1,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.pets, size: 80, color: Colors.black),
-                        SizedBox(height: 8),
-                        AppTextButton(label: '스마트 급식기 등록하기', onPressed: null),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        AppCard(
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: AppCard(
                           color: AppColors.cardSecondary,
                           child: AppListTile(title: '키트명', subtitle: '-'),
                         ),
-                        SizedBox(height: 8),
-                        AppCard(
+                      ),
+                      SizedBox(width: 8),
+                      Expanded(
+                        flex: 1,
+                        child: AppCard(
+                          color: AppColors.cardSecondary,
+                          child: AppListTile(title: '현재 모드', subtitle: '-'),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: AppCard(
                           color: AppColors.cardSecondary,
                           child: AppListTile(title: '장소', subtitle: '-'),
                         ),
-                        SizedBox(height: 8),
-                        AppCard(
+                      ),
+                      SizedBox(width: 8),
+                      Expanded(
+                        flex: 1,
+                        child: AppCard(
                           color: AppColors.cardSecondary,
                           child: AppListTile(title: 'MAC 주소', subtitle: '-'),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
+                  SizedBox(height: 8),
+                  AppTextButton(label: '스마트 급식기 등록하기', onPressed: null),
                 ],
               ),
             ),
