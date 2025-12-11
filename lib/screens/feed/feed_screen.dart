@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../constants/app_colors.dart';
@@ -93,6 +94,7 @@ class FeedScreen extends StatelessWidget {
                         final success = await WifiConnector.connectWifi();
                         if (success) {
                           print('connectWifi success');
+                          context.push('/wifi_setup_web_view');
                         } else {
                           print('connectWifi failed');
                         }
