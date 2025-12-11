@@ -90,7 +90,12 @@ class FeedScreen extends StatelessWidget {
                     onPressed: () async {
                       context.loaderOverlay.show();
                       try {
-                        await WifiConnector.connectWifi();
+                        final success = await WifiConnector.connectWifi();
+                        if (success) {
+                          print('connectWifi success');
+                        } else {
+                          print('connectWifi failed');
+                        }
                       } catch (e) {
                         print('connectWifi error: $e');
                       } finally {

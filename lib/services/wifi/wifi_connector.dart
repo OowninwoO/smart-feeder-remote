@@ -4,7 +4,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:wifi_iot/wifi_iot.dart';
 
 class WifiConnector {
-  static Future<void> connectWifi() async {
+  static Future<bool> connectWifi() async {
     final deviceInfo = DeviceInfoPlugin();
     final androidInfo = await deviceInfo.androidInfo;
     final sdkInt = androidInfo.version.sdkInt;
@@ -13,20 +13,22 @@ class WifiConnector {
       final nearbyStatus = await Permission.nearbyWifiDevices.request();
       if (!nearbyStatus.isGranted) {
         print('Nearby Wi-Fi permission not granted.');
-        return;
+        return false;
       }
     } else {
       final locationStatus = await Permission.location.request();
       if (!locationStatus.isGranted) {
         print('Location permission not granted.');
-        return;
+        return false;
       }
     }
 
-    await WiFiForIoTPlugin.connect(
+    final result = await WiFiForIoTPlugin.connect(
       dotenv.env['WIFI_SSID']!,
       password: dotenv.env['WIFI_PASSWORD']!,
       security: NetworkSecurity.WPA,
     );
+
+    return result;
   }
 }
