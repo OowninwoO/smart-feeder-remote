@@ -22,15 +22,15 @@ class WifiConnector {
       }
     }
 
-    final wifiList = await WiFiForIoTPlugin.loadWifiList();
-    if (wifiList.isEmpty) {
-      print('No Wi-Fi networks found.');
-      return;
-    }
+    const ssid = 'ETAP_CF:75:84';
+    const password = '12341234';
 
-    print('Found ${wifiList.length} Wi-Fi networks:');
-    for (final wifi in wifiList) {
-      print('SSID: ${wifi.ssid}, BSSID: ${wifi.bssid}, level: ${wifi.level}');
-    }
+    await WiFiForIoTPlugin.connect(
+      ssid,
+      password: password,
+      security: NetworkSecurity.WPA,
+    );
+
+    print('Connect requested to $ssid');
   }
 }
