@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../../services/wifi/wifi_connector.dart';
+
 class WifiSetupWebViewScreen extends StatefulWidget {
   const WifiSetupWebViewScreen({super.key});
 
@@ -20,6 +22,12 @@ class _WifiSetupWebViewScreenState extends State<WifiSetupWebViewScreen> {
         WebViewController()
           ..setJavaScriptMode(JavaScriptMode.unrestricted)
           ..loadRequest(Uri.parse(webUrl));
+  }
+
+  @override
+  void dispose() {
+    WifiConnector.disableForce();
+    super.dispose();
   }
 
   @override

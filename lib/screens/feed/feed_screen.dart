@@ -94,6 +94,7 @@ class FeedScreen extends StatelessWidget {
                         final success = await WifiConnector.connectWifi();
                         if (success) {
                           print('connectWifi success');
+                          await WifiConnector.enableForce();
                           context.push('/wifi_setup_web_view');
                         } else {
                           print('connectWifi failed');

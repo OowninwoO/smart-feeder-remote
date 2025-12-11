@@ -31,4 +31,12 @@ class WifiConnector {
 
     return result;
   }
+
+  static Future<void> enableForce() async {
+    await WiFiForIoTPlugin.forceWifiUsage(true);
+  }
+
+  static Future<void> disableForce() async {
+    await WiFiForIoTPlugin.forceWifiUsage(false);
+  }
 }
