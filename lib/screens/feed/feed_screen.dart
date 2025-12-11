@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../constants/app_colors.dart';
+import '../../services/wifi/wifi_connector.dart';
 import '../../widgets/buttons/app_text_button.dart';
 import '../../widgets/list_tiles/app_list_tile.dart';
 import '../../widgets/cards/app_card.dart';
@@ -10,13 +12,13 @@ class FeedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
-      padding: EdgeInsets.all(16),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AppCard(
+          const AppCard(
             color: AppColors.cardPrimary,
             child: Padding(
               padding: EdgeInsets.all(8),
@@ -35,15 +37,15 @@ class FeedScreen extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           AppCard(
             color: AppColors.cardPrimary,
             child: Padding(
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Row(
+                  const Row(
                     children: [
                       Expanded(
                         flex: 1,
@@ -62,8 +64,8 @@ class FeedScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 8),
-                  Row(
+                  const SizedBox(height: 8),
+                  const Row(
                     children: [
                       Expanded(
                         flex: 1,
@@ -82,8 +84,20 @@ class FeedScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 8),
-                  AppTextButton(label: '스마트 급식기 등록하기', onPressed: null),
+                  const SizedBox(height: 8),
+                  AppTextButton(
+                    label: '스마트 급식기 등록하기',
+                    onPressed: () async {
+                      context.loaderOverlay.show();
+                      try {
+                        await WifiConnector.connectWifi();
+                      } catch (e) {
+                        print('connectWifi error: $e');
+                      } finally {
+                        context.loaderOverlay.hide();
+                      }
+                    },
+                  ),
                 ],
               ),
             ),
