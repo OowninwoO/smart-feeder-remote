@@ -1,4 +1,5 @@
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:wifi_iot/wifi_iot.dart';
 
@@ -22,15 +23,10 @@ class WifiConnector {
       }
     }
 
-    const ssid = 'ETAP_CF:75:84';
-    const password = '12341234';
-
     await WiFiForIoTPlugin.connect(
-      ssid,
-      password: password,
+      dotenv.env['WIFI_SSID']!,
+      password: dotenv.env['WIFI_PASSWORD']!,
       security: NetworkSecurity.WPA,
     );
-
-    print('Connect requested to $ssid');
   }
 }
