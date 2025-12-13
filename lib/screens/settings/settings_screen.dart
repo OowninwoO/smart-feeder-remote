@@ -13,6 +13,16 @@ class SettingsScreen extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
+          Container(
+            width: double.infinity,
+            color: Colors.grey,
+            padding: const EdgeInsets.all(40),
+            alignment: Alignment.center,
+            child: const Text(
+              '앱 설정',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            ),
+          ),
           AppCard(
             color: AppColors.secondary,
             borderRadius: 0,
