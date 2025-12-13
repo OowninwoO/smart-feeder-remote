@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../constants/app_colors.dart';
 import '../../widgets/cards/app_card.dart';
@@ -15,7 +16,12 @@ class SettingsScreen extends StatelessWidget {
           AppCard(
             color: AppColors.secondary,
             borderRadius: 0,
-            child: AppListTile(title: '계정', onTap: () {}),
+            child: AppListTile(
+              title: '계정',
+              onTap: () {
+                context.push('/account');
+              },
+            ),
           ),
           const Divider(color: AppColors.divider),
         ],

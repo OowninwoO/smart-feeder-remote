@@ -6,6 +6,7 @@ import 'screens/feed/wifi_setup_webview_screen.dart';
 import 'screens/history/history_screen.dart';
 import 'screens/main_screen.dart';
 import 'screens/schedule/schedule_screen.dart';
+import 'screens/settings/account/account_screen.dart';
 import 'screens/settings/settings_screen.dart';
 import 'services/auth/auth_service.dart';
 
@@ -32,6 +33,13 @@ final GoRouter appRouter = GoRouter(
       path: '/wifi_setup_web_view',
       name: 'wifi_setup_web_view',
       builder: (context, state) => const WifiSetupWebViewScreen(),
+    ),
+
+    /// 설정
+    GoRoute(
+      path: '/account',
+      name: 'account',
+      builder: (context, state) => const AccountScreen(),
     ),
 
     /// 하단 탭
