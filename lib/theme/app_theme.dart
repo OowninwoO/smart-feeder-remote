@@ -9,17 +9,17 @@ class AppTheme {
       brightness: Brightness.dark,
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.appBarBackground,
-        foregroundColor: AppColors.textPrimary,
+        foregroundColor: AppColors.textOnDark,
       ),
       scaffoldBackgroundColor: AppColors.scaffoldBackground,
       navigationBarTheme: const NavigationBarThemeData(
         backgroundColor: AppColors.bottomNavBackground,
         indicatorColor: AppColors.primary,
         labelTextStyle: WidgetStatePropertyAll(
-          TextStyle(color: AppColors.textPrimary),
+          TextStyle(color: AppColors.textOnDark),
         ),
         iconTheme: WidgetStatePropertyAll(
-          IconThemeData(color: AppColors.textPrimary),
+          IconThemeData(color: AppColors.textOnDark),
         ),
       ),
     );
