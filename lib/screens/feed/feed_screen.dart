@@ -28,11 +28,16 @@ class FeedScreen extends StatelessWidget {
                 children: [
                   Text(
                     '스마트 급식기 리모컨',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                      color: AppColors.textOnLight,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   Divider(color: AppColors.divider),
                   Text(
                     '기기를 연결하면 원격 급식, 스케줄 급식, 급식 기록 확인까지 모두 한 곳에서 관리할 수 있어요.',
+                    style: TextStyle(color: AppColors.textOnLight),
                   ),
                 ],
               ),
