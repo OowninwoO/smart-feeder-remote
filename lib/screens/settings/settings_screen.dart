@@ -19,10 +19,15 @@ class SettingsScreen extends StatelessWidget {
             alignment: Alignment.center,
             child: const Text(
               '앱 설정',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                color: AppColors.textOnLight,
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
           AppListTile(
+            onDark: true,
             title: '계정',
             onTap: () {
               context.push('/account');
