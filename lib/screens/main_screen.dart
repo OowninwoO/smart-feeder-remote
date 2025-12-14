@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../theme/app_colors.dart';
-
 class MainScreen extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
 
@@ -12,45 +10,18 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Smart Feeder Remote',
-          style: TextStyle(
-            color: AppColors.textPrimary,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
+        title: const Text('Smart Feeder Remote'),
         centerTitle: true,
-        backgroundColor: AppColors.appBarBackground,
       ),
-      backgroundColor: AppColors.scaffoldBackground,
       body: navigationShell,
       bottomNavigationBar: NavigationBar(
-        backgroundColor: AppColors.bottomNavBackground,
-        indicatorColor: AppColors.primary,
-        labelTextStyle: WidgetStateProperty.all(
-          const TextStyle(color: AppColors.textPrimary),
-        ),
         selectedIndex: navigationShell.currentIndex,
-        onDestinationSelected: (i) {
-          navigationShell.goBranch(i);
-        },
+        onDestinationSelected: (i) => navigationShell.goBranch(i),
         destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.pets, color: AppColors.textPrimary),
-            label: '급식',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.schedule, color: AppColors.textPrimary),
-            label: '스케줄',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.history, color: AppColors.textPrimary),
-            label: '기록',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.settings, color: AppColors.textPrimary),
-            label: '설정',
-          ),
+          NavigationDestination(icon: Icon(Icons.pets), label: '급식'),
+          NavigationDestination(icon: Icon(Icons.schedule), label: '스케줄'),
+          NavigationDestination(icon: Icon(Icons.history), label: '기록'),
+          NavigationDestination(icon: Icon(Icons.settings), label: '설정'),
         ],
       ),
     );

@@ -12,6 +12,16 @@ class AppTheme {
         foregroundColor: AppColors.textPrimary,
       ),
       scaffoldBackgroundColor: AppColors.scaffoldBackground,
+      navigationBarTheme: const NavigationBarThemeData(
+        backgroundColor: AppColors.bottomNavBackground,
+        indicatorColor: AppColors.primary,
+        labelTextStyle: WidgetStatePropertyAll(
+          TextStyle(color: AppColors.textPrimary),
+        ),
+        iconTheme: WidgetStatePropertyAll(
+          IconThemeData(color: AppColors.textPrimary),
+        ),
+      ),
     );
   }
 }
