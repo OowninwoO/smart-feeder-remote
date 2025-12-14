@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
-import '../../constants/app_colors.dart';
+import '../../theme/app_colors.dart';
 import '../../services/wifi/wifi_connector.dart';
 import '../../widgets/buttons/app_text_button.dart';
 import '../../widgets/list_tiles/app_list_tile.dart';

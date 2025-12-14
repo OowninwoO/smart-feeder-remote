@@ -6,6 +6,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 
 import 'app_router.dart';
 import 'firebase_options.dart';
+import 'theme/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp.router(
         routerConfig: appRouter,
         title: 'Smart Feeder Remote',
+        theme: AppTheme.dark,
       ),
     );
   }
