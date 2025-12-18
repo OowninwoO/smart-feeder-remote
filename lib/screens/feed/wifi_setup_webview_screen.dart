@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -18,9 +20,20 @@ class _WifiSetupWebViewScreenState extends State<WifiSetupWebViewScreen> {
   void initState() {
     super.initState();
     final webUrl = dotenv.env['WIFI_SETUP_WEB_URL']!;
+
     _controller =
         WebViewController()
           ..setJavaScriptMode(JavaScriptMode.unrestricted)
+          ..addJavaScriptChannel(
+            'WifiSetup',
+            onMessageReceived: (message) {
+              final payload = jsonDecode(message.message);
+              if (payload['type'] == 'wifi_done') {
+                final deviceId = payload['deviceId'];
+                print('deviceId: $deviceId');
+              }
+            },
+          )
           ..loadRequest(Uri.parse(webUrl));
   }
 
