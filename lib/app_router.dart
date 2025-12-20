@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 
 import 'screens/auth/login_screen.dart';
+import 'screens/feed/device_register_screen.dart';
 import 'screens/feed/feed_screen.dart';
 import 'screens/feed/wifi_setup_webview_screen.dart';
 import 'screens/history/history_screen.dart';
@@ -29,10 +30,20 @@ final GoRouter appRouter = GoRouter(
       name: 'login',
       builder: (context, state) => const LoginScreen(),
     ),
+
+    /// 급식
     GoRoute(
       path: '/wifi_setup_web_view',
       name: 'wifi_setup_web_view',
       builder: (context, state) => const WifiSetupWebViewScreen(),
+    ),
+    GoRoute(
+      path: '/device_register',
+      name: 'device_register',
+      builder: (context, state) {
+        final deviceId = state.extra as String;
+        return DeviceRegisterScreen(deviceId: deviceId);
+      },
     ),
 
     /// 설정

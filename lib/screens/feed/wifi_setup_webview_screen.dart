@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:go_router/go_router.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../services/wifi/wifi_connector.dart';
@@ -30,7 +31,7 @@ class _WifiSetupWebViewScreenState extends State<WifiSetupWebViewScreen> {
               final payload = jsonDecode(message.message);
               if (payload['type'] == 'wifi_done') {
                 final deviceId = payload['deviceId'];
-                print('deviceId: $deviceId');
+                context.replace('/device_register', extra: deviceId);
               }
             },
           )
