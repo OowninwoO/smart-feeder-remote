@@ -1,7 +1,7 @@
 import 'dio_client.dart';
 
 class DevicesApi {
-  static Future<dynamic> registerDevice({
+  static Future<Map<String, dynamic>> registerDevice({
     required String deviceId,
     required String deviceName,
   }) async {
