@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../api/devices_api.dart';
 import '../../widgets/buttons/app_text_button.dart';
 
 class DeviceRegisterScreen extends StatefulWidget {
@@ -22,11 +23,19 @@ class _DeviceRegisterScreenState extends State<DeviceRegisterScreen> {
     super.dispose();
   }
 
-  void _onSubmit() {
+  Future<void> _onSubmit() async {
     if (_formKey.currentState?.validate() != true) return;
 
     final deviceName = _deviceNameController.text.trim();
-    print('deviceId: ${widget.deviceId}, deviceName: $deviceName');
+
+    try {
+      await DevicesApi.registerDevice(
+        deviceId: widget.deviceId,
+        deviceName: deviceName,
+      );
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
