@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../api/devices_api.dart';
+import '../../utils/log_utils.dart';
 import '../../widgets/buttons/app_text_button.dart';
 
 class DeviceRegisterScreen extends StatefulWidget {
@@ -34,7 +35,7 @@ class _DeviceRegisterScreenState extends State<DeviceRegisterScreen> {
         deviceName: deviceName,
       );
     } catch (e) {
-      print(e);
+      LogUtils.e(e);
     }
   }
 

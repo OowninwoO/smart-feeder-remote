@@ -4,6 +4,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../theme/app_colors.dart';
 import '../../services/wifi/wifi_connector.dart';
+import '../../utils/log_utils.dart';
 import '../../widgets/buttons/app_text_button.dart';
 import '../../widgets/list_tiles/app_list_tile.dart';
 import '../../widgets/cards/app_card.dart';
@@ -98,14 +99,14 @@ class FeedScreen extends StatelessWidget {
                       try {
                         final success = await WifiConnector.connectWifi();
                         if (success) {
-                          print('connectWifi success');
+                          LogUtils.d('connectWifi success');
                           await WifiConnector.enableForce();
                           context.push('/wifi_setup_web_view');
                         } else {
-                          print('connectWifi failed');
+                          LogUtils.e('connectWifi failed');
                         }
                       } catch (e) {
-                        print('connectWifi error: $e');
+                        LogUtils.e('connectWifi error: $e');
                       } finally {
                         context.loaderOverlay.hide();
                       }
