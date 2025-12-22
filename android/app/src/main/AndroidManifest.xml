@@ -27,9 +27,9 @@
         android:usesPermissionFlags="neverForLocation" />
 
     <application
-        android:label="smart_feeder_remote"
+        android:label="스마트 급식기 리모컨"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/launcher_icon"
         android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"
