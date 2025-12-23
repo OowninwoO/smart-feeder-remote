@@ -16,7 +16,6 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
           children: [
             Expanded(
               flex: 1,
@@ -73,7 +72,6 @@ class LoginScreen extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * 0.8,
                   alignment: Alignment.topCenter,
                   child: Column(
-                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Image.asset('assets/images/login_hero.png'),
                       const SizedBox(height: 16),
@@ -82,27 +80,33 @@ class LoginScreen extends StatelessWidget {
                       const _CheckItem(text: '급식 기록과 상태를 한눈에 확인하세요'),
                       const SizedBox(height: 8),
                       const _CheckItem(text: '스케줄로 자동 급식을 설정하세요'),
-                      const SizedBox(height: 16),
-                      AppIconTextButton(
-                        bgColor: const Color(0xFFF2F2F2),
-                        fgColor: const Color(0xFF1F1F1F),
-                        icon: Image.asset(
-                          'assets/icons/google_logo.png',
-                          width: 20,
-                          height: 20,
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            AppIconTextButton(
+                              bgColor: const Color(0xFFF2F2F2),
+                              fgColor: const Color(0xFF1F1F1F),
+                              icon: Image.asset(
+                                'assets/icons/google_logo.png',
+                                width: 20,
+                                height: 20,
+                              ),
+                              label: 'Sign in with Google',
+                              onPressed: () async {
+                                context.loaderOverlay.show();
+                                try {
+                                  await AuthService.signInWithGoogle();
+                                  context.go('/feed');
+                                } catch (e) {
+                                  ToastUtils.error('로그인에 실패했습니다. 다시 시도해 주세요.');
+                                } finally {
+                                  context.loaderOverlay.hide();
+                                }
+                              },
+                            ),
+                          ],
                         ),
-                        label: 'Sign in with Google',
-                        onPressed: () async {
-                          context.loaderOverlay.show();
-                          try {
-                            await AuthService.signInWithGoogle();
-                            context.go('/feed');
-                          } catch (e) {
-                            ToastUtils.error('로그인에 실패했습니다. 다시 시도해 주세요.');
-                          } finally {
-                            context.loaderOverlay.hide();
-                          }
-                        },
                       ),
                     ],
                   ),
@@ -124,23 +128,24 @@ class _CheckItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const SizedBox(width: 4),
-        const Icon(Icons.check_circle, size: 24, color: Colors.blue),
-        const SizedBox(width: 8),
-        Expanded(
-          child: Text(
-            text,
-            style: const TextStyle(
-              fontSize: 18,
-              color: AppColors.textOnLight,
-              fontWeight: FontWeight.w500,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
+      child: Row(
+        children: [
+          const Icon(Icons.check_circle, size: 24, color: Colors.blue),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(
+                fontSize: 18,
+                color: AppColors.textOnLight,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
-        ),
-        const SizedBox(width: 4),
-      ],
+        ],
+      ),
     );
   }
 }
