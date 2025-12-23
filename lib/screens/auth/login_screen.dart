@@ -68,6 +68,7 @@ class LoginScreen extends StatelessWidget {
               flex: 2,
               child: AppCard(
                 color: AppColors.secondary,
+                elevation: 5.0,
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.8,
                   alignment: Alignment.topCenter,
