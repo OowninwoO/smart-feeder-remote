@@ -22,11 +22,7 @@ class LoginScreen extends StatelessWidget {
               child: Container(
                 width: double.infinity,
                 decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Colors.black45, Colors.white],
-                  ),
+                  color: AppColors.appBarBackground,
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(60),
                     bottomRight: Radius.circular(60),
@@ -45,7 +41,7 @@ class LoginScreen extends StatelessWidget {
                     const Text(
                       '스마트 급식기 리모컨',
                       style: TextStyle(
-                        color: AppColors.textOnLight,
+                        color: AppColors.textOnDark,
                         fontSize: 28,
                         fontWeight: FontWeight.w600,
                       ),
