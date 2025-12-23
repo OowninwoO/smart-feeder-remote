@@ -13,7 +13,16 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Center(
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/login_bg.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          alignment: Alignment.center,
           child: AppIconTextButton(
             bgColor: const Color(0xFFF2F2F2),
             fgColor: const Color(0xFF1F1F1F),
