@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../services/auth/auth_service.dart';
+import '../../theme/app_colors.dart';
 import '../../utils/toast_utils.dart';
 import '../../widgets/buttons/app_icon_text_button.dart';
 
@@ -16,33 +17,47 @@ class LoginScreen extends StatelessWidget {
         child: Container(
           width: double.infinity,
           height: double.infinity,
+          alignment: Alignment.center,
+          padding: const EdgeInsets.all(16),
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/images/login_bg.png'),
               fit: BoxFit.cover,
             ),
           ),
-          alignment: Alignment.center,
-          child: AppIconTextButton(
-            bgColor: const Color(0xFFF2F2F2),
-            fgColor: const Color(0xFF1F1F1F),
-            icon: Image.asset(
-              'assets/icons/google_logo.png',
-              width: 20,
-              height: 20,
-            ),
-            label: 'Sign in with Google',
-            onPressed: () async {
-              context.loaderOverlay.show();
-              try {
-                await AuthService.signInWithGoogle();
-                context.go('/feed');
-              } catch (e) {
-                ToastUtils.error('로그인에 실패했습니다. 다시 시도해 주세요.');
-              } finally {
-                context.loaderOverlay.hide();
-              }
-            },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const Text(
+                'Smart Feeder Remote',
+                style: TextStyle(
+                  color: AppColors.textOnDark,
+                  fontSize: 40,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              AppIconTextButton(
+                bgColor: const Color(0xFFF2F2F2),
+                fgColor: const Color(0xFF1F1F1F),
+                icon: Image.asset(
+                  'assets/icons/google_logo.png',
+                  width: 20,
+                  height: 20,
+                ),
+                label: 'Sign in with Google',
+                onPressed: () async {
+                  context.loaderOverlay.show();
+                  try {
+                    await AuthService.signInWithGoogle();
+                    context.go('/feed');
+                  } catch (e) {
+                    ToastUtils.error('로그인에 실패했습니다. 다시 시도해 주세요.');
+                  } finally {
+                    context.loaderOverlay.hide();
+                  }
+                },
+              ),
+            ],
           ),
         ),
       ),
