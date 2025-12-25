@@ -39,12 +39,16 @@ class AuthService {
     }
   }
 
-  static Future<void> signOut(LoginProvider provider) async {
+  static Future<void> signOut() async {
+    final providerId = currentUser!.providerData.first.providerId;
+
     await firebaseAuth.signOut();
 
-    switch (provider) {
-      case LoginProvider.google:
+    switch (providerId) {
+      case 'google.com':
         await googleSignIn.signOut();
+        break;
+      default:
         break;
     }
   }

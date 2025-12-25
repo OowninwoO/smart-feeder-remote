@@ -63,7 +63,7 @@ class AccountScreen extends StatelessWidget {
               onDark: true,
               title: '로그아웃',
               onTap: () async {
-                await AuthService.signOut(LoginProvider.google);
+                await AuthService.signOut();
                 Phoenix.rebirth(context);
               },
             ),
