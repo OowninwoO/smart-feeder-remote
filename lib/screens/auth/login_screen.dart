@@ -35,6 +35,7 @@ class LoginScreen extends StatelessWidget {
                   fontSize: 40,
                   fontWeight: FontWeight.w700,
                 ),
+                textAlign: TextAlign.center,
               ),
               AppIconTextButton(
                 bgColor: const Color(0xFFF2F2F2),
