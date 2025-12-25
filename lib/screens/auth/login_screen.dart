@@ -49,7 +49,7 @@ class LoginScreen extends StatelessWidget {
                 onPressed: () async {
                   context.loaderOverlay.show();
                   try {
-                    await AuthService.signInWithGoogle();
+                    await AuthService.signIn(LoginProvider.google);
                     context.go('/feed');
                   } catch (e) {
                     ToastUtils.error('로그인에 실패했습니다. 다시 시도해 주세요.');

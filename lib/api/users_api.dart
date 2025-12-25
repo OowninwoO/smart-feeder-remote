@@ -9,7 +9,7 @@ class UsersApi {
     String? profileImageUrl,
   }) async {
     final response = await DioClient.dio.post(
-      '/api/users/me',
+      '/api/users/upsertMe',
       data: {
         'provider': provider,
         'providerUserId': providerUserId,
