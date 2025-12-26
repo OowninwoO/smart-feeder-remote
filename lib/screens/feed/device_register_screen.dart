@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../api/devices_api.dart';
 import '../../utils/log_utils.dart';
+import '../../utils/toast_utils.dart';
 import '../../widgets/buttons/app_text_button.dart';
 
 class DeviceRegisterScreen extends StatefulWidget {
@@ -38,8 +40,12 @@ class _DeviceRegisterScreenState extends State<DeviceRegisterScreen> {
         deviceName: deviceName,
         location: location,
       );
+
+      ToastUtils.success('기기가 성공적으로 등록되었습니다.');
+      context.pop();
     } catch (e) {
       LogUtils.e(e);
+      ToastUtils.error('기기 등록에 실패했습니다.');
     }
   }
 
