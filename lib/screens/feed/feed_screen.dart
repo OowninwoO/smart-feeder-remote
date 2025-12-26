@@ -58,35 +58,15 @@ class FeedScreen extends StatelessWidget {
                         flex: 1,
                         child: AppCard(
                           color: AppColors.cardSecondary,
-                          child: AppListTile(title: '키트명', subtitle: '-'),
+                          child: AppListTile(title: '디바이스 이름', subtitle: '-'),
                         ),
                       ),
                       SizedBox(width: 8),
-                      Expanded(
-                        flex: 1,
-                        child: AppCard(
-                          color: AppColors.cardSecondary,
-                          child: AppListTile(title: '현재 모드', subtitle: '-'),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  const Row(
-                    children: [
                       Expanded(
                         flex: 1,
                         child: AppCard(
                           color: AppColors.cardSecondary,
                           child: AppListTile(title: '장소', subtitle: '-'),
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      Expanded(
-                        flex: 1,
-                        child: AppCard(
-                          color: AppColors.cardSecondary,
-                          child: AppListTile(title: 'MAC 주소', subtitle: '-'),
                         ),
                       ),
                     ],
