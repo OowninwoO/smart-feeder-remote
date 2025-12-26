@@ -17,10 +17,12 @@ class _DeviceRegisterScreenState extends State<DeviceRegisterScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final _deviceNameController = TextEditingController();
+  final _locationController = TextEditingController();
 
   @override
   void dispose() {
     _deviceNameController.dispose();
+    _locationController.dispose();
     super.dispose();
   }
 
@@ -28,11 +30,13 @@ class _DeviceRegisterScreenState extends State<DeviceRegisterScreen> {
     if (_formKey.currentState?.validate() != true) return;
 
     final deviceName = _deviceNameController.text.trim();
+    final location = _locationController.text.trim();
 
     try {
       await DevicesApi.register(
         deviceId: widget.deviceId,
         deviceName: deviceName,
+        location: location,
       );
     } catch (e) {
       LogUtils.e(e);
@@ -65,11 +69,26 @@ class _DeviceRegisterScreenState extends State<DeviceRegisterScreen> {
                     labelText: '디바이스 이름',
                     border: OutlineInputBorder(),
                   ),
+                  textInputAction: TextInputAction.next,
+                  validator: (v) {
+                    if (v == null || v.trim().isEmpty) {
+                      return '디바이스 이름을 입력해 주세요.';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: _locationController,
+                  decoration: const InputDecoration(
+                    labelText: '장소',
+                    border: OutlineInputBorder(),
+                  ),
                   textInputAction: TextInputAction.done,
                   onFieldSubmitted: (_) => _onSubmit(),
                   validator: (v) {
                     if (v == null || v.trim().isEmpty) {
-                      return '디바이스 이름을 입력해 주세요.';
+                      return '장소를 입력해 주세요.';
                     }
                     return null;
                   },
