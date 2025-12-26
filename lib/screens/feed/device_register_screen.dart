@@ -30,7 +30,7 @@ class _DeviceRegisterScreenState extends State<DeviceRegisterScreen> {
     final deviceName = _deviceNameController.text.trim();
 
     try {
-      await DevicesApi.registerDevice(
+      await DevicesApi.register(
         deviceId: widget.deviceId,
         deviceName: deviceName,
       );
