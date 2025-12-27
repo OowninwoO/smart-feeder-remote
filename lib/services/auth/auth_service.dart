@@ -11,6 +11,11 @@ class AuthService {
 
   static User? get currentUser => firebaseAuth.currentUser;
 
+  static Future<String?> get idToken async {
+    if (currentUser == null) return null;
+    return await currentUser!.getIdToken();
+  }
+
   static Future<void> signIn(LoginProvider provider) async {
     late final UserCredential userCredential;
 
