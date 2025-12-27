@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import '../services/auth/auth_service.dart';
 import '../utils/log_utils.dart';
 
 class DioClient {
@@ -14,7 +15,12 @@ class DioClient {
     )
     ..interceptors.add(
       InterceptorsWrapper(
-        onRequest: (options, handler) {
+        onRequest: (options, handler) async {
+          final token = await AuthService.idToken;
+          if (token != null) {
+            options.headers['Authorization'] = 'Bearer $token';
+          }
+
           LogUtils.d('[DIO][REQ][DATA] ${options.data}');
           handler.next(options);
         },
