@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../services/auth/auth_service.dart';
 import '../../theme/app_colors.dart';
 import '../../utils/toast_utils.dart';
+import '../../utils/user_data_sync.dart';
 import '../../widgets/buttons/app_icon_text_button.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -50,6 +52,7 @@ class LoginScreen extends StatelessWidget {
                   context.loaderOverlay.show();
                   try {
                     await AuthService.signIn(LoginProvider.google);
+                    await loadDevices(ref);
                     context.go('/feed');
                   } catch (e) {
                     ToastUtils.error('로그인에 실패했습니다. 다시 시도해 주세요.');

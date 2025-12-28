@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'api/devices_api.dart';
-import 'models/device/device.dart';
-import 'providers/device/device_list_provider.dart';
 import 'services/auth/auth_service.dart';
 import 'utils/toast_utils.dart';
+import 'utils/user_data_sync.dart';
 
 class AutoLoginGate extends ConsumerStatefulWidget {
   final Widget child;
@@ -30,10 +28,7 @@ class _AutoLoginGateState extends ConsumerState<AutoLoginGate> {
 
     if (user != null) {
       try {
-        final res = await DevicesApi.myDevices();
-        final data = res['data'];
-        final devices = data.map<Device>((e) => Device.fromJson(e)).toList();
-        ref.read(deviceListProvider.notifier).set(devices);
+        await loadDevices(ref);
       } catch (e) {
         ToastUtils.error('데이터를 불러오지 못했습니다.');
       }
