@@ -28,6 +28,14 @@ class InfoScreen extends StatelessWidget {
           ),
           AppListTile(
             onDark: true,
+            title: '내 기기',
+            onTap: () {
+              context.push('/my_devices');
+            },
+          ),
+          const Divider(color: AppColors.divider),
+          AppListTile(
+            onDark: true,
             title: '계정',
             onTap: () {
               context.push('/account');
