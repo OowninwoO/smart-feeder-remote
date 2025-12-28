@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/list_tiles/app_list_tile.dart';
 
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
+class InfoScreen extends StatelessWidget {
+  const InfoScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class SettingsScreen extends StatelessWidget {
             padding: const EdgeInsets.all(40),
             alignment: Alignment.center,
             child: const Text(
-              '앱 설정',
+              '앱 정보',
               style: TextStyle(
                 color: AppColors.textOnLight,
                 fontSize: 18,

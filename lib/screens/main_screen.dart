@@ -21,7 +21,7 @@ class MainScreen extends StatelessWidget {
           NavigationDestination(icon: Icon(Icons.pets), label: '급식'),
           NavigationDestination(icon: Icon(Icons.schedule), label: '스케줄'),
           NavigationDestination(icon: Icon(Icons.history), label: '기록'),
-          NavigationDestination(icon: Icon(Icons.settings), label: '설정'),
+          NavigationDestination(icon: Icon(Icons.info_outline), label: '정보'),
         ],
       ),
     );

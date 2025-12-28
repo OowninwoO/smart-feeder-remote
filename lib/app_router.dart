@@ -8,7 +8,7 @@ import 'screens/history/history_screen.dart';
 import 'screens/main_screen.dart';
 import 'screens/schedule/schedule_screen.dart';
 import 'screens/settings/account/account_screen.dart';
-import 'screens/settings/settings_screen.dart';
+import 'screens/settings/info_screen.dart';
 import 'services/auth/auth_service.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -46,7 +46,7 @@ final GoRouter appRouter = GoRouter(
       },
     ),
 
-    /// 설정
+    /// 정보
     GoRoute(
       path: '/account',
       name: 'account',
@@ -91,7 +91,7 @@ final GoRouter appRouter = GoRouter(
             GoRoute(
               path: '/settings',
               name: 'settings',
-              builder: (context, state) => const SettingsScreen(),
+              builder: (context, state) => const InfoScreen(),
             ),
           ],
         ),
