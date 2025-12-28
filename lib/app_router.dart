@@ -9,22 +9,37 @@ import 'screens/main_screen.dart';
 import 'screens/schedule/schedule_screen.dart';
 import 'screens/settings/account/account_screen.dart';
 import 'screens/settings/settings_screen.dart';
+import 'screens/splash_screen.dart';
 import 'services/auth/auth_service.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/feed',
+  initialLocation: '/splash',
   redirect: (context, state) {
     final isLoggedIn = AuthService.currentUser != null;
 
+    final isSplashScreen = state.matchedLocation == '/splash';
     final isLoginScreen = state.matchedLocation == '/login';
+
+    if (isSplashScreen) {
+      return null;
+    }
 
     if (!isLoggedIn && !isLoginScreen) {
       return '/login';
     }
 
+    if (isLoggedIn && isLoginScreen) {
+      return '/feed';
+    }
+
     return null;
   },
   routes: [
+    GoRoute(
+      path: '/splash',
+      name: 'splash',
+      builder: (context, state) => const SplashScreen(),
+    ),
     GoRoute(
       path: '/login',
       name: 'login',
