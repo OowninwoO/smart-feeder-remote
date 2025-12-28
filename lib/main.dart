@@ -5,6 +5,7 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 import 'app_router.dart';
+import 'auto_login_gate.dart';
 import 'firebase_options.dart';
 import 'theme/app_theme.dart';
 
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         routerConfig: appRouter,
         title: 'Smart Feeder Remote',
         theme: AppTheme.dark,
+        builder: (context, child) => AutoLoginGate(child: child!),
       ),
     );
   }
