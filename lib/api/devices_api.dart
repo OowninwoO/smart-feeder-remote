@@ -17,4 +17,10 @@ class DevicesApi {
 
     return response.data;
   }
+
+  static Future<Map<String, dynamic>> myDevices() async {
+    final response = await DioClient.dio.get('/api/devices/my-devices');
+
+    return response.data;
+  }
 }

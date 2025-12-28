@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
+import '../../api/devices_api.dart';
 import '../../theme/app_colors.dart';
 import '../../services/wifi/wifi_connector.dart';
 import '../../utils/log_utils.dart';
@@ -18,7 +19,6 @@ class FeedScreen extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const AppCard(
             color: AppColors.cardPrimary,
@@ -95,6 +95,13 @@ class FeedScreen extends StatelessWidget {
                 ],
               ),
             ),
+          ),
+          const SizedBox(height: 16),
+          AppTextButton(
+            label: '내 기기 조회하기',
+            onPressed: () async {
+              await DevicesApi.myDevices();
+            },
           ),
         ],
       ),
