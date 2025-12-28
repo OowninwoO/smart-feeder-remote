@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Device {
 
- int get id; String get deviceId; String get deviceName; String get location; DateTime get createdAt; String get role; DateTime get linkedAt;
+ String get id; String get deviceId; String get deviceName; String get location; DateTime get createdAt; String get role; DateTime get linkedAt;
 /// Create a copy of Device
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $DeviceCopyWith<$Res>  {
   factory $DeviceCopyWith(Device value, $Res Function(Device) _then) = _$DeviceCopyWithImpl;
 @useResult
 $Res call({
- int id, String deviceId, String deviceName, String location, DateTime createdAt, String role, DateTime linkedAt
+ String id, String deviceId, String deviceName, String location, DateTime createdAt, String role, DateTime linkedAt
 });
 
 
@@ -68,7 +68,7 @@ class _$DeviceCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? deviceId = null,Object? deviceName = null,Object? location = null,Object? createdAt = null,Object? role = null,Object? linkedAt = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,deviceId: null == deviceId ? _self.deviceId : deviceId // ignore: cast_nullable_to_non_nullable
+as String,deviceId: null == deviceId ? _self.deviceId : deviceId // ignore: cast_nullable_to_non_nullable
 as String,deviceName: null == deviceName ? _self.deviceName : deviceName // ignore: cast_nullable_to_non_nullable
 as String,location: null == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
@@ -159,7 +159,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String deviceId,  String deviceName,  String location,  DateTime createdAt,  String role,  DateTime linkedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String deviceId,  String deviceName,  String location,  DateTime createdAt,  String role,  DateTime linkedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Device() when $default != null:
 return $default(_that.id,_that.deviceId,_that.deviceName,_that.location,_that.createdAt,_that.role,_that.linkedAt);case _:
@@ -180,7 +180,7 @@ return $default(_that.id,_that.deviceId,_that.deviceName,_that.location,_that.cr
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String deviceId,  String deviceName,  String location,  DateTime createdAt,  String role,  DateTime linkedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String deviceId,  String deviceName,  String location,  DateTime createdAt,  String role,  DateTime linkedAt)  $default,) {final _that = this;
 switch (_that) {
 case _Device():
 return $default(_that.id,_that.deviceId,_that.deviceName,_that.location,_that.createdAt,_that.role,_that.linkedAt);case _:
@@ -200,7 +200,7 @@ return $default(_that.id,_that.deviceId,_that.deviceName,_that.location,_that.cr
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String deviceId,  String deviceName,  String location,  DateTime createdAt,  String role,  DateTime linkedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String deviceId,  String deviceName,  String location,  DateTime createdAt,  String role,  DateTime linkedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _Device() when $default != null:
 return $default(_that.id,_that.deviceId,_that.deviceName,_that.location,_that.createdAt,_that.role,_that.linkedAt);case _:
@@ -218,7 +218,7 @@ class _Device implements Device {
   const _Device({required this.id, required this.deviceId, required this.deviceName, required this.location, required this.createdAt, required this.role, required this.linkedAt});
   factory _Device.fromJson(Map<String, dynamic> json) => _$DeviceFromJson(json);
 
-@override final  int id;
+@override final  String id;
 @override final  String deviceId;
 @override final  String deviceName;
 @override final  String location;
@@ -259,7 +259,7 @@ abstract mixin class _$DeviceCopyWith<$Res> implements $DeviceCopyWith<$Res> {
   factory _$DeviceCopyWith(_Device value, $Res Function(_Device) _then) = __$DeviceCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String deviceId, String deviceName, String location, DateTime createdAt, String role, DateTime linkedAt
+ String id, String deviceId, String deviceName, String location, DateTime createdAt, String role, DateTime linkedAt
 });
 
 
@@ -279,7 +279,7 @@ class __$DeviceCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? deviceId = null,Object? deviceName = null,Object? location = null,Object? createdAt = null,Object? role = null,Object? linkedAt = null,}) {
   return _then(_Device(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,deviceId: null == deviceId ? _self.deviceId : deviceId // ignore: cast_nullable_to_non_nullable
+as String,deviceId: null == deviceId ? _self.deviceId : deviceId // ignore: cast_nullable_to_non_nullable
 as String,deviceName: null == deviceName ? _self.deviceName : deviceName // ignore: cast_nullable_to_non_nullable
 as String,location: null == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable

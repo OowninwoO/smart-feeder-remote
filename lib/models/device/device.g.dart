@@ -7,7 +7,7 @@ part of 'device.dart';
 // **************************************************************************
 
 _Device _$DeviceFromJson(Map<String, dynamic> json) => _Device(
-  id: (json['id'] as num).toInt(),
+  id: json['id'] as String,
   deviceId: json['deviceId'] as String,
   deviceName: json['deviceName'] as String,
   location: json['location'] as String,

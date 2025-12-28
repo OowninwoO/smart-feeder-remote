@@ -29,7 +29,8 @@ class _AutoLoginGateState extends ConsumerState<AutoLoginGate> {
 
     if (user != null) {
       final res = await DevicesApi.myDevices();
-      final devices = res['data'].map((e) => Device.fromJson(e)).toList();
+      final data = res['data'];
+      final devices = data.map<Device>((e) => Device.fromJson(e)).toList();
       ref.read(deviceListProvider.notifier).set(devices);
     }
   }
