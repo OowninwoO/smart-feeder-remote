@@ -3,6 +3,7 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 import '../../../services/auth/auth_service.dart';
 import '../../../theme/app_colors.dart';
+import '../../../utils/log_utils.dart';
 import '../../../widgets/list_tiles/app_list_tile.dart';
 
 class AccountScreen extends StatelessWidget {
@@ -31,10 +32,12 @@ class AccountScreen extends StatelessWidget {
                   CircleAvatar(
                     radius: 30,
                     backgroundColor: AppColors.primary,
-                    backgroundImage:
-                        (photoUrl != null && photoUrl.isNotEmpty)
-                            ? NetworkImage(photoUrl)
-                            : null,
+                    foregroundImage: (photoUrl != null && photoUrl.isNotEmpty)
+                        ? NetworkImage(photoUrl)
+                        : null,
+                    onForegroundImageError: (e, s) {
+                      LogUtils.e(e);
+                    },
                   ),
                   const SizedBox(width: 8),
                   Column(
