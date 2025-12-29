@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_feeder_remote/providers/device/device_list_provider.dart';
 
+import '../../../theme/app_colors.dart';
 import '../../../widgets/cards/app_card.dart';
 import '../../../widgets/list_tiles/app_list_tile.dart';
 
@@ -25,7 +26,7 @@ class MyDevicesScreen extends ConsumerWidget {
                   final device = devices[index];
 
                   return AppCard(
-                    color: Colors.orange,
+                    color: AppColors.cardPrimary,
                     child: AppListTile(
                       title: device.deviceName,
                       subtitle: '${device.deviceId} • ${device.location}',
