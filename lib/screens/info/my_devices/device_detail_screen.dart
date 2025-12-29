@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../models/device/device.dart';
 import '../../../theme/app_colors.dart';
+import '../../../utils/datetime_utils.dart';
 import '../../../widgets/cards/app_card.dart';
 
 class DeviceDetailScreen extends StatelessWidget {
@@ -41,11 +42,11 @@ class DeviceDetailScreen extends StatelessWidget {
               items: [
                 _SectionItem(
                   label: '등록일',
-                  value: device.createdAt.toIso8601String(),
+                  value: DateTimeUtils.ymdHm(device.createdAt),
                 ),
                 _SectionItem(
                   label: '연결일',
-                  value: device.linkedAt.toIso8601String(),
+                  value: DateTimeUtils.ymdHm(device.linkedAt),
                 ),
               ],
             ),
