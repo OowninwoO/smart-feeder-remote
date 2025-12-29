@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../models/device/device.dart';
 import '../../../theme/app_colors.dart';
 import '../../../widgets/cards/app_card.dart';
-import '../../../widgets/list_tiles/app_list_tile.dart';
 
 class DeviceDetailScreen extends StatelessWidget {
   final Device device;
@@ -18,44 +17,124 @@ class DeviceDetailScreen extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            AppCard(
-              color: AppColors.cardPrimary,
-              child: AppListTile(title: '기기 이름', subtitle: device.deviceName),
+            _SectionCard(
+              icon: Icons.devices_outlined,
+              title: '기기 기본 정보',
+              items: [
+                _SectionItem(label: '기기 이름', value: device.deviceName),
+                _SectionItem(label: '기기 ID', value: device.deviceId),
+              ],
             ),
             const SizedBox(height: 16),
-            AppCard(
-              color: AppColors.cardPrimary,
-              child: AppListTile(title: '기기 ID', subtitle: device.deviceId),
+            _SectionCard(
+              icon: Icons.location_on_outlined,
+              title: '설치 및 권한',
+              items: [
+                _SectionItem(label: '설치 위치', value: device.location),
+                _SectionItem(label: '권한', value: device.role),
+              ],
             ),
             const SizedBox(height: 16),
-            AppCard(
-              color: AppColors.cardPrimary,
-              child: AppListTile(title: '설치 위치', subtitle: device.location),
-            ),
-            const SizedBox(height: 16),
-            AppCard(
-              color: AppColors.cardPrimary,
-              child: AppListTile(title: '권한', subtitle: device.role),
-            ),
-            const SizedBox(height: 16),
-            AppCard(
-              color: AppColors.cardPrimary,
-              child: AppListTile(
-                title: '등록일',
-                subtitle: device.createdAt.toIso8601String(),
-              ),
-            ),
-            const SizedBox(height: 16),
-            AppCard(
-              color: AppColors.cardPrimary,
-              child: AppListTile(
-                title: '연결일',
-                subtitle: device.linkedAt.toIso8601String(),
-              ),
+            _SectionCard(
+              icon: Icons.event_outlined,
+              title: '등록 및 연결 날짜',
+              items: [
+                _SectionItem(
+                  label: '등록일',
+                  value: device.createdAt.toIso8601String(),
+                ),
+                _SectionItem(
+                  label: '연결일',
+                  value: device.linkedAt.toIso8601String(),
+                ),
+              ],
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _SectionCard extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final List<_SectionItem> items;
+
+  const _SectionCard({
+    required this.icon,
+    required this.title,
+    required this.items,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AppCard(
+      color: AppColors.cardPrimary,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(icon, color: AppColors.textOnLight),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      color: AppColors.textOnLight,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            ...items.map((e) {
+              final isLast = e == items.last;
+
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  e,
+                  if (!isLast) const Divider(color: AppColors.divider),
+                ],
+              );
+            }),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _SectionItem extends StatelessWidget {
+  final String label;
+  final String value;
+
+  const _SectionItem({required this.label, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(label, style: const TextStyle(color: AppColors.textOnLight)),
+        const SizedBox(width: 8),
+        Flexible(
+          child: Text(
+            value,
+            style: const TextStyle(
+              color: AppColors.textOnLight,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
