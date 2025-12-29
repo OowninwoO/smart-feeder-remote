@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 
+import 'models/device/device.dart';
 import 'screens/auth/login_screen.dart';
 import 'screens/feed/device_register_screen.dart';
 import 'screens/feed/feed_screen.dart';
@@ -7,6 +8,7 @@ import 'screens/feed/wifi_setup_webview_screen.dart';
 import 'screens/history/history_screen.dart';
 import 'screens/info/account/account_screen.dart';
 import 'screens/info/info_screen.dart';
+import 'screens/info/my_devices/device_detail_screen.dart';
 import 'screens/info/my_devices/my_devices_screen.dart';
 import 'screens/main_screen.dart';
 import 'screens/schedule/schedule_screen.dart';
@@ -52,6 +54,14 @@ final GoRouter appRouter = GoRouter(
       path: '/my_devices',
       name: 'my_devices',
       builder: (context, state) => const MyDevicesScreen(),
+    ),
+    GoRoute(
+      path: '/device_detail',
+      name: 'device_detail',
+      builder: (context, state) {
+        final device = state.extra as Device;
+        return DeviceDetailScreen(device: device);
+      },
     ),
     GoRoute(
       path: '/account',

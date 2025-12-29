@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:smart_feeder_remote/providers/device/device_list_provider.dart';
 
 import '../../../theme/app_colors.dart';
@@ -30,6 +31,9 @@ class MyDevicesScreen extends ConsumerWidget {
                     child: AppListTile(
                       title: device.deviceName,
                       subtitle: '${device.deviceId} • ${device.location}',
+                      onTap: () {
+                        context.push('/device_detail', extra: device);
+                      },
                     ),
                   );
                 },
