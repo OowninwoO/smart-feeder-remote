@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
@@ -8,12 +9,18 @@ import '../../utils/log_utils.dart';
 import '../../widgets/buttons/app_text_button.dart';
 import '../../widgets/list_tiles/app_list_tile.dart';
 import '../../widgets/cards/app_card.dart';
+import '../../providers/device/primary_device_provider.dart';
 
-class FeedScreen extends StatelessWidget {
+class FeedScreen extends ConsumerWidget {
   const FeedScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final primaryDevice = ref.watch(primaryDeviceProvider);
+
+    final deviceName = primaryDevice?.deviceName ?? '-';
+    final location = primaryDevice?.location ?? '-';
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -51,49 +58,61 @@ class FeedScreen extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Row(
+                  const Text(
+                    '연결된 기기 정보',
+                    style: TextStyle(
+                      color: AppColors.textOnLight,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
                     children: [
                       Expanded(
                         flex: 1,
                         child: AppCard(
                           color: AppColors.cardSecondary,
-                          child: AppListTile(title: '디바이스 이름', subtitle: '-'),
+                          child: AppListTile(
+                            title: '디바이스 이름',
+                            subtitle: deviceName,
+                          ),
                         ),
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       Expanded(
                         flex: 1,
                         child: AppCard(
                           color: AppColors.cardSecondary,
-                          child: AppListTile(title: '장소', subtitle: '-'),
+                          child: AppListTile(title: '장소', subtitle: location),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
-                  AppTextButton(
-                    label: '스마트 급식기 등록하기',
-                    onPressed: () async {
-                      context.loaderOverlay.show();
-                      try {
-                        final success = await WifiConnector.connectWifi();
-                        if (success) {
-                          LogUtils.d('connectWifi success');
-                          await WifiConnector.enableForce();
-                          context.push('/wifi_setup_web_view');
-                        } else {
-                          LogUtils.e('connectWifi failed');
-                        }
-                      } catch (e) {
-                        LogUtils.e('connectWifi error: $e');
-                      } finally {
-                        context.loaderOverlay.hide();
-                      }
-                    },
-                  ),
                 ],
               ),
             ),
+          ),
+          const SizedBox(height: 16),
+          AppTextButton(
+            label: '스마트 급식기 등록하기',
+            onPressed: () async {
+              context.loaderOverlay.show();
+              try {
+                final success = await WifiConnector.connectWifi();
+                if (success) {
+                  LogUtils.d('connectWifi success');
+                  await WifiConnector.enableForce();
+                  context.push('/wifi_setup_web_view');
+                } else {
+                  LogUtils.e('connectWifi failed');
+                }
+              } catch (e) {
+                LogUtils.e('connectWifi error: $e');
+              } finally {
+                context.loaderOverlay.hide();
+              }
+            },
           ),
         ],
       ),
