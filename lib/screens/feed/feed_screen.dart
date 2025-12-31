@@ -74,7 +74,7 @@ class FeedScreen extends ConsumerWidget {
                         child: AppCard(
                           color: AppColors.cardSecondary,
                           child: AppListTile(
-                            title: '디바이스 이름',
+                            title: '기기 이름',
                             subtitle: deviceName,
                           ),
                         ),
@@ -84,7 +84,10 @@ class FeedScreen extends ConsumerWidget {
                         flex: 1,
                         child: AppCard(
                           color: AppColors.cardSecondary,
-                          child: AppListTile(title: '장소', subtitle: location),
+                          child: AppListTile(
+                            title: '설치 위치',
+                            subtitle: location,
+                          ),
                         ),
                       ),
                     ],
