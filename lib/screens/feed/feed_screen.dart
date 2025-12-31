@@ -6,7 +6,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import '../../theme/app_colors.dart';
 import '../../services/wifi/wifi_connector.dart';
 import '../../utils/log_utils.dart';
-import '../../widgets/buttons/app_text_button.dart';
+import '../../widgets/buttons/app_icon_text_button.dart';
 import '../../widgets/list_tiles/app_list_tile.dart';
 import '../../widgets/cards/app_card.dart';
 import '../../providers/device/primary_device_provider.dart';
@@ -94,7 +94,9 @@ class FeedScreen extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 16),
-          AppTextButton(
+          AppIconTextButton(
+            width: double.infinity,
+            icon: const Icon(Icons.add),
             label: '스마트 급식기 등록하기',
             onPressed: () async {
               context.loaderOverlay.show();
