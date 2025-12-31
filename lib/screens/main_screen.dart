@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../widgets/dialogs/primary_device_select_dialog.dart';
+
 class MainScreen extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
 
@@ -12,6 +14,17 @@ class MainScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Smart Feeder Remote'),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.devices),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (_) => const PrimaryDeviceSelectDialog(),
+              );
+            },
+          ),
+        ],
       ),
       body: navigationShell,
       bottomNavigationBar: NavigationBar(

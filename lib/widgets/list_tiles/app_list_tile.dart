@@ -8,12 +8,16 @@ class AppListTile extends StatelessWidget {
     this.onDark = false,
     required this.title,
     this.subtitle,
+    this.showTrailing = false,
+    this.trailingIcon = Icons.chevron_right,
     this.onTap,
   });
 
   final bool onDark;
   final String title;
   final String? subtitle;
+  final bool showTrailing;
+  final IconData trailingIcon;
   final VoidCallback? onTap;
 
   @override
@@ -29,11 +33,10 @@ class AppListTile extends StatelessWidget {
           fontWeight: FontWeight.w500,
         ),
       ),
-      subtitle:
-          subtitle != null
-              ? Text(subtitle!, style: TextStyle(color: color))
-              : null,
-      trailing: onTap != null ? Icon(Icons.chevron_right, color: color) : null,
+      subtitle: subtitle != null
+          ? Text(subtitle!, style: TextStyle(color: color))
+          : null,
+      trailing: showTrailing ? Icon(trailingIcon, color: color) : null,
       onTap: onTap,
     );
   }
