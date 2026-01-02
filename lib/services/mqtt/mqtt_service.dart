@@ -34,6 +34,14 @@ class MqttService {
     _client = null;
   }
 
+  static void subscribe({required String topic}) {
+    _client!.subscribe(topic, MqttQos.atLeastOnce);
+  }
+
+  static void unsubscribe({required String topic}) {
+    _client!.unsubscribe(topic);
+  }
+
   static void publish({required String topic, required String message}) {
     final builder = MqttClientPayloadBuilder();
     builder.addString(message);
