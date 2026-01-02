@@ -166,6 +166,20 @@ class FeedScreen extends ConsumerWidget {
               }
             },
           ),
+          const SizedBox(height: 16),
+          AppIconTextButton(
+            width: double.infinity,
+            icon: const Icon(Icons.send),
+            label: 'MQTT 테스트 발행',
+            onPressed: () {
+              try {
+                MqttService.publish(topic: 'test/topic', message: 'test');
+                LogUtils.d('mqtt published: test/topic');
+              } catch (e) {
+                LogUtils.e('mqtt publish error: $e');
+              }
+            },
+          ),
         ],
       ),
     );

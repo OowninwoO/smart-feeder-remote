@@ -32,4 +32,11 @@ class MqttService {
   static void disconnect() {
     _client!.disconnect();
   }
+
+  static void publish({required String topic, required String message}) {
+    final builder = MqttClientPayloadBuilder();
+    builder.addString(message);
+
+    _client!.publishMessage(topic, MqttQos.atLeastOnce, builder.payload!);
+  }
 }
