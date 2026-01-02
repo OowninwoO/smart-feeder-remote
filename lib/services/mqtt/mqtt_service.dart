@@ -11,21 +11,18 @@ class MqttService {
     required String password,
     required String uid,
   }) async {
-    final client = MqttServerClient(host, uid);
+    final client = MqttServerClient.withPort(host, uid, port);
 
-    client.port = port;
     client.secure = true;
     client.keepAlivePeriod = 20;
-
     client.securityContext = SecurityContext.defaultContext;
+    client.setProtocolV311();
 
     client.connectionMessage = MqttConnectMessage()
         .withClientIdentifier(uid)
-        .authenticateAs(username, password)
-        .startClean()
-        .withWillQos(MqttQos.atLeastOnce);
+        .startClean();
 
-    await client.connect();
+    await client.connect(username, password);
 
     return client;
   }
