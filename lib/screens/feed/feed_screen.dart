@@ -130,17 +130,37 @@ class FeedScreen extends ConsumerWidget {
             onPressed: () async {
               context.loaderOverlay.show();
               try {
-                final client = await MqttService.connect(
+                await MqttService.connect(
                   host: dotenv.env['MQTT_HOST']!,
                   port: int.parse(dotenv.env['MQTT_PORT']!),
                   username: dotenv.env['MQTT_USERNAME']!,
                   password: dotenv.env['MQTT_PASSWORD']!,
                   uid: AuthService.currentUser!.uid,
                 );
-
-                LogUtils.d('mqtt connected: ${client.connectionStatus}');
+                LogUtils.d(
+                  'mqtt connected: ${MqttService.client?.connectionStatus}',
+                );
               } catch (e) {
                 LogUtils.e('mqtt connect error: $e');
+              } finally {
+                context.loaderOverlay.hide();
+              }
+            },
+          ),
+          const SizedBox(height: 16),
+          AppIconTextButton(
+            width: double.infinity,
+            icon: const Icon(Icons.cloud_off),
+            label: 'MQTT 연결 해제하기',
+            onPressed: () {
+              context.loaderOverlay.show();
+              try {
+                MqttService.disconnect();
+                LogUtils.d(
+                  'mqtt disconnected: ${MqttService.client?.connectionStatus}',
+                );
+              } catch (e) {
+                LogUtils.e('mqtt disconnect error: $e');
               } finally {
                 context.loaderOverlay.hide();
               }

@@ -4,26 +4,32 @@ import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 
 class MqttService {
-  static Future<MqttServerClient> connect({
+  static MqttServerClient? _client;
+
+  static MqttServerClient? get client => _client;
+
+  static Future<void> connect({
     required String host,
     required int port,
     required String username,
     required String password,
     required String uid,
   }) async {
-    final client = MqttServerClient.withPort(host, uid, port);
+    _client = MqttServerClient.withPort(host, uid, port);
 
-    client.secure = true;
-    client.keepAlivePeriod = 20;
-    client.securityContext = SecurityContext.defaultContext;
-    client.setProtocolV311();
+    _client!.secure = true;
+    _client!.keepAlivePeriod = 20;
+    _client!.securityContext = SecurityContext.defaultContext;
+    _client!.setProtocolV311();
 
-    client.connectionMessage = MqttConnectMessage()
+    _client!.connectionMessage = MqttConnectMessage()
         .withClientIdentifier(uid)
         .startClean();
 
-    await client.connect(username, password);
+    await _client!.connect(username, password);
+  }
 
-    return client;
+  static void disconnect() {
+    _client!.disconnect();
   }
 }
