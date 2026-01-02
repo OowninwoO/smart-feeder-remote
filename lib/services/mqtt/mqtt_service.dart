@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 
+import '../../utils/log_utils.dart';
+
 class MqttService {
   static MqttServerClient? _client;
 
@@ -32,6 +34,22 @@ class MqttService {
   static void disconnect() {
     _client!.disconnect();
     _client = null;
+  }
+
+  static void listen() {
+    _client!.updates!.listen((events) {
+      for (final e in events) {
+        final topic = e.topic;
+        final msg = e.payload;
+
+        if (msg is MqttPublishMessage) {
+          final message = MqttPublishPayload.bytesToStringAsString(
+            msg.payload.message,
+          );
+          LogUtils.d('mqtt received:$topic/$message');
+        }
+      }
+    });
   }
 
   static void subscribe({required String topic}) {
