@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
+import '../../services/auth/auth_service.dart';
+import '../../services/mqtt/mqtt_service.dart';
 import '../../theme/app_colors.dart';
 import '../../services/wifi/wifi_connector.dart';
 import '../../utils/log_utils.dart';
@@ -114,6 +116,30 @@ class FeedScreen extends ConsumerWidget {
                 }
               } catch (e) {
                 LogUtils.e('connectWifi error: $e');
+              } finally {
+                context.loaderOverlay.hide();
+              }
+            },
+          ),
+          const SizedBox(height: 16),
+          AppIconTextButton(
+            width: double.infinity,
+            icon: const Icon(Icons.cloud),
+            label: 'MQTT 연결하기',
+            onPressed: () async {
+              context.loaderOverlay.show();
+              try {
+                final client = await MqttService.connect(
+                  host: 'd1229804bb2a42cd87dedd808119a65b.s1.eu.hivemq.cloud',
+                  port: 8883,
+                  username: 'Oowni',
+                  password: 'Inwoo0203!@',
+                  uid: AuthService.currentUser!.uid,
+                );
+
+                LogUtils.d('mqtt connected: ${client.connectionStatus}');
+              } catch (e) {
+                LogUtils.e('mqtt connect error: $e');
               } finally {
                 context.loaderOverlay.hide();
               }
