@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
-import '../../services/auth/auth_service.dart';
 import '../../services/mqtt/mqtt_service.dart';
 import '../../theme/app_colors.dart';
 import '../../services/wifi/wifi_connector.dart';
@@ -117,50 +115,6 @@ class FeedScreen extends ConsumerWidget {
                 }
               } catch (e) {
                 LogUtils.e('connectWifi error: $e');
-              } finally {
-                context.loaderOverlay.hide();
-              }
-            },
-          ),
-          const SizedBox(height: 16),
-          AppIconTextButton(
-            width: double.infinity,
-            icon: const Icon(Icons.cloud),
-            label: 'MQTT 연결하기',
-            onPressed: () async {
-              context.loaderOverlay.show();
-              try {
-                await MqttService.connect(
-                  host: dotenv.env['MQTT_HOST']!,
-                  port: int.parse(dotenv.env['MQTT_PORT']!),
-                  username: dotenv.env['MQTT_USERNAME']!,
-                  password: dotenv.env['MQTT_PASSWORD']!,
-                  uid: AuthService.currentUser!.uid,
-                );
-                LogUtils.d(
-                  'mqtt connected: ${MqttService.client?.connectionStatus}',
-                );
-              } catch (e) {
-                LogUtils.e('mqtt connect error: $e');
-              } finally {
-                context.loaderOverlay.hide();
-              }
-            },
-          ),
-          const SizedBox(height: 16),
-          AppIconTextButton(
-            width: double.infinity,
-            icon: const Icon(Icons.cloud_off),
-            label: 'MQTT 연결 해제하기',
-            onPressed: () {
-              context.loaderOverlay.show();
-              try {
-                MqttService.disconnect();
-                LogUtils.d(
-                  'mqtt disconnected: ${MqttService.client?.connectionStatus}',
-                );
-              } catch (e) {
-                LogUtils.e('mqtt disconnect error: $e');
               } finally {
                 context.loaderOverlay.hide();
               }
