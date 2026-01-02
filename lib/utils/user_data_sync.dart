@@ -1,5 +1,6 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mqtt_client/mqtt_client.dart';
 import 'package:smart_feeder_remote/providers/device/device_list_provider.dart';
 import 'package:smart_feeder_remote/providers/device/primary_device_provider.dart';
 
@@ -7,6 +8,7 @@ import '../api/devices_api.dart';
 import '../models/device/device.dart';
 import '../services/auth/auth_service.dart';
 import '../services/mqtt/mqtt_service.dart';
+import 'log_utils.dart';
 
 Future<void> loadDevices(WidgetRef ref) async {
   final res = await DevicesApi.myDevices();
@@ -23,6 +25,20 @@ Future<void> initMqttSub(WidgetRef ref) async {
     password: dotenv.env['MQTT_PASSWORD']!,
     uid: AuthService.currentUser!.uid,
   );
+
+  MqttService.client!.updates!.listen((events) {
+    for (final e in events) {
+      final topic = e.topic;
+      final msg = e.payload;
+
+      if (msg is MqttPublishMessage) {
+        final message = MqttPublishPayload.bytesToStringAsString(
+          msg.payload.message,
+        );
+        LogUtils.d('mqtt received:$topic/$message');
+      }
+    }
+  });
 
   ref.listenManual(primaryDeviceProvider, (prev, next) {
     final prevDeviceId = prev?.deviceId;
