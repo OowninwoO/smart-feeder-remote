@@ -5,6 +5,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../services/auth/auth_service.dart';
 import '../../theme/app_colors.dart';
+import '../../utils/log_utils.dart';
 import '../../utils/toast_utils.dart';
 import '../../utils/user_data_sync.dart';
 import '../../widgets/buttons/app_icon_text_button.dart';
@@ -53,8 +54,10 @@ class LoginScreen extends ConsumerWidget {
                   try {
                     await AuthService.signIn(LoginProvider.google);
                     await loadDevices(ref);
+                    initMqttSub(ref);
                     context.go('/feed');
                   } catch (e) {
+                    LogUtils.e(e);
                     ToastUtils.error('로그인에 실패했습니다. 다시 시도해 주세요.');
                   } finally {
                     context.loaderOverlay.hide();
