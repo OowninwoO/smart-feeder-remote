@@ -31,6 +31,7 @@ class MqttService {
 
   static void disconnect() {
     _client!.disconnect();
+    _client = null;
   }
 
   static void publish({required String topic, required String message}) {
