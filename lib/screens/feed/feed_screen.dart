@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
@@ -130,10 +131,10 @@ class FeedScreen extends ConsumerWidget {
               context.loaderOverlay.show();
               try {
                 final client = await MqttService.connect(
-                  host: 'd1229804bb2a42cd87dedd808119a65b.s1.eu.hivemq.cloud',
-                  port: 8883,
-                  username: 'Oowni',
-                  password: 'Inwoo0203!@',
+                  host: dotenv.env['MQTT_HOST']!,
+                  port: int.parse(dotenv.env['MQTT_PORT']!),
+                  username: dotenv.env['MQTT_USERNAME']!,
+                  password: dotenv.env['MQTT_PASSWORD']!,
                   uid: AuthService.currentUser!.uid,
                 );
 
