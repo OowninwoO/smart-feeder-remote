@@ -127,12 +127,15 @@ class FeedScreen extends ConsumerWidget {
             label: 'MQTT 테스트 발행',
             onPressed: () {
               try {
-                final deviceId =
+                final primaryDeviceId =
                     ref.read(primaryDeviceProvider)?.deviceId ?? '-';
 
-                MqttService.publish(topic: 'test/topic', message: deviceId);
+                MqttService.publish(
+                  topic: 'feeder/$primaryDeviceId/test',
+                  message: 'test',
+                );
 
-                LogUtils.d('mqtt published: test/topic/$deviceId');
+                LogUtils.d('mqtt published: feeder/$primaryDeviceId/test');
               } catch (e) {
                 LogUtils.e('mqtt publish error: $e');
               }
