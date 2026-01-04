@@ -20,7 +20,7 @@ class FeedScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     void publish(String action) {
       final primaryDeviceId = ref.read(primaryDeviceProvider)?.deviceId;
-      if (primaryDeviceId == null || primaryDeviceId.isEmpty) return;
+      if (primaryDeviceId == null) return;
 
       final topic = 'feeder/$primaryDeviceId/$action';
 
@@ -115,50 +115,6 @@ class FeedScreen extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 16),
-          AppIconTextButton(
-            width: double.infinity,
-            icon: const Icon(Icons.add),
-            label: '스마트 급식기 등록하기',
-            onPressed: () async {
-              context.loaderOverlay.show();
-              try {
-                final success = await WifiConnector.connectWifi();
-                if (success) {
-                  LogUtils.d('connectWifi success');
-                  await WifiConnector.enableForce();
-                  context.push('/wifi_setup_web_view');
-                } else {
-                  LogUtils.e('connectWifi failed');
-                }
-              } catch (e) {
-                LogUtils.e('connectWifi error: $e');
-              } finally {
-                context.loaderOverlay.hide();
-              }
-            },
-          ),
-          const SizedBox(height: 16),
-          AppIconTextButton(
-            width: double.infinity,
-            icon: const Icon(Icons.send),
-            label: 'MQTT 테스트 발행',
-            onPressed: () {
-              try {
-                final primaryDeviceId =
-                    ref.read(primaryDeviceProvider)?.deviceId ?? '-';
-
-                MqttService.publish(
-                  topic: 'feeder/$primaryDeviceId/test',
-                  message: 'test',
-                );
-
-                LogUtils.d('mqtt published: feeder/$primaryDeviceId/test');
-              } catch (e) {
-                LogUtils.e('mqtt publish error: $e');
-              }
-            },
-          ),
-          const SizedBox(height: 16),
           Row(
             children: [
               Expanded(
@@ -185,6 +141,29 @@ class FeedScreen extends ConsumerWidget {
                 ),
               ),
             ],
+          ),
+          const SizedBox(height: 16),
+          AppIconTextButton(
+            width: double.infinity,
+            icon: const Icon(Icons.add),
+            label: '스마트 급식기 등록하기',
+            onPressed: () async {
+              context.loaderOverlay.show();
+              try {
+                final success = await WifiConnector.connectWifi();
+                if (success) {
+                  LogUtils.d('connectWifi success');
+                  await WifiConnector.enableForce();
+                  context.push('/wifi_setup_web_view');
+                } else {
+                  LogUtils.e('connectWifi failed');
+                }
+              } catch (e) {
+                LogUtils.e('connectWifi error: $e');
+              } finally {
+                context.loaderOverlay.hide();
+              }
+            },
           ),
         ],
       ),
