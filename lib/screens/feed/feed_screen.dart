@@ -8,6 +8,7 @@ import '../../theme/app_colors.dart';
 import '../../services/wifi/wifi_connector.dart';
 import '../../utils/log_utils.dart';
 import '../../widgets/buttons/app_icon_text_button.dart';
+import '../../widgets/buttons/app_text_button.dart';
 import '../../widgets/list_tiles/app_list_tile.dart';
 import '../../widgets/cards/app_card.dart';
 import '../../providers/device/primary_device_provider.dart';
@@ -140,6 +141,25 @@ class FeedScreen extends ConsumerWidget {
                 LogUtils.e('mqtt publish error: $e');
               }
             },
+          ),
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: AppTextButton(label: '급식 버튼', onPressed: () {}),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                flex: 1,
+                child: AppTextButton(label: '초음파 감지', onPressed: () {}),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                flex: 1,
+                child: AppTextButton(label: '주기 타이머', onPressed: () {}),
+              ),
+            ],
           ),
         ],
       ),
