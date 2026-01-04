@@ -18,6 +18,22 @@ class FeedScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    void publish(String action) {
+      final primaryDeviceId = ref.read(primaryDeviceProvider)?.deviceId;
+      if (primaryDeviceId == null || primaryDeviceId.isEmpty) return;
+
+      final topic = 'feeder/$primaryDeviceId/$action';
+
+      final message = switch (action) {
+        'feed_button' => 'feed_button',
+        'ultrasonic' => 'ultrasonic',
+        'interval_timer' => 'interval_timer',
+        _ => 'unknown_action',
+      };
+
+      MqttService.publish(topic: topic, message: message);
+    }
+
     final primaryDevice = ref.watch(primaryDeviceProvider);
 
     final deviceName = primaryDevice?.deviceName ?? '-';
@@ -147,17 +163,26 @@ class FeedScreen extends ConsumerWidget {
             children: [
               Expanded(
                 flex: 1,
-                child: AppTextButton(label: '급식 버튼', onPressed: () {}),
+                child: AppTextButton(
+                  label: '급식 버튼',
+                  onPressed: () => publish('feed_button'),
+                ),
               ),
               const SizedBox(width: 8),
               Expanded(
                 flex: 1,
-                child: AppTextButton(label: '초음파 감지', onPressed: () {}),
+                child: AppTextButton(
+                  label: '초음파 감지',
+                  onPressed: () => publish('ultrasonic'),
+                ),
               ),
               const SizedBox(width: 8),
               Expanded(
                 flex: 1,
-                child: AppTextButton(label: '주기 타이머', onPressed: () {}),
+                child: AppTextButton(
+                  label: '주기 타이머',
+                  onPressed: () => publish('interval_timer'),
+                ),
               ),
             ],
           ),
