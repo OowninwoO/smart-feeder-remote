@@ -24,6 +24,9 @@ class MqttService {
     _client!.securityContext = SecurityContext.defaultContext;
     _client!.setProtocolV311();
 
+    _client!.autoReconnect = true;
+    _client!.resubscribeOnAutoReconnect = true;
+
     _client!.connectionMessage = MqttConnectMessage()
         .withClientIdentifier(uid)
         .startClean();
