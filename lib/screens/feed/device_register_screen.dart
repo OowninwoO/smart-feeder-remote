@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../api/devices_api.dart';
 import '../../utils/log_utils.dart';
@@ -34,10 +35,12 @@ class _DeviceRegisterScreenState extends ConsumerState<DeviceRegisterScreen> {
   Future<void> _onSubmit() async {
     if (_formKey.currentState?.validate() != true) return;
 
-    final deviceName = _deviceNameController.text.trim();
-    final location = _locationController.text.trim();
+    context.loaderOverlay.show();
 
     try {
+      final deviceName = _deviceNameController.text.trim();
+      final location = _locationController.text.trim();
+
       await DevicesApi.register(
         deviceId: widget.deviceId,
         deviceName: deviceName,
@@ -47,12 +50,12 @@ class _DeviceRegisterScreenState extends ConsumerState<DeviceRegisterScreen> {
       await loadDevices(ref);
 
       ToastUtils.success('기기가 성공적으로 등록되었습니다.');
-
-      /// 기기 등록 화면 닫기
       context.pop();
     } catch (e) {
       LogUtils.e(e);
       ToastUtils.error('기기 등록에 실패했습니다.');
+    } finally {
+      context.loaderOverlay.hide();
     }
   }
 
