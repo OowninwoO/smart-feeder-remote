@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../api/devices_api.dart';
 import '../../utils/log_utils.dart';
 import '../../utils/toast_utils.dart';
+import '../../utils/user_data_sync.dart';
 import '../../widgets/buttons/app_text_button.dart';
 
-class DeviceRegisterScreen extends StatefulWidget {
+class DeviceRegisterScreen extends ConsumerStatefulWidget {
   const DeviceRegisterScreen({super.key, required this.deviceId});
 
   final String deviceId;
 
   @override
-  State<DeviceRegisterScreen> createState() => _DeviceRegisterScreenState();
+  ConsumerState<DeviceRegisterScreen> createState() =>
+      _DeviceRegisterScreenState();
 }
 
-class _DeviceRegisterScreenState extends State<DeviceRegisterScreen> {
+class _DeviceRegisterScreenState extends ConsumerState<DeviceRegisterScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final _deviceNameController = TextEditingController();
@@ -41,7 +44,11 @@ class _DeviceRegisterScreenState extends State<DeviceRegisterScreen> {
         location: location,
       );
 
+      await loadDevices(ref);
+
       ToastUtils.success('기기가 성공적으로 등록되었습니다.');
+
+      /// 기기 등록 화면 닫기
       context.pop();
     } catch (e) {
       LogUtils.e(e);
@@ -91,7 +98,6 @@ class _DeviceRegisterScreenState extends State<DeviceRegisterScreen> {
                     border: OutlineInputBorder(),
                   ),
                   textInputAction: TextInputAction.done,
-                  onFieldSubmitted: (_) => _onSubmit(),
                   validator: (v) {
                     if (v == null || v.trim().isEmpty) {
                       return '장소를 입력해 주세요.';
