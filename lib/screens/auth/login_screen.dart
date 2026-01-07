@@ -54,7 +54,7 @@ class LoginScreen extends ConsumerWidget {
                   try {
                     await AuthService.signIn(LoginProvider.google);
                     await loadDevices(ref);
-                    initMqttSub(ref);
+                    await initMqttSub(ref);
                     context.go('/feed');
                   } catch (e) {
                     LogUtils.e(e);

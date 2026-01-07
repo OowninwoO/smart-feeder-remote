@@ -30,7 +30,7 @@ class _AutoLoginGateState extends ConsumerState<AutoLoginGate> {
     if (user != null) {
       try {
         await loadDevices(ref);
-        initMqttSub(ref);
+        await initMqttSub(ref);
       } catch (e) {
         LogUtils.e(e);
         ToastUtils.error('데이터를 불러오지 못했습니다.');
