@@ -16,6 +16,14 @@ import '../../providers/device/primary_device_provider.dart';
 class FeedScreen extends ConsumerWidget {
   const FeedScreen({super.key});
 
+  static const TextStyle _titleStyle = TextStyle(
+    color: AppColors.textOnLight,
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+  );
+
+  static const TextStyle _bodyStyle = TextStyle(color: AppColors.textOnLight);
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     void publish(String action) {
@@ -51,18 +59,11 @@ class FeedScreen extends ConsumerWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    '스마트 급식기 리모컨',
-                    style: TextStyle(
-                      color: AppColors.textOnLight,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  Text('스마트 급식기 리모컨', style: _titleStyle),
                   Divider(color: AppColors.divider),
                   Text(
                     '기기를 연결하면 원격 급식, 스케줄 급식, 급식 기록 확인까지 모두 한 곳에서 관리할 수 있어요.',
-                    style: TextStyle(color: AppColors.textOnLight),
+                    style: _bodyStyle,
                   ),
                 ],
               ),
@@ -76,14 +77,7 @@ class FeedScreen extends ConsumerWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text(
-                    '연결된 기기 정보',
-                    style: TextStyle(
-                      color: AppColors.textOnLight,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  const Text('연결된 기기 정보', style: _titleStyle),
                   const SizedBox(height: 8),
                   Row(
                     children: [
@@ -122,14 +116,7 @@ class FeedScreen extends ConsumerWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text(
-                    '원격 급식 제어',
-                    style: TextStyle(
-                      color: AppColors.textOnLight,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  const Text('원격 급식 제어', style: _titleStyle),
                   const SizedBox(height: 8),
                   Row(
                     children: [
