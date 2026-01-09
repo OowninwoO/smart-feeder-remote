@@ -115,32 +115,52 @@ class FeedScreen extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 16),
-          Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: AppTextButton(
-                  label: '급식 버튼',
-                  onPressed: () => publish('feed_button'),
-                ),
+          AppCard(
+            color: AppColors.cardPrimary,
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    '원격 급식 제어',
+                    style: TextStyle(
+                      color: AppColors.textOnLight,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: AppTextButton(
+                          label: '급식 버튼',
+                          onPressed: () => publish('feed_button'),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        flex: 1,
+                        child: AppTextButton(
+                          label: '초음파 감지',
+                          onPressed: () => publish('ultrasonic'),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        flex: 1,
+                        child: AppTextButton(
+                          label: '주기 타이머',
+                          onPressed: () => publish('interval_timer'),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              const SizedBox(width: 8),
-              Expanded(
-                flex: 1,
-                child: AppTextButton(
-                  label: '초음파 감지',
-                  onPressed: () => publish('ultrasonic'),
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                flex: 1,
-                child: AppTextButton(
-                  label: '주기 타이머',
-                  onPressed: () => publish('interval_timer'),
-                ),
-              ),
-            ],
+            ),
           ),
           const SizedBox(height: 16),
           AppIconTextButton(
