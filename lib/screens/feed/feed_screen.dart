@@ -24,26 +24,29 @@ class FeedScreen extends ConsumerWidget {
 
   static const TextStyle _bodyStyle = TextStyle(color: AppColors.textOnLight);
 
+  /// MQTT로 급식기 제어 명령을 발행합니다.
+  static void _publish(String? deviceId, String action) {
+    if (deviceId == null) return;
+
+    final message = switch (action) {
+      'feed_button' => 'feed_button',
+      'ultrasonic' => 'ultrasonic',
+      'interval_timer' => 'interval_timer',
+      _ => null,
+    };
+
+    if (message == null) return;
+
+    final topic = 'feeder/$deviceId/$action';
+
+    MqttService.publish(topic: topic, message: message);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    void publish(String action) {
-      final primaryDeviceId = ref.read(primaryDeviceProvider)?.deviceId;
-      if (primaryDeviceId == null) return;
-
-      final topic = 'feeder/$primaryDeviceId/$action';
-
-      final message = switch (action) {
-        'feed_button' => 'feed_button',
-        'ultrasonic' => 'ultrasonic',
-        'interval_timer' => 'interval_timer',
-        _ => 'unknown_action',
-      };
-
-      MqttService.publish(topic: topic, message: message);
-    }
-
     final primaryDevice = ref.watch(primaryDeviceProvider);
 
+    final deviceId = primaryDevice?.deviceId;
     final deviceName = primaryDevice?.deviceName ?? '-';
     final location = primaryDevice?.location ?? '-';
 
@@ -124,7 +127,7 @@ class FeedScreen extends ConsumerWidget {
                         flex: 1,
                         child: AppTextButton(
                           label: '급식 버튼',
-                          onPressed: () => publish('feed_button'),
+                          onPressed: () => _publish(deviceId, 'feed_button'),
                         ),
                       ),
                       const SizedBox(width: 8),
@@ -132,7 +135,7 @@ class FeedScreen extends ConsumerWidget {
                         flex: 1,
                         child: AppTextButton(
                           label: '초음파 감지',
-                          onPressed: () => publish('ultrasonic'),
+                          onPressed: () => _publish(deviceId, 'ultrasonic'),
                         ),
                       ),
                       const SizedBox(width: 8),
@@ -140,7 +143,7 @@ class FeedScreen extends ConsumerWidget {
                         flex: 1,
                         child: AppTextButton(
                           label: '주기 타이머',
-                          onPressed: () => publish('interval_timer'),
+                          onPressed: () => _publish(deviceId, 'interval_timer'),
                         ),
                       ),
                     ],
