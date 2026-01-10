@@ -24,13 +24,18 @@ Future<void> initMqttSub(WidgetRef ref) async {
     uid: AuthService.currentUser!.uid,
   );
 
+  /// MQTT 수신 리스너 등록
   MqttService.listen();
 
+  /// 대표 기기 변경 감지
   ref.listenManual(primaryDeviceProvider, (prev, next) {
     final prevDeviceId = prev?.deviceId;
     final nextDeviceId = next?.deviceId;
 
     if (prevDeviceId == nextDeviceId) return;
+
+    /// 대표 기기 상태 초기화
+    MqttService.primaryDeviceStatus.value = null;
 
     if (prevDeviceId != null) {
       MqttService.unsubscribe(topic: 'feeder/$prevDeviceId/#');
