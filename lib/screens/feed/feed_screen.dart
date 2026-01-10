@@ -113,6 +113,29 @@ class FeedScreen extends ConsumerWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  const Text('온라인 상태', style: _titleStyle),
+                  const SizedBox(height: 8),
+                  ValueListenableBuilder<String?>(
+                    valueListenable: MqttService.primaryDeviceStatus,
+                    builder: (_, v, __) {
+                      return AppCard(
+                        color: AppColors.cardSecondary,
+                        child: AppListTile(title: '상태', subtitle: v),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          AppCard(
+            color: AppColors.cardPrimary,
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
                   const Text('원격 급식 제어', style: _titleStyle),
                   const SizedBox(height: 8),
                   Row(
