@@ -4,6 +4,7 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import '../../../services/auth/auth_service.dart';
 import '../../../theme/app_colors.dart';
 import '../../../utils/log_utils.dart';
+import '../../../widgets/dialogs/app_confirm_dialog.dart';
 import '../../../widgets/list_tiles/app_list_tile.dart';
 
 class AccountScreen extends StatelessWidget {
@@ -66,6 +67,18 @@ class AccountScreen extends StatelessWidget {
               onDark: true,
               title: '로그아웃',
               onTap: () async {
+                final confirmed = await showDialog<bool>(
+                  context: context,
+                  builder: (ctx) => const AppConfirmDialog(
+                    title: '로그아웃',
+                    content: '정말 로그아웃할까요?',
+                    confirmText: '로그아웃',
+                    cancelText: '취소',
+                  ),
+                );
+
+                if (confirmed != true) return;
+
                 await AuthService.signOut();
                 Phoenix.rebirth(context);
               },
