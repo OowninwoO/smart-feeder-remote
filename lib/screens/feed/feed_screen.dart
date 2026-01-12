@@ -74,7 +74,7 @@ class FeedScreen extends ConsumerWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text('연결된 기기 정보', style: _titleStyle),
+                  const Text('기기 정보', style: _titleStyle),
                   const SizedBox(height: 8),
                   Row(
                     children: [
@@ -113,16 +113,31 @@ class FeedScreen extends ConsumerWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text('온라인 상태', style: _titleStyle),
+                  const Text('기기 상태', style: _titleStyle),
                   const SizedBox(height: 8),
-                  ValueListenableBuilder<String?>(
-                    valueListenable: MqttService.primaryDeviceStatus,
-                    builder: (_, v, __) {
-                      return AppCard(
-                        color: AppColors.cardSecondary,
-                        child: AppListTile(title: '상태', subtitle: v),
-                      );
-                    },
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: ValueListenableBuilder<String?>(
+                          valueListenable: MqttService.primaryDeviceStatus,
+                          builder: (_, v, __) {
+                            return AppCard(
+                              color: AppColors.cardSecondary,
+                              child: AppListTile(title: '온라인 상태', subtitle: v),
+                            );
+                          },
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        flex: 1,
+                        child: AppCard(
+                          color: AppColors.cardSecondary,
+                          child: AppListTile(title: '동작 상태', subtitle: '-'),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
