@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 import '../../../services/auth/auth_service.dart';
+import '../../../services/mqtt/mqtt_service.dart';
 import '../../../theme/app_colors.dart';
 import '../../../utils/log_utils.dart';
 import '../../../widgets/dialogs/app_confirm_dialog.dart';
@@ -71,7 +72,7 @@ class AccountScreen extends StatelessWidget {
                   context: context,
                   builder: (ctx) => const AppConfirmDialog(
                     title: '로그아웃',
-                    content: '정말 로그아웃할까요?',
+                    content: '정말 로그아웃하시겠습니까?',
                     confirmText: '로그아웃',
                     cancelText: '취소',
                   ),
@@ -79,6 +80,7 @@ class AccountScreen extends StatelessWidget {
 
                 if (confirmed != true) return;
 
+                MqttService.disconnect();
                 await AuthService.signOut();
                 Phoenix.rebirth(context);
               },
