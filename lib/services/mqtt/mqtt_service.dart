@@ -18,8 +18,12 @@ class MqttService {
   static bool get isConnected =>
       connectionState == MqttConnectionState.connected;
 
-  /// 대표 기기 상태값(UI 갱신용)
-  static final ValueNotifier<String?> primaryDeviceStatus =
+  /// 대표 기기 presence 상태값(UI 갱신용)
+  static final ValueNotifier<String?> primaryDevicePresence =
+      ValueNotifier<String?>(null);
+
+  /// 대표 기기 동작 상태값(UI 갱신용)
+  static final ValueNotifier<String?> primaryDeviceActivityState =
       ValueNotifier<String?>(null);
 
   static Future<void> connect({
@@ -49,7 +53,8 @@ class MqttService {
   static void disconnect() {
     if (_client == null) return;
 
-    primaryDeviceStatus.value = null;
+    primaryDevicePresence.value = null;
+    primaryDeviceActivityState.value = null;
 
     _client!.disconnect();
     _client = null;
@@ -74,9 +79,17 @@ class MqttService {
           final action = parts[2];
 
           switch (action) {
-            case 'status':
-              primaryDeviceStatus.value = message;
+            case 'presence':
+              primaryDevicePresence.value = message;
               break;
+
+            case 'activity':
+              final subAction = parts[3];
+              if (subAction == 'state') {
+                primaryDeviceActivityState.value = message;
+              }
+              break;
+
             default:
               break;
           }

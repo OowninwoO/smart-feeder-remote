@@ -35,7 +35,8 @@ Future<void> initMqttSub(WidgetRef ref) async {
     if (prevDeviceId == nextDeviceId) return;
 
     /// 대표 기기 상태 초기화
-    MqttService.primaryDeviceStatus.value = null;
+    MqttService.primaryDevicePresence.value = null;
+    MqttService.primaryDeviceActivityState.value = null;
 
     if (prevDeviceId != null) {
       MqttService.unsubscribe(topic: 'feeder/$prevDeviceId/#');

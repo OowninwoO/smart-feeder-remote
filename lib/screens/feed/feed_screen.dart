@@ -120,7 +120,7 @@ class FeedScreen extends ConsumerWidget {
                       Expanded(
                         flex: 1,
                         child: ValueListenableBuilder<String?>(
-                          valueListenable: MqttService.primaryDeviceStatus,
+                          valueListenable: MqttService.primaryDevicePresence,
                           builder: (_, v, __) {
                             return AppCard(
                               color: AppColors.cardSecondary,
@@ -132,9 +132,15 @@ class FeedScreen extends ConsumerWidget {
                       const SizedBox(width: 8),
                       Expanded(
                         flex: 1,
-                        child: AppCard(
-                          color: AppColors.cardSecondary,
-                          child: AppListTile(title: '동작 상태', subtitle: '-'),
+                        child: ValueListenableBuilder<String?>(
+                          valueListenable:
+                              MqttService.primaryDeviceActivityState,
+                          builder: (_, v, __) {
+                            return AppCard(
+                              color: AppColors.cardSecondary,
+                              child: AppListTile(title: '동작 상태', subtitle: v),
+                            );
+                          },
                         ),
                       ),
                     ],
