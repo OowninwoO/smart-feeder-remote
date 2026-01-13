@@ -20,7 +20,7 @@ class AppConfirmDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: AppColors.secondary,
+      backgroundColor: AppColors.scaffoldBackground,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -29,9 +29,9 @@ class AppConfirmDialog extends StatelessWidget {
             Text(
               title,
               style: const TextStyle(
-                color: AppColors.textOnLight,
+                color: AppColors.textOnDark,
                 fontSize: 20,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w700,
               ),
               textAlign: TextAlign.center,
             ),
@@ -39,8 +39,9 @@ class AppConfirmDialog extends StatelessWidget {
             Text(
               content,
               style: const TextStyle(
-                color: AppColors.textOnLight,
+                color: AppColors.textOnDark,
                 fontSize: 16,
+                fontWeight: FontWeight.w600,
               ),
               textAlign: TextAlign.center,
             ),
