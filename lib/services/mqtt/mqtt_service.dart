@@ -73,6 +73,12 @@ class MqttService {
             msg.payload.message,
           );
 
+          /// 예시) mqtt received:feeder/SF-CF3B015C/presence/online
+          /// 예시) mqtt received:feeder/SF-CF3B015C/presence/offline
+          /// 예시) mqtt received:feeder/SF-CF3B015C/activity/state/feeding
+          /// 예시) mqtt received:feeder/SF-CF3B015C/activity/state/idle
+          /// 예시) mqtt received:feeder/SF-CF3B015C/activity/event/feeding_started_remote
+          /// 예시) mqtt received:feeder/SF-CF3B015C/activity/event/feeding_finished_remote
           LogUtils.d('mqtt received:$topic/$message');
 
           final parts = topic.split('/');
