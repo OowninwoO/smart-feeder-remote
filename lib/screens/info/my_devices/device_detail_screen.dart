@@ -1,79 +1,85 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:smart_feeder_remote/providers/device/device_list_provider.dart';
 
-import '../../../models/device/device.dart';
 import '../../../theme/app_colors.dart';
 import '../../../utils/datetime_utils.dart';
 import '../../../widgets/buttons/app_icon_text_button.dart';
 import '../../../widgets/cards/app_card.dart';
 import '../../../widgets/dialogs/app_confirm_dialog.dart';
 
-class DeviceDetailScreen extends StatelessWidget {
-  final Device device;
+class DeviceDetailScreen extends ConsumerWidget {
+  final String deviceId;
 
-  const DeviceDetailScreen({super.key, required this.device});
+  const DeviceDetailScreen({super.key, required this.deviceId});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final devices = ref.watch(deviceListProvider);
+    final device = devices.where((d) => d.deviceId == deviceId).firstOrNull;
+
     return Scaffold(
       appBar: AppBar(title: const Text('기기 상세')),
       body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.all(16),
-          children: [
-            _SectionCard(
-              icon: Icons.devices_outlined,
-              title: '기기 기본 정보',
-              items: [
-                _SectionItem(label: '기기 이름', value: device.deviceName),
-                _SectionItem(label: '기기 ID', value: device.deviceId),
-              ],
-            ),
-            const SizedBox(height: 16),
-            _SectionCard(
-              icon: Icons.location_on_outlined,
-              title: '설치 및 권한',
-              items: [
-                _SectionItem(label: '설치 위치', value: device.location),
-                _SectionItem(label: '권한', value: device.role),
-              ],
-            ),
-            const SizedBox(height: 16),
-            _SectionCard(
-              icon: Icons.event_outlined,
-              title: '등록 및 연결 날짜',
-              items: [
-                _SectionItem(
-                  label: '등록일',
-                  value: DateTimeUtils.ymdHm(device.createdAt),
-                ),
-                _SectionItem(
-                  label: '연결일',
-                  value: DateTimeUtils.ymdHm(device.linkedAt),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            AppIconTextButton(
-              width: double.infinity,
-              icon: const Icon(Icons.link_off),
-              label: '기기 연결 해제하기',
-              onPressed: () async {
-                final confirmed = await showDialog<bool>(
-                  context: context,
-                  builder: (ctx) => AppConfirmDialog(
-                    title: '기기 삭제',
-                    content:
-                        '${device.deviceName} 기기를 삭제할까요?\n삭제하면 더 이상 기기를 조작할 수 없습니다.',
-                    confirmText: '삭제',
-                    cancelText: '취소',
+        child: device == null
+            ? const Center(child: Text('기기를 찾을 수 없습니다'))
+            : ListView(
+                padding: const EdgeInsets.all(16),
+                children: [
+                  _SectionCard(
+                    icon: Icons.devices_outlined,
+                    title: '기기 기본 정보',
+                    items: [
+                      _SectionItem(label: '기기 이름', value: device.deviceName),
+                      _SectionItem(label: '기기 ID', value: device.deviceId),
+                    ],
                   ),
-                );
+                  const SizedBox(height: 16),
+                  _SectionCard(
+                    icon: Icons.location_on_outlined,
+                    title: '설치 및 권한',
+                    items: [
+                      _SectionItem(label: '설치 위치', value: device.location),
+                      _SectionItem(label: '권한', value: device.role),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  _SectionCard(
+                    icon: Icons.event_outlined,
+                    title: '등록 및 연결 날짜',
+                    items: [
+                      _SectionItem(
+                        label: '등록일',
+                        value: DateTimeUtils.ymdHm(device.createdAt),
+                      ),
+                      _SectionItem(
+                        label: '연결일',
+                        value: DateTimeUtils.ymdHm(device.linkedAt),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  AppIconTextButton(
+                    width: double.infinity,
+                    icon: const Icon(Icons.link_off),
+                    label: '기기 연결 해제하기',
+                    onPressed: () async {
+                      final confirmed = await showDialog<bool>(
+                        context: context,
+                        builder: (ctx) => AppConfirmDialog(
+                          title: '기기 삭제',
+                          content:
+                              '${device.deviceName} 기기를 삭제할까요?\n삭제하면 더 이상 기기를 조작할 수 없습니다.',
+                          confirmText: '삭제',
+                          cancelText: '취소',
+                        ),
+                      );
 
-                if (confirmed != true) return;
-              },
-            ),
-          ],
-        ),
+                      if (confirmed != true) return;
+                    },
+                  ),
+                ],
+              ),
       ),
     );
   }

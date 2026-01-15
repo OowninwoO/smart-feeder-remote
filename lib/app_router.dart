@@ -1,6 +1,5 @@
 import 'package:go_router/go_router.dart';
 
-import 'models/device/device.dart';
 import 'screens/auth/login_screen.dart';
 import 'screens/feed/device_register_screen.dart';
 import 'screens/feed/feed_screen.dart';
@@ -59,8 +58,8 @@ final GoRouter appRouter = GoRouter(
       path: '/device_detail',
       name: 'device_detail',
       builder: (context, state) {
-        final device = state.extra as Device;
-        return DeviceDetailScreen(device: device);
+        final deviceId = state.extra as String;
+        return DeviceDetailScreen(deviceId: deviceId);
       },
     ),
     GoRoute(

@@ -32,7 +32,7 @@ class MyDevicesScreen extends ConsumerWidget {
                       title: device.deviceName,
                       subtitle: '${device.deviceId} • ${device.location}',
                       onTap: () {
-                        context.push('/device_detail', extra: device);
+                        context.push('/device_detail', extra: device.deviceId);
                       },
                     ),
                   );
