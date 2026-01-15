@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../models/device/device.dart';
 import '../../../theme/app_colors.dart';
 import '../../../utils/datetime_utils.dart';
+import '../../../widgets/buttons/app_icon_text_button.dart';
 import '../../../widgets/cards/app_card.dart';
+import '../../../widgets/dialogs/app_confirm_dialog.dart';
 
 class DeviceDetailScreen extends StatelessWidget {
   final Device device;
@@ -49,6 +51,26 @@ class DeviceDetailScreen extends StatelessWidget {
                   value: DateTimeUtils.ymdHm(device.linkedAt),
                 ),
               ],
+            ),
+            const SizedBox(height: 16),
+            AppIconTextButton(
+              width: double.infinity,
+              icon: const Icon(Icons.link_off),
+              label: '기기 연결 해제하기',
+              onPressed: () async {
+                final confirmed = await showDialog<bool>(
+                  context: context,
+                  builder: (ctx) => AppConfirmDialog(
+                    title: '기기 삭제',
+                    content:
+                        '${device.deviceName} 기기를 삭제할까요?\n삭제하면 더 이상 기기를 조작할 수 없습니다.',
+                    confirmText: '삭제',
+                    cancelText: '취소',
+                  ),
+                );
+
+                if (confirmed != true) return;
+              },
             ),
           ],
         ),
