@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_feeder_remote/providers/device/device_list_provider.dart';
 
+import '../../../services/mqtt/mqtt_service.dart';
 import '../../../theme/app_colors.dart';
 import '../../../utils/datetime_utils.dart';
 import '../../../widgets/buttons/app_icon_text_button.dart';
@@ -76,6 +77,12 @@ class DeviceDetailScreen extends ConsumerWidget {
                       );
 
                       if (confirmed != true) return;
+
+                      final topic = 'feeder/${device.deviceId}/factory_reset';
+                      MqttService.publish(
+                        topic: topic,
+                        message: 'factory_reset',
+                      );
                     },
                   ),
                 ],
