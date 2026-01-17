@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:smart_feeder_remote/providers/device/device_list_provider.dart';
 
 import '../../../services/mqtt/mqtt_service.dart';
 import '../../../theme/app_colors.dart';
 import '../../../utils/datetime_utils.dart';
+import '../../../utils/toast_utils.dart';
 import '../../../widgets/buttons/app_icon_text_button.dart';
 import '../../../widgets/cards/app_card.dart';
 import '../../../widgets/dialogs/app_confirm_dialog.dart';
@@ -78,11 +81,22 @@ class DeviceDetailScreen extends ConsumerWidget {
 
                       if (confirmed != true) return;
 
-                      final topic = 'feeder/${device.deviceId}/factory_reset';
-                      MqttService.publish(
-                        topic: topic,
-                        message: 'factory_reset',
-                      );
+                      context.loaderOverlay.show();
+
+                      try {
+                        final topic = 'feeder/${device.deviceId}/factory_reset';
+                        MqttService.publish(
+                          topic: topic,
+                          message: 'factory_reset',
+                        );
+
+                        ToastUtils.success('기기를 삭제했습니다.');
+                        context.pop();
+                      } catch (e) {
+                        ToastUtils.error('기기 삭제에 실패했습니다.');
+                      } finally {
+                        context.loaderOverlay.hide();
+                      }
                     },
                   ),
                 ],
