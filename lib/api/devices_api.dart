@@ -23,4 +23,12 @@ class DevicesApi {
 
     return response.data;
   }
+
+  static Future<Map<String, dynamic>> deleteDevice({
+    required String deviceId,
+  }) async {
+    final response = await DioClient.dio.delete('/api/devices/$deviceId');
+
+    return response.data;
+  }
 }

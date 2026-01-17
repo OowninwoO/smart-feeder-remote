@@ -4,10 +4,12 @@ import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:smart_feeder_remote/providers/device/device_list_provider.dart';
 
+import '../../../api/devices_api.dart';
 import '../../../services/mqtt/mqtt_service.dart';
 import '../../../theme/app_colors.dart';
 import '../../../utils/datetime_utils.dart';
 import '../../../utils/toast_utils.dart';
+import '../../../utils/user_data_sync.dart';
 import '../../../widgets/buttons/app_icon_text_button.dart';
 import '../../../widgets/cards/app_card.dart';
 import '../../../widgets/dialogs/app_confirm_dialog.dart';
@@ -89,6 +91,12 @@ class DeviceDetailScreen extends ConsumerWidget {
                           topic: topic,
                           message: 'factory_reset',
                         );
+
+                        await DevicesApi.deleteDevice(
+                          deviceId: device.deviceId,
+                        );
+
+                        await loadDevices(ref);
 
                         ToastUtils.success('기기를 삭제했습니다.');
                         context.pop();
