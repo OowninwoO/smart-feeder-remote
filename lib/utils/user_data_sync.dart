@@ -34,7 +34,8 @@ Future<void> initMqttSub(WidgetRef ref) async {
 
     if (prevDeviceId == nextDeviceId) return;
 
-    /// 대표 기기 상태 초기화
+    /// 대표 기기 변경 및 상태 초기화
+    MqttService.primaryDeviceId = nextDeviceId;
     MqttService.primaryDevicePresence.value = null;
     MqttService.primaryDeviceActivityState.value = null;
 
@@ -49,6 +50,8 @@ Future<void> initMqttSub(WidgetRef ref) async {
 
   final primaryDeviceId = ref.read(primaryDeviceProvider)?.deviceId;
   if (primaryDeviceId == null) return;
+
+  MqttService.primaryDeviceId = primaryDeviceId;
 
   MqttService.subscribe(topic: 'feeder/$primaryDeviceId/#');
 }

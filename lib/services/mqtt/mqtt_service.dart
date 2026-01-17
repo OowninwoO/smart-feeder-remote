@@ -18,6 +18,8 @@ class MqttService {
   static bool get isConnected =>
       connectionState == MqttConnectionState.connected;
 
+  static String? primaryDeviceId;
+
   /// 대표 기기 presence 상태값(UI 갱신용)
   static final ValueNotifier<String?> primaryDevicePresence =
       ValueNotifier<String?>(null);
@@ -53,6 +55,7 @@ class MqttService {
   static void disconnect() {
     if (_client == null) return;
 
+    primaryDeviceId = null;
     primaryDevicePresence.value = null;
     primaryDeviceActivityState.value = null;
 
@@ -77,12 +80,18 @@ class MqttService {
           /// 예시) mqtt received:feeder/SF-CF3B015C/presence/offline
           /// 예시) mqtt received:feeder/SF-CF3B015C/activity/state/feeding
           /// 예시) mqtt received:feeder/SF-CF3B015C/activity/state/idle
+          /// 예시) mqtt received:feeder/SF-CF3B015C/activity/state/unknown
           /// 예시) mqtt received:feeder/SF-CF3B015C/activity/event/feeding_started_remote
           /// 예시) mqtt received:feeder/SF-CF3B015C/activity/event/feeding_finished_remote
           /// 예시) mqtt received:feeder/SF-CF3B015C/factory_reset/factory_reset
           LogUtils.d('mqtt received:$topic/$message');
 
           final parts = topic.split('/');
+          if (parts.length < 3) continue;
+
+          final deviceId = parts[1];
+          if (deviceId != primaryDeviceId) continue;
+
           final action = parts[2];
 
           switch (action) {
@@ -91,6 +100,7 @@ class MqttService {
               break;
 
             case 'activity':
+              if (parts.length < 4) break;
               final subAction = parts[3];
               if (subAction == 'state') {
                 primaryDeviceActivityState.value = message;
