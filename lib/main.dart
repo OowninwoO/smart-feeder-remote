@@ -9,6 +9,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'app_router.dart';
 import 'auto_login_gate.dart';
 import 'firebase_options.dart';
+import 'services/notifications/fcm_notification_service.dart';
 import 'services/notifications/local_notification_service.dart';
 import 'theme/app_theme.dart';
 
@@ -22,6 +23,7 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   await LocalNotificationService.init();
+  await FcmNotificationService.init();
 
   runApp(
     Phoenix(

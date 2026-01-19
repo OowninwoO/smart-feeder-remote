@@ -20,6 +20,8 @@ class FcmNotificationService {
       );
     });
 
+    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
     final initialMessage = await FirebaseMessaging.instance.getInitialMessage();
     if (initialMessage != null) {
       LogUtils.d('getInitialMessage data=${initialMessage.data}');
