@@ -39,8 +39,8 @@ class LocalNotificationService {
   }
 
   static Future<void> show({
-    required String title,
-    required String body,
+    String? title,
+    String? body,
     String? payload,
   }) async {
     final details = NotificationDetails(
@@ -53,6 +53,6 @@ class LocalNotificationService {
       ),
     );
 
-    await _plugin.show(0, title, body, details, payload: payload);
+    await _plugin.show(0, title ?? '알림', body ?? '', details, payload: payload);
   }
 }
