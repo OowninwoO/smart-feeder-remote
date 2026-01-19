@@ -11,6 +11,9 @@
     <!-- Wi-Fi 설정 변경 권한 -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
+    <!-- 알림 권한 (Android 13+) -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <!-- 정밀 위치 권한 (API 32까지) -->
     <uses-permission
         android:name="android.permission.ACCESS_FINE_LOCATION"
@@ -58,6 +61,11 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+        <!-- FCM 기본 알림 채널(앱이 실행되기 전 시스템이 띄우는 알림용) -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="high_importance_channel" />
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and
