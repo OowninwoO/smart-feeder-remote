@@ -9,6 +9,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'app_router.dart';
 import 'auto_login_gate.dart';
 import 'firebase_options.dart';
+import 'services/notifications/local_notification_service.dart';
 import 'theme/app_theme.dart';
 
 Future<void> main() async {
@@ -19,6 +20,8 @@ Future<void> main() async {
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  await LocalNotificationService.init();
 
   runApp(
     Phoenix(
