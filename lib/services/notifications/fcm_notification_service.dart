@@ -6,6 +6,9 @@ class FcmNotificationService {
   FcmNotificationService._();
 
   static Future<void> init() async {
+    final token = await FirebaseMessaging.instance.getToken();
+    LogUtils.d('fcmToken=$token');
+
     FirebaseMessaging.onMessage.listen((message) {
       LogUtils.d('onMessage data=${message.data}');
       final n = message.notification;
