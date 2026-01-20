@@ -52,7 +52,7 @@ class LoginScreen extends ConsumerWidget {
                 onPressed: () async {
                   context.loaderOverlay.show();
                   try {
-                    await AuthService.signIn(LoginProvider.google);
+                    await AuthService.signInWithGoogle();
                     await loadDevices(ref);
                     await initMqttSub(ref);
                     context.go('/feed');

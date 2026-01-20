@@ -3,8 +3,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../api/users_api.dart';
 
-enum LoginProvider { google }
-
 class AuthService {
   static final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   static final GoogleSignIn googleSignIn = GoogleSignIn.instance;
@@ -16,28 +14,20 @@ class AuthService {
     return await currentUser!.getIdToken();
   }
 
-  static Future<void> signIn(LoginProvider provider) async {
-    late final UserCredential userCredential;
+  static Future<void> signInWithGoogle() async {
+    await googleSignIn.initialize();
+    final googleUser = await googleSignIn.authenticate();
+    final googleAuth = googleUser.authentication;
 
-    switch (provider) {
-      case LoginProvider.google:
-        await googleSignIn.initialize();
-        final googleUser = await googleSignIn.authenticate();
-        final googleAuth = googleUser.authentication;
+    final credential = GoogleAuthProvider.credential(
+      idToken: googleAuth.idToken,
+    );
 
-        final credential = GoogleAuthProvider.credential(
-          idToken: googleAuth.idToken,
-        );
-
-        userCredential = await firebaseAuth.signInWithCredential(credential);
-        break;
-    }
+    final userCredential = await firebaseAuth.signInWithCredential(credential);
 
     final user = userCredential.user;
     if (user != null) {
       await UsersApi.upsertMe(
-        provider: provider.name,
-        providerUserId: user.uid,
         nickname: user.displayName,
         profileImageUrl: user.photoURL,
       );
