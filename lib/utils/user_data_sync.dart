@@ -1,12 +1,20 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:smart_feeder_remote/api/devices_api.dart';
+import 'package:smart_feeder_remote/api/fcm_tokens_api.dart';
+import 'package:smart_feeder_remote/models/device/device.dart';
 import 'package:smart_feeder_remote/providers/device/device_list_provider.dart';
 import 'package:smart_feeder_remote/providers/device/primary_device_provider.dart';
+import 'package:smart_feeder_remote/services/auth/auth_service.dart';
+import 'package:smart_feeder_remote/services/mqtt/mqtt_service.dart';
 
-import '../api/devices_api.dart';
-import '../models/device/device.dart';
-import '../services/auth/auth_service.dart';
-import '../services/mqtt/mqtt_service.dart';
+Future<void> upsertFcmToken() async {
+  final token = await FirebaseMessaging.instance.getToken();
+  if (token == null) return;
+
+  await FcmTokensApi.upsertFcmToken(token: token);
+}
 
 Future<void> loadDevices(WidgetRef ref) async {
   final res = await DevicesApi.myDevices();

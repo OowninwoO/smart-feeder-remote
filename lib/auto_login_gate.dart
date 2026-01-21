@@ -29,6 +29,7 @@ class _AutoLoginGateState extends ConsumerState<AutoLoginGate> {
 
     if (user != null) {
       try {
+        await upsertFcmToken();
         await loadDevices(ref);
         await initMqttSub(ref);
       } catch (e) {
