@@ -76,6 +76,11 @@ class MqttService {
             msg.payload.message,
           );
 
+          /// payload 없음
+          /// 예시) mqtt received:feeder/SF-CF3B015C/feed_button
+          /// 예시) mqtt received:feeder/SF-CF3B015C/factory_reset
+          ///
+          /// payload 있음
           /// 예시) mqtt received:feeder/SF-CF3B015C/presence/online
           /// 예시) mqtt received:feeder/SF-CF3B015C/presence/offline
           /// 예시) mqtt received:feeder/SF-CF3B015C/activity/state/feeding
@@ -83,8 +88,11 @@ class MqttService {
           /// 예시) mqtt received:feeder/SF-CF3B015C/activity/state/unknown
           /// 예시) mqtt received:feeder/SF-CF3B015C/activity/event/feeding_started_remote
           /// 예시) mqtt received:feeder/SF-CF3B015C/activity/event/feeding_finished_remote
-          /// 예시) mqtt received:feeder/SF-CF3B015C/factory_reset/factory_reset
-          LogUtils.d('mqtt received:$topic/$message');
+          if (message.isEmpty) {
+            LogUtils.d('mqtt received:$topic');
+          } else {
+            LogUtils.d('mqtt received:$topic/$message');
+          }
 
           final parts = topic.split('/');
           if (parts.length < 3) continue;
@@ -129,12 +137,12 @@ class MqttService {
     _client!.unsubscribe(topic);
   }
 
-  static void publish({required String topic, required String message}) {
+  static void publish({required String topic, String? message}) {
     if (_client == null) return;
     if (!isConnected) return;
 
     final builder = MqttClientPayloadBuilder();
-    builder.addString(message);
+    builder.addString(message ?? '');
 
     _client!.publishMessage(topic, MqttQos.atLeastOnce, builder.payload!);
   }

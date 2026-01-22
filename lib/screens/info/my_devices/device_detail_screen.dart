@@ -87,10 +87,7 @@ class DeviceDetailScreen extends ConsumerWidget {
 
                       try {
                         final topic = 'feeder/${device.deviceId}/factory_reset';
-                        MqttService.publish(
-                          topic: topic,
-                          message: 'factory_reset',
-                        );
+                        MqttService.publish(topic: topic);
 
                         await DevicesApi.deleteDevice(
                           deviceId: device.deviceId,

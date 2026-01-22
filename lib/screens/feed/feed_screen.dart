@@ -34,7 +34,7 @@ class FeedScreen extends ConsumerWidget {
     if (deviceId == null) return;
 
     final topic = 'feeder/$deviceId/${action.value}';
-    MqttService.publish(topic: topic, message: action.value);
+    MqttService.publish(topic: topic);
   }
 
   @override
