@@ -55,6 +55,7 @@ class LoginScreen extends ConsumerWidget {
                     await AuthService.signInWithGoogle();
                     await upsertFcmToken();
                     await loadDevices(ref);
+                    await loadMqttLogs(ref);
                     await initMqttSub(ref);
                     context.go('/feed');
                   } catch (e) {
