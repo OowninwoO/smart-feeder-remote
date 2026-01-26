@@ -27,10 +27,7 @@ Future<void> loadDevices(WidgetRef ref) async {
 }
 
 Future<void> loadMqttLogs(WidgetRef ref) async {
-  final deviceId = ref.read(primaryDeviceProvider)?.deviceId;
-  if (deviceId == null) return;
-
-  final res = await MqttLogsApi.list(deviceId: deviceId);
+  final res = await MqttLogsApi.all();
   final data = res['data'];
   final mqttLogs = data.map<MqttLog>((e) => MqttLog.fromJson(e)).toList();
   ref.read(mqttLogListProvider.notifier).set(mqttLogs);
