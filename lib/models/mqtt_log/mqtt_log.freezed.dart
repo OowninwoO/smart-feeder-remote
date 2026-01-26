@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MqttLog {
 
- int get id; DateTime get receivedAt; String get deviceId; String get topic; String? get payload;
+ String get id; DateTime get receivedAt; String get deviceId; String get topic; String? get payload;
 /// Create a copy of MqttLog
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $MqttLogCopyWith<$Res>  {
   factory $MqttLogCopyWith(MqttLog value, $Res Function(MqttLog) _then) = _$MqttLogCopyWithImpl;
 @useResult
 $Res call({
- int id, DateTime receivedAt, String deviceId, String topic, String? payload
+ String id, DateTime receivedAt, String deviceId, String topic, String? payload
 });
 
 
@@ -68,7 +68,7 @@ class _$MqttLogCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? receivedAt = null,Object? deviceId = null,Object? topic = null,Object? payload = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,receivedAt: null == receivedAt ? _self.receivedAt : receivedAt // ignore: cast_nullable_to_non_nullable
+as String,receivedAt: null == receivedAt ? _self.receivedAt : receivedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,deviceId: null == deviceId ? _self.deviceId : deviceId // ignore: cast_nullable_to_non_nullable
 as String,topic: null == topic ? _self.topic : topic // ignore: cast_nullable_to_non_nullable
 as String,payload: freezed == payload ? _self.payload : payload // ignore: cast_nullable_to_non_nullable
@@ -157,7 +157,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  DateTime receivedAt,  String deviceId,  String topic,  String? payload)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  DateTime receivedAt,  String deviceId,  String topic,  String? payload)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MqttLog() when $default != null:
 return $default(_that.id,_that.receivedAt,_that.deviceId,_that.topic,_that.payload);case _:
@@ -178,7 +178,7 @@ return $default(_that.id,_that.receivedAt,_that.deviceId,_that.topic,_that.paylo
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  DateTime receivedAt,  String deviceId,  String topic,  String? payload)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  DateTime receivedAt,  String deviceId,  String topic,  String? payload)  $default,) {final _that = this;
 switch (_that) {
 case _MqttLog():
 return $default(_that.id,_that.receivedAt,_that.deviceId,_that.topic,_that.payload);case _:
@@ -198,7 +198,7 @@ return $default(_that.id,_that.receivedAt,_that.deviceId,_that.topic,_that.paylo
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  DateTime receivedAt,  String deviceId,  String topic,  String? payload)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  DateTime receivedAt,  String deviceId,  String topic,  String? payload)?  $default,) {final _that = this;
 switch (_that) {
 case _MqttLog() when $default != null:
 return $default(_that.id,_that.receivedAt,_that.deviceId,_that.topic,_that.payload);case _:
@@ -216,7 +216,7 @@ class _MqttLog implements MqttLog {
   const _MqttLog({required this.id, required this.receivedAt, required this.deviceId, required this.topic, required this.payload});
   factory _MqttLog.fromJson(Map<String, dynamic> json) => _$MqttLogFromJson(json);
 
-@override final  int id;
+@override final  String id;
 @override final  DateTime receivedAt;
 @override final  String deviceId;
 @override final  String topic;
@@ -255,7 +255,7 @@ abstract mixin class _$MqttLogCopyWith<$Res> implements $MqttLogCopyWith<$Res> {
   factory _$MqttLogCopyWith(_MqttLog value, $Res Function(_MqttLog) _then) = __$MqttLogCopyWithImpl;
 @override @useResult
 $Res call({
- int id, DateTime receivedAt, String deviceId, String topic, String? payload
+ String id, DateTime receivedAt, String deviceId, String topic, String? payload
 });
 
 
@@ -275,7 +275,7 @@ class __$MqttLogCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? receivedAt = null,Object? deviceId = null,Object? topic = null,Object? payload = freezed,}) {
   return _then(_MqttLog(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,receivedAt: null == receivedAt ? _self.receivedAt : receivedAt // ignore: cast_nullable_to_non_nullable
+as String,receivedAt: null == receivedAt ? _self.receivedAt : receivedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,deviceId: null == deviceId ? _self.deviceId : deviceId // ignore: cast_nullable_to_non_nullable
 as String,topic: null == topic ? _self.topic : topic // ignore: cast_nullable_to_non_nullable
 as String,payload: freezed == payload ? _self.payload : payload // ignore: cast_nullable_to_non_nullable

@@ -7,7 +7,7 @@ part of 'mqtt_log.dart';
 // **************************************************************************
 
 _MqttLog _$MqttLogFromJson(Map<String, dynamic> json) => _MqttLog(
-  id: (json['id'] as num).toInt(),
+  id: json['id'] as String,
   receivedAt: DateTime.parse(json['receivedAt'] as String),
   deviceId: json['deviceId'] as String,
   topic: json['topic'] as String,
