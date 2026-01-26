@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_feeder_remote/providers/mqtt_log/mqtt_log_list_provider.dart';
 import 'package:smart_feeder_remote/theme/app_colors.dart';
+import 'package:smart_feeder_remote/utils/datetime_utils.dart';
 import 'package:smart_feeder_remote/widgets/cards/app_card.dart';
 import 'package:smart_feeder_remote/widgets/list_tiles/app_list_tile.dart';
 
@@ -25,7 +26,8 @@ class HistoryScreen extends ConsumerWidget {
                 color: AppColors.cardPrimary,
                 child: AppListTile(
                   title: mqttLog.topic,
-                  subtitle: '${mqttLog.deviceId} • ${mqttLog.receivedAt}',
+                  subtitle:
+                      '${mqttLog.deviceId} • ${DateTimeUtils.ymdHms(mqttLog.receivedAt)}',
                 ),
               );
             },

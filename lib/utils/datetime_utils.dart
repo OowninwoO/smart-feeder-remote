@@ -5,4 +5,9 @@ class DateTimeUtils {
     final local = dt.toLocal();
     return DateFormat('yyyy.MM.dd HH:mm').format(local);
   }
+
+  static String ymdHms(DateTime dt) {
+    final local = dt.toLocal();
+    return DateFormat('yyyy.MM.dd HH:mm:ss').format(local);
+  }
 }
