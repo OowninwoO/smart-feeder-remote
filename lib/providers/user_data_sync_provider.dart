@@ -1,0 +1,85 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:smart_feeder_remote/api/devices_api.dart';
+import 'package:smart_feeder_remote/api/fcm_tokens_api.dart';
+import 'package:smart_feeder_remote/api/mqtt_logs_api.dart';
+import 'package:smart_feeder_remote/models/device/device.dart';
+import 'package:smart_feeder_remote/models/mqtt_log/mqtt_log.dart';
+import 'package:smart_feeder_remote/providers/device/device_list_provider.dart';
+import 'package:smart_feeder_remote/providers/device/primary_device_provider.dart';
+import 'package:smart_feeder_remote/providers/mqtt_log/mqtt_log_list_provider.dart';
+import 'package:smart_feeder_remote/services/auth/auth_service.dart';
+import 'package:smart_feeder_remote/services/mqtt/mqtt_service.dart';
+
+final userDataSyncProvider = Provider<UserDataSync>((ref) {
+  return UserDataSync(ref);
+});
+
+class UserDataSync {
+  final Ref ref;
+
+  UserDataSync(this.ref);
+
+  Future<void> upsertFcmToken() async {
+    final token = await FirebaseMessaging.instance.getToken();
+    if (token == null) return;
+
+    await FcmTokensApi.upsertFcmToken(token: token);
+  }
+
+  Future<void> loadDevices() async {
+    final res = await DevicesApi.myDevices();
+    final data = res['data'];
+    final devices = data.map<Device>((e) => Device.fromJson(e)).toList();
+    ref.read(deviceListProvider.notifier).set(devices);
+  }
+
+  Future<void> loadMqttLogs() async {
+    final res = await MqttLogsApi.all();
+    final data = res['data'];
+    final mqttLogs = data.map<MqttLog>((e) => MqttLog.fromJson(e)).toList();
+    ref.read(mqttLogListProvider.notifier).set(mqttLogs);
+  }
+
+  Future<void> initMqttSub() async {
+    await MqttService.connect(
+      host: dotenv.env['MQTT_HOST']!,
+      port: int.parse(dotenv.env['MQTT_PORT']!),
+      username: dotenv.env['MQTT_USERNAME']!,
+      password: dotenv.env['MQTT_PASSWORD']!,
+      uid: AuthService.currentUser!.uid,
+    );
+
+    /// MQTT 수신 리스너 등록
+    MqttService.listen();
+
+    /// 대표 기기 변경 감지
+    ref.listen<Device?>(primaryDeviceProvider, (prev, next) {
+      final prevDeviceId = prev?.deviceId;
+      final nextDeviceId = next?.deviceId;
+
+      if (prevDeviceId == nextDeviceId) return;
+
+      /// 대표 기기 변경 및 상태 초기화
+      MqttService.primaryDeviceId = nextDeviceId;
+      MqttService.primaryDevicePresence.value = null;
+      MqttService.primaryDeviceActivityState.value = null;
+
+      if (prevDeviceId != null) {
+        MqttService.unsubscribe(topic: 'feeder/$prevDeviceId/#');
+      }
+
+      if (nextDeviceId != null) {
+        MqttService.subscribe(topic: 'feeder/$nextDeviceId/#');
+      }
+    });
+
+    final primaryDeviceId = ref.read(primaryDeviceProvider)?.deviceId;
+    if (primaryDeviceId == null) return;
+
+    MqttService.primaryDeviceId = primaryDeviceId;
+
+    MqttService.subscribe(topic: 'feeder/$primaryDeviceId/#');
+  }
+}
