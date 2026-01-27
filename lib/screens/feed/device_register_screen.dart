@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-
-import '../../api/devices_api.dart';
-import '../../utils/log_utils.dart';
-import '../../utils/toast_utils.dart';
-import '../../utils/user_data_sync.dart';
-import '../../widgets/buttons/app_text_button.dart';
+import 'package:smart_feeder_remote/api/devices_api.dart';
+import 'package:smart_feeder_remote/providers/user_data_sync_provider.dart';
+import 'package:smart_feeder_remote/utils/log_utils.dart';
+import 'package:smart_feeder_remote/utils/toast_utils.dart';
+import 'package:smart_feeder_remote/widgets/buttons/app_text_button.dart';
 
 class DeviceRegisterScreen extends ConsumerStatefulWidget {
   const DeviceRegisterScreen({super.key, required this.deviceId});
@@ -47,7 +46,7 @@ class _DeviceRegisterScreenState extends ConsumerState<DeviceRegisterScreen> {
         location: location,
       );
 
-      await loadDevices(ref);
+      await ref.read(userDataSyncProvider).loadDevices();
 
       ToastUtils.success('기기가 성공적으로 등록되었습니다.');
       context.pop();

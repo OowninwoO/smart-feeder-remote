@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'services/auth/auth_service.dart';
-import 'utils/log_utils.dart';
-import 'utils/toast_utils.dart';
-import 'utils/user_data_sync.dart';
+import 'package:smart_feeder_remote/providers/user_data_sync_provider.dart';
+import 'package:smart_feeder_remote/services/auth/auth_service.dart';
+import 'package:smart_feeder_remote/utils/log_utils.dart';
+import 'package:smart_feeder_remote/utils/toast_utils.dart';
 
 class AutoLoginGate extends ConsumerStatefulWidget {
   final Widget child;
@@ -29,10 +28,10 @@ class _AutoLoginGateState extends ConsumerState<AutoLoginGate> {
 
     if (user != null) {
       try {
-        await upsertFcmToken();
-        await loadDevices(ref);
-        await loadMqttLogs(ref);
-        await initMqttSub(ref);
+        await ref.read(userDataSyncProvider).upsertFcmToken();
+        await ref.read(userDataSyncProvider).loadDevices();
+        await ref.read(userDataSyncProvider).loadMqttLogs();
+        await ref.read(userDataSyncProvider).initMqttSub();
       } catch (e) {
         LogUtils.e(e);
         ToastUtils.error('데이터를 불러오지 못했습니다.');

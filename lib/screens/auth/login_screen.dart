@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-
-import '../../services/auth/auth_service.dart';
-import '../../theme/app_colors.dart';
-import '../../utils/log_utils.dart';
-import '../../utils/toast_utils.dart';
-import '../../utils/user_data_sync.dart';
-import '../../widgets/buttons/app_icon_text_button.dart';
+import 'package:smart_feeder_remote/providers/user_data_sync_provider.dart';
+import 'package:smart_feeder_remote/services/auth/auth_service.dart';
+import 'package:smart_feeder_remote/theme/app_colors.dart';
+import 'package:smart_feeder_remote/utils/log_utils.dart';
+import 'package:smart_feeder_remote/utils/toast_utils.dart';
+import 'package:smart_feeder_remote/widgets/buttons/app_icon_text_button.dart';
 
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
@@ -53,10 +52,10 @@ class LoginScreen extends ConsumerWidget {
                   context.loaderOverlay.show();
                   try {
                     await AuthService.signInWithGoogle();
-                    await upsertFcmToken();
-                    await loadDevices(ref);
-                    await loadMqttLogs(ref);
-                    await initMqttSub(ref);
+                    await ref.read(userDataSyncProvider).upsertFcmToken();
+                    await ref.read(userDataSyncProvider).loadDevices();
+                    await ref.read(userDataSyncProvider).loadMqttLogs();
+                    await ref.read(userDataSyncProvider).initMqttSub();
                     context.go('/feed');
                   } catch (e) {
                     LogUtils.e(e);
