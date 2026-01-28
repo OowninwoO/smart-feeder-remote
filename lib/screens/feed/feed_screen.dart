@@ -124,7 +124,7 @@ class FeedScreen extends ConsumerWidget {
                           builder: (_, v, __) {
                             return AppCard(
                               color: AppColors.cardSecondary,
-                              child: AppListTile(title: '온라인 상태', subtitle: v),
+                              child: AppListTile(title: '연결 상태', subtitle: v),
                             );
                           },
                         ),
