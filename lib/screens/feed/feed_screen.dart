@@ -5,7 +5,6 @@ import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../constants/enums/feed_control_action.dart';
 import '../../services/mqtt/mqtt_service.dart';
-import '../../services/notifications/local_notification_service.dart';
 import '../../theme/app_colors.dart';
 import '../../services/wifi/wifi_connector.dart';
 import '../../utils/log_utils.dart';
@@ -221,19 +220,6 @@ class FeedScreen extends ConsumerWidget {
               } finally {
                 context.loaderOverlay.hide();
               }
-            },
-          ),
-          const SizedBox(height: 16),
-          AppIconTextButton(
-            width: double.infinity,
-            icon: const Icon(Icons.notifications),
-            label: '임시 알림',
-            onPressed: () async {
-              await LocalNotificationService.show(
-                title: '테스트 알림',
-                body: '로컬 알림 잘 뜨는지 확인',
-                payload: 'temp',
-              );
             },
           ),
         ],
