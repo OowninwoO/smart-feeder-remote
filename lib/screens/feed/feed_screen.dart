@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:smart_feeder_remote/constants/enums/feed_activity_status.dart';
 import 'package:smart_feeder_remote/constants/enums/presence_status.dart';
 
 import '../../constants/enums/feed_control_action.dart';
@@ -142,9 +143,14 @@ class FeedScreen extends ConsumerWidget {
                           valueListenable:
                               MqttService.primaryDeviceActivityState,
                           builder: (_, v, __) {
+                            final status = FeedActivityStatus.parse(v);
+
                             return AppCard(
                               color: AppColors.cardSecondary,
-                              child: AppListTile(title: '동작 상태', subtitle: v),
+                              child: AppListTile(
+                                title: '동작 상태',
+                                subtitle: status.label,
+                              ),
                             );
                           },
                         ),
