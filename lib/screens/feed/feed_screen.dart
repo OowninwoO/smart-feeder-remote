@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:smart_feeder_remote/constants/enums/feed_activity_status.dart';
-import 'package:smart_feeder_remote/constants/enums/presence_status.dart';
+import 'package:smart_feeder_remote/constants/enums/activity_state.dart';
+import 'package:smart_feeder_remote/constants/enums/presence.dart';
 
 import '../../constants/enums/feed_control_action.dart';
 import '../../services/mqtt/mqtt_service.dart';
@@ -124,7 +124,7 @@ class FeedScreen extends ConsumerWidget {
                         child: ValueListenableBuilder<String?>(
                           valueListenable: MqttService.primaryDevicePresence,
                           builder: (_, v, __) {
-                            final status = PresenceStatus.parse(v);
+                            final status = Presence.parse(v);
 
                             return AppCard(
                               color: AppColors.cardSecondary,
@@ -143,7 +143,7 @@ class FeedScreen extends ConsumerWidget {
                           valueListenable:
                               MqttService.primaryDeviceActivityState,
                           builder: (_, v, __) {
-                            final status = FeedActivityStatus.parse(v);
+                            final status = ActivityState.parse(v);
 
                             return AppCard(
                               color: AppColors.cardSecondary,

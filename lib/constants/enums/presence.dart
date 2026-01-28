@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 
-enum PresenceStatus {
+enum Presence {
   online('온라인', Colors.green),
   offline('오프라인', Colors.red),
   unknown('-', Colors.black);
 
-  const PresenceStatus(this.label, this.color);
+  const Presence(this.label, this.color);
 
   final String label;
   final Color color;
 
-  static PresenceStatus parse(String? v) {
+  static Presence parse(String? v) {
     switch (v) {
       case 'online':
-        return PresenceStatus.online;
+        return Presence.online;
       case 'offline':
-        return PresenceStatus.offline;
+        return Presence.offline;
       default:
-        return PresenceStatus.unknown;
+        return Presence.unknown;
     }
   }
 }
