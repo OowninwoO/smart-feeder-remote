@@ -11,8 +11,8 @@ class DeviceListProvider extends _$DeviceListProvider {
   @override
   List<Device> build() => [];
 
-  void set(List<Device> devices) {
-    state = devices;
+  void set(List<Device> deviceList) {
+    state = deviceList;
   }
 
   void upsert(Device device) {

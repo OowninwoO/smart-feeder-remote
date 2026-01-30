@@ -20,8 +20,8 @@ class DeviceDetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final devices = ref.watch(deviceListProvider);
-    final device = devices.where((d) => d.deviceId == deviceId).firstOrNull;
+    final deviceList = ref.watch(deviceListProvider);
+    final device = deviceList.where((d) => d.deviceId == deviceId).firstOrNull;
 
     return Scaffold(
       appBar: AppBar(title: const Text('기기 상세')),
