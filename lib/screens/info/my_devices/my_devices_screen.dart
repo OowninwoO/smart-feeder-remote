@@ -12,19 +12,19 @@ class MyDevicesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final devices = ref.watch(deviceListProvider);
+    final deviceList = ref.watch(deviceListProvider);
 
     return Scaffold(
       appBar: AppBar(title: const Text('내 기기')),
       body: SafeArea(
-        child: devices.isEmpty
+        child: deviceList.isEmpty
             ? const Center(child: Text('등록된 기기가 없습니다.'))
             : ListView.separated(
                 padding: const EdgeInsets.all(16),
                 separatorBuilder: (_, __) => const SizedBox(height: 16),
-                itemCount: devices.length,
+                itemCount: deviceList.length,
                 itemBuilder: (context, index) {
-                  final device = devices[index];
+                  final device = deviceList[index];
 
                   return AppCard(
                     color: AppColors.cardPrimary,

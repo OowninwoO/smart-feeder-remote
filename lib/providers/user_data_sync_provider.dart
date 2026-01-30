@@ -28,8 +28,8 @@ class UserDataSync {
   Future<void> loadDevices() async {
     final res = await DevicesApi.myDevices();
     final data = res['data'];
-    final devices = data.map<Device>((e) => Device.fromJson(e)).toList();
-    ref.read(deviceListProvider.notifier).set(devices);
+    final deviceList = data.map<Device>((e) => Device.fromJson(e)).toList();
+    ref.read(deviceListProvider.notifier).set(deviceList);
   }
 
   Future<void> initMqttSub() async {
