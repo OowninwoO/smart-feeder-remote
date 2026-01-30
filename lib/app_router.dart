@@ -92,15 +92,15 @@ final GoRouter appRouter = GoRouter(
             ),
           ],
         ),
-        // StatefulShellBranch(
-        //   routes: [
-        //     GoRoute(
-        //       path: '/history',
-        //       name: 'history',
-        //       builder: (context, state) => const HistoryScreen(),
-        //     ),
-        //   ],
-        // ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/history',
+              name: 'history',
+              builder: (context, state) => const HistoryScreen(),
+            ),
+          ],
+        ),
         StatefulShellBranch(
           routes: [
             GoRoute(

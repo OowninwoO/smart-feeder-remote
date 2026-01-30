@@ -30,6 +30,7 @@ class _AutoLoginGateState extends ConsumerState<AutoLoginGate> {
       try {
         await ref.read(userDataSyncProvider).upsertFcmToken();
         await ref.read(userDataSyncProvider).loadDevices();
+        await ref.read(userDataSyncProvider).loadMqttLogs();
         await ref.read(userDataSyncProvider).initMqttSub();
       } catch (e) {
         LogUtils.e(e);
