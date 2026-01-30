@@ -10,8 +10,8 @@ class MqttLogPageProvider extends _$MqttLogPageProvider {
   @override
   MqttLogPage? build() => null;
 
-  void set(MqttLogPage page) {
-    state = page;
+  void set(MqttLogPage mqttLogPage) {
+    state = mqttLogPage;
   }
 
   void clear() {

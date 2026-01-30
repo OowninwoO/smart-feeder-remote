@@ -42,7 +42,7 @@ final class MqttLogPageProviderProvider
 }
 
 String _$mqttLogPageProviderHash() =>
-    r'da6f03c8c5639c371e287cc5340faef971833571';
+    r'2349340244d86363e426f2ee6e4f90e4034a0ef3';
 
 abstract class _$MqttLogPageProvider extends $Notifier<MqttLogPage?> {
   MqttLogPage? build();
