@@ -3,12 +3,9 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_feeder_remote/api/devices_api.dart';
 import 'package:smart_feeder_remote/api/fcm_tokens_api.dart';
-import 'package:smart_feeder_remote/api/mqtt_logs_api.dart';
 import 'package:smart_feeder_remote/models/device/device.dart';
-import 'package:smart_feeder_remote/models/mqtt_log/mqtt_log.dart';
 import 'package:smart_feeder_remote/providers/device/device_list_provider.dart';
 import 'package:smart_feeder_remote/providers/device/primary_device_provider.dart';
-import 'package:smart_feeder_remote/providers/mqtt_log/mqtt_log_list_provider.dart';
 import 'package:smart_feeder_remote/services/auth/auth_service.dart';
 import 'package:smart_feeder_remote/services/mqtt/mqtt_service.dart';
 
@@ -33,13 +30,6 @@ class UserDataSync {
     final data = res['data'];
     final devices = data.map<Device>((e) => Device.fromJson(e)).toList();
     ref.read(deviceListProvider.notifier).set(devices);
-  }
-
-  Future<void> loadMqttLogs() async {
-    final res = await MqttLogsApi.all();
-    final data = res['data'];
-    final mqttLogs = data.map<MqttLog>((e) => MqttLog.fromJson(e)).toList();
-    ref.read(mqttLogListProvider.notifier).set(mqttLogs);
   }
 
   Future<void> initMqttSub() async {
