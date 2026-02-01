@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MqttLogPage {
 
- DateTime? get cursorAt; String? get cursorId; bool get hasMore; List<MqttLog> get items;
+ DateTime? get cursorAt; int? get cursorId; bool get hasMore; List<MqttLog> get items;
 /// Create a copy of MqttLogPage
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $MqttLogPageCopyWith<$Res>  {
   factory $MqttLogPageCopyWith(MqttLogPage value, $Res Function(MqttLogPage) _then) = _$MqttLogPageCopyWithImpl;
 @useResult
 $Res call({
- DateTime? cursorAt, String? cursorId, bool hasMore, List<MqttLog> items
+ DateTime? cursorAt, int? cursorId, bool hasMore, List<MqttLog> items
 });
 
 
@@ -69,7 +69,7 @@ class _$MqttLogPageCopyWithImpl<$Res>
   return _then(_self.copyWith(
 cursorAt: freezed == cursorAt ? _self.cursorAt : cursorAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,cursorId: freezed == cursorId ? _self.cursorId : cursorId // ignore: cast_nullable_to_non_nullable
-as String?,hasMore: null == hasMore ? _self.hasMore : hasMore // ignore: cast_nullable_to_non_nullable
+as int?,hasMore: null == hasMore ? _self.hasMore : hasMore // ignore: cast_nullable_to_non_nullable
 as bool,items: null == items ? _self.items : items // ignore: cast_nullable_to_non_nullable
 as List<MqttLog>,
   ));
@@ -156,7 +156,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DateTime? cursorAt,  String? cursorId,  bool hasMore,  List<MqttLog> items)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DateTime? cursorAt,  int? cursorId,  bool hasMore,  List<MqttLog> items)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MqttLogPage() when $default != null:
 return $default(_that.cursorAt,_that.cursorId,_that.hasMore,_that.items);case _:
@@ -177,7 +177,7 @@ return $default(_that.cursorAt,_that.cursorId,_that.hasMore,_that.items);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DateTime? cursorAt,  String? cursorId,  bool hasMore,  List<MqttLog> items)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DateTime? cursorAt,  int? cursorId,  bool hasMore,  List<MqttLog> items)  $default,) {final _that = this;
 switch (_that) {
 case _MqttLogPage():
 return $default(_that.cursorAt,_that.cursorId,_that.hasMore,_that.items);case _:
@@ -197,7 +197,7 @@ return $default(_that.cursorAt,_that.cursorId,_that.hasMore,_that.items);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DateTime? cursorAt,  String? cursorId,  bool hasMore,  List<MqttLog> items)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DateTime? cursorAt,  int? cursorId,  bool hasMore,  List<MqttLog> items)?  $default,) {final _that = this;
 switch (_that) {
 case _MqttLogPage() when $default != null:
 return $default(_that.cursorAt,_that.cursorId,_that.hasMore,_that.items);case _:
@@ -216,7 +216,7 @@ class _MqttLogPage implements MqttLogPage {
   factory _MqttLogPage.fromJson(Map<String, dynamic> json) => _$MqttLogPageFromJson(json);
 
 @override final  DateTime? cursorAt;
-@override final  String? cursorId;
+@override final  int? cursorId;
 @override final  bool hasMore;
  final  List<MqttLog> _items;
 @override List<MqttLog> get items {
@@ -259,7 +259,7 @@ abstract mixin class _$MqttLogPageCopyWith<$Res> implements $MqttLogPageCopyWith
   factory _$MqttLogPageCopyWith(_MqttLogPage value, $Res Function(_MqttLogPage) _then) = __$MqttLogPageCopyWithImpl;
 @override @useResult
 $Res call({
- DateTime? cursorAt, String? cursorId, bool hasMore, List<MqttLog> items
+ DateTime? cursorAt, int? cursorId, bool hasMore, List<MqttLog> items
 });
 
 
@@ -280,7 +280,7 @@ class __$MqttLogPageCopyWithImpl<$Res>
   return _then(_MqttLogPage(
 cursorAt: freezed == cursorAt ? _self.cursorAt : cursorAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,cursorId: freezed == cursorId ? _self.cursorId : cursorId // ignore: cast_nullable_to_non_nullable
-as String?,hasMore: null == hasMore ? _self.hasMore : hasMore // ignore: cast_nullable_to_non_nullable
+as int?,hasMore: null == hasMore ? _self.hasMore : hasMore // ignore: cast_nullable_to_non_nullable
 as bool,items: null == items ? _self._items : items // ignore: cast_nullable_to_non_nullable
 as List<MqttLog>,
   ));

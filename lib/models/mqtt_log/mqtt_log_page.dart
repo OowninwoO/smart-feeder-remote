@@ -9,7 +9,7 @@ part 'mqtt_log_page.g.dart';
 abstract class MqttLogPage with _$MqttLogPage {
   const factory MqttLogPage({
     required DateTime? cursorAt,
-    required String? cursorId,
+    required int? cursorId,
     required bool hasMore,
     required List<MqttLog> items,
   }) = _MqttLogPage;
