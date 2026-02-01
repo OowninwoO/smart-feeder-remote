@@ -1,6 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:smart_feeder_remote/api/mqtt_logs_api.dart';
 import 'package:smart_feeder_remote/models/mqtt_log/mqtt_log_page.dart';
+import 'package:smart_feeder_remote/utils/log_utils.dart';
 
 part 'mqtt_log_page_provider.g.dart';
 
@@ -43,6 +44,8 @@ class MqttLogPageProvider extends _$MqttLogPageProvider {
         cursorId: nextPage.cursorId,
         hasMore: nextPage.hasMore,
       );
+    } catch (e) {
+      LogUtils.e('MqttLogPageProvider.fetchNext error=$e');
     } finally {
       _isLoadingMore = false;
     }
