@@ -1,10 +1,12 @@
 import 'package:go_router/go_router.dart';
+import 'package:smart_feeder_remote/models/mqtt_log/item/mqtt_log.dart';
 
 import 'screens/auth/login_screen.dart';
 import 'screens/feed/device_register_screen.dart';
 import 'screens/feed/feed_screen.dart';
 import 'screens/feed/wifi_setup_webview_screen.dart';
 import 'screens/history/history_screen.dart';
+import 'screens/history/mqtt_log_detail_screen.dart';
 import 'screens/info/account/account_screen.dart';
 import 'screens/info/info_screen.dart';
 import 'screens/info/my_devices/device_detail_screen.dart';
@@ -45,6 +47,16 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) {
         final deviceId = state.extra as String;
         return DeviceRegisterScreen(deviceId: deviceId);
+      },
+    ),
+
+    /// 기록
+    GoRoute(
+      path: '/mqtt_log_detail',
+      name: 'mqtt_log_detail',
+      builder: (context, state) {
+        final mqttLog = state.extra as MqttLog;
+        return MqttLogDetailScreen(mqttLog: mqttLog);
       },
     ),
 
