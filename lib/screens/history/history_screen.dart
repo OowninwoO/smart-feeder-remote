@@ -6,17 +6,46 @@ import 'package:smart_feeder_remote/utils/datetime_utils.dart';
 import 'package:smart_feeder_remote/widgets/cards/app_card.dart';
 import 'package:smart_feeder_remote/widgets/list_tiles/app_list_tile.dart';
 
-class HistoryScreen extends ConsumerWidget {
+class HistoryScreen extends ConsumerStatefulWidget {
   const HistoryScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HistoryScreen> createState() => _HistoryScreenState();
+}
+
+class _HistoryScreenState extends ConsumerState<HistoryScreen> {
+  late final ScrollController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = ScrollController()..addListener(_onScroll);
+  }
+
+  void _onScroll() {
+    if (!_controller.hasClients) return;
+
+    if (_controller.position.extentAfter < 200) {
+      ref.read(mqttLogPageProvider.notifier).fetchNext();
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.removeListener(_onScroll);
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final mqttLogPage = ref.watch(mqttLogPageProvider);
     final mqttLogList = mqttLogPage?.items ?? [];
 
     return mqttLogList.isEmpty
         ? const Center(child: Text('기록이 없습니다.'))
         : ListView.separated(
+            controller: _controller,
             padding: const EdgeInsets.all(16),
             separatorBuilder: (_, __) => const SizedBox(height: 16),
             itemCount: mqttLogList.length,
