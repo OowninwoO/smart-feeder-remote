@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:smart_feeder_remote/providers/mqtt_log/mqtt_log_page_provider.dart';
 import 'package:smart_feeder_remote/theme/app_colors.dart';
 import 'package:smart_feeder_remote/utils/datetime_utils.dart';
@@ -58,6 +59,9 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                   title: mqttLog.topic,
                   subtitle:
                       '${mqttLog.deviceId} • ${DateTimeUtils.ymdHms(mqttLog.receivedAt)}',
+                  onTap: () {
+                    context.push('/mqtt_log_detail', extra: mqttLog);
+                  },
                 ),
               );
             },
