@@ -1,19 +1,18 @@
 import 'package:go_router/go_router.dart';
 import 'package:smart_feeder_remote/models/mqtt_log/item/mqtt_log.dart';
-
-import 'screens/auth/login_screen.dart';
-import 'screens/feed/device_register_screen.dart';
-import 'screens/feed/feed_screen.dart';
-import 'screens/feed/wifi_setup_webview_screen.dart';
-import 'screens/history/history_screen.dart';
-import 'screens/history/mqtt_log_detail_screen.dart';
-import 'screens/info/account/account_screen.dart';
-import 'screens/info/info_screen.dart';
-import 'screens/info/my_devices/device_detail_screen.dart';
-import 'screens/info/my_devices/my_devices_screen.dart';
-import 'screens/main_screen.dart';
-import 'screens/schedule/schedule_screen.dart';
-import 'services/auth/auth_service.dart';
+import 'package:smart_feeder_remote/screens/auth/login_screen.dart';
+import 'package:smart_feeder_remote/screens/feed/device_register_screen.dart';
+import 'package:smart_feeder_remote/screens/feed/feed_screen.dart';
+import 'package:smart_feeder_remote/screens/feed/wifi_setup_webview_screen.dart';
+import 'package:smart_feeder_remote/screens/info/account/account_screen.dart';
+import 'package:smart_feeder_remote/screens/info/info_screen.dart';
+import 'package:smart_feeder_remote/screens/info/my_devices/device_detail_screen.dart';
+import 'package:smart_feeder_remote/screens/info/my_devices/my_devices_screen.dart';
+import 'package:smart_feeder_remote/screens/main_screen.dart';
+import 'package:smart_feeder_remote/screens/mqtt_log/mqtt_log_detail_screen.dart';
+import 'package:smart_feeder_remote/screens/mqtt_log/mqtt_log_screen.dart';
+import 'package:smart_feeder_remote/screens/schedule/schedule_screen.dart';
+import 'package:smart_feeder_remote/services/auth/auth_service.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/feed',
@@ -107,9 +106,9 @@ final GoRouter appRouter = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: '/history',
-              name: 'history',
-              builder: (context, state) => const HistoryScreen(),
+              path: '/mqtt_log',
+              name: 'mqtt_log',
+              builder: (context, state) => const MqttLogScreen(),
             ),
           ],
         ),
