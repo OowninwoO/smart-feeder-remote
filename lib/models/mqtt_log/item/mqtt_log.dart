@@ -7,7 +7,7 @@ part 'mqtt_log.g.dart';
 @freezed
 abstract class MqttLog with _$MqttLog {
   const factory MqttLog({
-    required String id,
+    required int id,
     required DateTime receivedAt,
     required String deviceId,
     required String topic,

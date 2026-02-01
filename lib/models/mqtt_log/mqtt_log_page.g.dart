@@ -10,7 +10,7 @@ _MqttLogPage _$MqttLogPageFromJson(Map<String, dynamic> json) => _MqttLogPage(
   cursorAt: json['cursorAt'] == null
       ? null
       : DateTime.parse(json['cursorAt'] as String),
-  cursorId: json['cursorId'] as String?,
+  cursorId: (json['cursorId'] as num?)?.toInt(),
   hasMore: json['hasMore'] as bool,
   items: (json['items'] as List<dynamic>)
       .map((e) => MqttLog.fromJson(e as Map<String, dynamic>))

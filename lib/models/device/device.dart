@@ -7,7 +7,7 @@ part 'device.g.dart';
 @freezed
 abstract class Device with _$Device {
   const factory Device({
-    required String id,
+    required int id,
     required String deviceId,
     required String deviceName,
     required String location,
