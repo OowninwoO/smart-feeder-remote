@@ -60,7 +60,7 @@ class _MqttLogScreenState extends ConsumerState<MqttLogScreen> {
                   subtitle:
                       '${mqttLog.deviceId} • ${DateTimeUtils.ymdHms(mqttLog.receivedAt)}',
                   onTap: () {
-                    context.push('/mqtt_log_detail', extra: mqttLog);
+                    context.push('/mqtt_log_detail', extra: mqttLog.id);
                   },
                 ),
               );
