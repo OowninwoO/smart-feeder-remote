@@ -1,5 +1,4 @@
 import 'package:go_router/go_router.dart';
-import 'package:smart_feeder_remote/models/mqtt_log/item/mqtt_log.dart';
 import 'package:smart_feeder_remote/screens/auth/login_screen.dart';
 import 'package:smart_feeder_remote/screens/feed/device_register_screen.dart';
 import 'package:smart_feeder_remote/screens/feed/feed_screen.dart';
@@ -54,8 +53,8 @@ final GoRouter appRouter = GoRouter(
       path: '/mqtt_log_detail',
       name: 'mqtt_log_detail',
       builder: (context, state) {
-        final mqttLog = state.extra as MqttLog;
-        return MqttLogDetailScreen(mqttLog: mqttLog);
+        final mqttLogId = state.extra as int;
+        return MqttLogDetailScreen(mqttLogId: mqttLogId);
       },
     ),
 
