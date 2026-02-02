@@ -7,8 +7,8 @@ import '../../../theme/app_colors.dart';
 import '../../../widgets/cards/app_card.dart';
 import '../../../widgets/list_tiles/app_list_tile.dart';
 
-class MyDevicesScreen extends ConsumerWidget {
-  const MyDevicesScreen({super.key});
+class MyDeviceScreen extends ConsumerWidget {
+  const MyDeviceScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -32,7 +32,10 @@ class MyDevicesScreen extends ConsumerWidget {
                       title: device.deviceName,
                       subtitle: '${device.deviceId} • ${device.location}',
                       onTap: () {
-                        context.push('/device_detail', extra: device.deviceId);
+                        context.push(
+                          '/my_device_detail',
+                          extra: device.deviceId,
+                        );
                       },
                     ),
                   );
