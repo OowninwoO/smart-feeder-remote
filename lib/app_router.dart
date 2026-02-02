@@ -5,8 +5,8 @@ import 'package:smart_feeder_remote/screens/feed/feed_screen.dart';
 import 'package:smart_feeder_remote/screens/feed/wifi_setup_webview_screen.dart';
 import 'package:smart_feeder_remote/screens/info/account/account_screen.dart';
 import 'package:smart_feeder_remote/screens/info/info_screen.dart';
-import 'package:smart_feeder_remote/screens/info/my_devices/device_detail_screen.dart';
-import 'package:smart_feeder_remote/screens/info/my_devices/my_devices_screen.dart';
+import 'package:smart_feeder_remote/screens/info/my_devices/my_device_detail_screen.dart';
+import 'package:smart_feeder_remote/screens/info/my_devices/my_device_screen.dart';
 import 'package:smart_feeder_remote/screens/main_screen.dart';
 import 'package:smart_feeder_remote/screens/mqtt_log/mqtt_log_detail_screen.dart';
 import 'package:smart_feeder_remote/screens/mqtt_log/mqtt_log_screen.dart';
@@ -60,16 +60,16 @@ final GoRouter appRouter = GoRouter(
 
     /// 정보
     GoRoute(
-      path: '/my_devices',
-      name: 'my_devices',
-      builder: (context, state) => const MyDevicesScreen(),
+      path: '/my_device',
+      name: 'my_device',
+      builder: (context, state) => const MyDeviceScreen(),
     ),
     GoRoute(
-      path: '/device_detail',
-      name: 'device_detail',
+      path: '/my_device_detail',
+      name: 'my_device_detail',
       builder: (context, state) {
         final deviceId = state.extra as String;
-        return DeviceDetailScreen(deviceId: deviceId);
+        return MyDeviceDetailScreen(deviceId: deviceId);
       },
     ),
     GoRoute(
