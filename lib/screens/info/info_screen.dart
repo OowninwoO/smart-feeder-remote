@@ -30,7 +30,7 @@ class InfoScreen extends StatelessWidget {
             onDark: true,
             title: '내 기기',
             onTap: () {
-              context.push('/my_device');
+              context.push('/device_list');
             },
           ),
           const Divider(color: AppColors.divider),
