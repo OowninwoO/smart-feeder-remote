@@ -17,13 +17,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await dotenv.load();
-
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
-  await LocalNotificationService.init();
-  await FcmNotificationService.init();
 
   runApp(
     Phoenix(
@@ -35,8 +30,24 @@ Future<void> main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+
+    /// 알림 수신 시 provider 갱신을 위해 ref 주입이 가능한 위치에서 초기화
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await LocalNotificationService.init();
+      await FcmNotificationService.init();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
