@@ -3,13 +3,13 @@ import 'package:smart_feeder_remote/screens/auth/login_screen.dart';
 import 'package:smart_feeder_remote/screens/feed/device_register_screen.dart';
 import 'package:smart_feeder_remote/screens/feed/feed_screen.dart';
 import 'package:smart_feeder_remote/screens/feed/wifi_setup_webview_screen.dart';
+import 'package:smart_feeder_remote/screens/history/mqtt_log_detail_screen.dart';
+import 'package:smart_feeder_remote/screens/history/mqtt_log_list_screen.dart';
 import 'package:smart_feeder_remote/screens/info/account/account_screen.dart';
 import 'package:smart_feeder_remote/screens/info/info_screen.dart';
 import 'package:smart_feeder_remote/screens/info/my_devices/device_detail_screen.dart';
 import 'package:smart_feeder_remote/screens/info/my_devices/device_list_screen.dart';
 import 'package:smart_feeder_remote/screens/main_screen.dart';
-import 'package:smart_feeder_remote/screens/mqtt_log/mqtt_log_detail_screen.dart';
-import 'package:smart_feeder_remote/screens/mqtt_log/mqtt_log_list_screen.dart';
 import 'package:smart_feeder_remote/screens/schedule/schedule_screen.dart';
 import 'package:smart_feeder_remote/services/auth/auth_service.dart';
 
