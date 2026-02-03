@@ -12,10 +12,10 @@ import 'package:smart_feeder_remote/widgets/buttons/app_icon_text_button.dart';
 import 'package:smart_feeder_remote/widgets/cards/section_card.dart';
 import 'package:smart_feeder_remote/widgets/dialogs/app_confirm_dialog.dart';
 
-class MyDeviceDetailScreen extends ConsumerWidget {
+class DeviceDetailScreen extends ConsumerWidget {
   final String deviceId;
 
-  const MyDeviceDetailScreen({super.key, required this.deviceId});
+  const DeviceDetailScreen({super.key, required this.deviceId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
