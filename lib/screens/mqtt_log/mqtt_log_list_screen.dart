@@ -7,14 +7,14 @@ import 'package:smart_feeder_remote/utils/datetime_utils.dart';
 import 'package:smart_feeder_remote/widgets/cards/app_card.dart';
 import 'package:smart_feeder_remote/widgets/list_tiles/app_list_tile.dart';
 
-class MqttLogScreen extends ConsumerStatefulWidget {
-  const MqttLogScreen({super.key});
+class MqttLogListScreen extends ConsumerStatefulWidget {
+  const MqttLogListScreen({super.key});
 
   @override
-  ConsumerState<MqttLogScreen> createState() => _MqttLogScreenState();
+  ConsumerState<MqttLogListScreen> createState() => _MqttLogListScreenState();
 }
 
-class _MqttLogScreenState extends ConsumerState<MqttLogScreen> {
+class _MqttLogListScreenState extends ConsumerState<MqttLogListScreen> {
   late final ScrollController _controller;
 
   @override
