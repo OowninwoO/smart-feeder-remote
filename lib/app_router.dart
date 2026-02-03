@@ -9,7 +9,7 @@ import 'package:smart_feeder_remote/screens/info/my_devices/device_detail_screen
 import 'package:smart_feeder_remote/screens/info/my_devices/device_list_screen.dart';
 import 'package:smart_feeder_remote/screens/main_screen.dart';
 import 'package:smart_feeder_remote/screens/mqtt_log/mqtt_log_detail_screen.dart';
-import 'package:smart_feeder_remote/screens/mqtt_log/mqtt_log_screen.dart';
+import 'package:smart_feeder_remote/screens/mqtt_log/mqtt_log_list_screen.dart';
 import 'package:smart_feeder_remote/screens/schedule/schedule_screen.dart';
 import 'package:smart_feeder_remote/services/auth/auth_service.dart';
 
@@ -105,9 +105,9 @@ final GoRouter appRouter = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: '/mqtt_log',
-              name: 'mqtt_log',
-              builder: (context, state) => const MqttLogScreen(),
+              path: '/mqtt_log_list',
+              name: 'mqtt_log_list',
+              builder: (context, state) => const MqttLogListScreen(),
             ),
           ],
         ),
