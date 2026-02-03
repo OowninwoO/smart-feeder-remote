@@ -5,13 +5,12 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-
-import 'app_router.dart';
-import 'auto_login_gate.dart';
-import 'firebase_options.dart';
-import 'services/notifications/fcm_notification_service.dart';
-import 'services/notifications/local_notification_service.dart';
-import 'theme/app_theme.dart';
+import 'package:smart_feeder_remote/app_router.dart';
+import 'package:smart_feeder_remote/auto_login_gate.dart';
+import 'package:smart_feeder_remote/firebase_options.dart';
+import 'package:smart_feeder_remote/services/notifications/fcm_notification_service.dart';
+import 'package:smart_feeder_remote/services/notifications/local_notification_service.dart';
+import 'package:smart_feeder_remote/theme/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,14 +29,14 @@ Future<void> main() async {
   );
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  ConsumerState<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends ConsumerState<MyApp> {
   @override
   void initState() {
     super.initState();
@@ -45,7 +44,7 @@ class _MyAppState extends State<MyApp> {
     /// 알림 수신 시 provider 갱신을 위해 ref 주입이 가능한 위치에서 초기화
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await LocalNotificationService.init();
-      await FcmNotificationService.init();
+      await FcmNotificationService.init(ref);
     });
   }
 

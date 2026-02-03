@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
-
-import '../../utils/log_utils.dart';
-import 'local_notification_service.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:smart_feeder_remote/services/notifications/local_notification_service.dart';
+import 'package:smart_feeder_remote/utils/log_utils.dart';
 
 class FcmNotificationService {
   FcmNotificationService._();
 
-  static Future<void> init() async {
+  static Future<void> init(WidgetRef ref) async {
     /// 포그라운드에선 FCM이 시스템 알림을 자동으로 띄우지 않아서 로컬 알림으로 직접 표시
     FirebaseMessaging.onMessage.listen((message) async {
       LogUtils.d('onMessage data=${message.data}');
