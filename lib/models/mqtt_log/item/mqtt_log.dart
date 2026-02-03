@@ -16,4 +16,14 @@ abstract class MqttLog with _$MqttLog {
 
   factory MqttLog.fromJson(Map<String, dynamic> json) =>
       _$MqttLogFromJson(json);
+
+  factory MqttLog.fromFcm(Map<String, dynamic> data) {
+    return MqttLog(
+      id: int.parse(data['id']),
+      receivedAt: DateTime.parse(data['receivedAt']),
+      deviceId: data['deviceId'],
+      topic: data['topic'],
+      payload: data['payload'].isEmpty ? null : data['payload'],
+    );
+  }
 }
