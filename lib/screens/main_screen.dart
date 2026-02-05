@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:smart_feeder_remote/widgets/buttons/app_icon_button.dart';
 
 import '../widgets/dialogs/primary_device_select_dialog.dart';
 
@@ -15,8 +16,10 @@ class MainScreen extends StatelessWidget {
         title: const Text('Smart Feeder Remote'),
         centerTitle: true,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.devices),
+          AppIconButton(
+            bgColor: Colors.transparent,
+            fgColor: Colors.white,
+            icon: Icons.devices,
             onPressed: () {
               showDialog(
                 context: context,
