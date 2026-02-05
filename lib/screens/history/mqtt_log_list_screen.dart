@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:smart_feeder_remote/providers/mqtt_log/mqtt_log_page_provider.dart';
 import 'package:smart_feeder_remote/theme/app_colors.dart';
 import 'package:smart_feeder_remote/utils/datetime_utils.dart';
+import 'package:smart_feeder_remote/widgets/buttons/app_icon_button.dart';
 import 'package:smart_feeder_remote/widgets/cards/app_card.dart';
 import 'package:smart_feeder_remote/widgets/list_tiles/app_list_tile.dart';
 
@@ -83,9 +84,9 @@ class _MqttLogListScreenState extends ConsumerState<MqttLogListScreen> {
         Positioned(
           right: 16,
           bottom: 16,
-          child: IconButton(
+          child: AppIconButton(
+            icon: Icons.arrow_upward,
             onPressed: _scrollToTop,
-            icon: const Icon(Icons.arrow_upward),
           ),
         ),
       ],
