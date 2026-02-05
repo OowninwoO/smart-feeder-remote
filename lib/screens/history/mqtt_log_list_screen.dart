@@ -15,12 +15,12 @@ class MqttLogListScreen extends ConsumerStatefulWidget {
 }
 
 class _MqttLogListScreenState extends ConsumerState<MqttLogListScreen> {
-  late final ScrollController _controller;
+  final _controller = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    _controller = ScrollController()..addListener(_onScroll);
+    _controller.addListener(_onScroll);
   }
 
   void _onScroll() {
@@ -29,6 +29,16 @@ class _MqttLogListScreenState extends ConsumerState<MqttLogListScreen> {
     if (_controller.position.extentAfter < 200) {
       ref.read(mqttLogPageProvider.notifier).fetchNext();
     }
+  }
+
+  void _scrollToTop() {
+    if (!_controller.hasClients) return;
+
+    _controller.animateTo(
+      0,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeOut,
+    );
   }
 
   @override
@@ -43,28 +53,42 @@ class _MqttLogListScreenState extends ConsumerState<MqttLogListScreen> {
     final mqttLogPage = ref.watch(mqttLogPageProvider);
     final mqttLogList = mqttLogPage?.items ?? [];
 
-    return mqttLogList.isEmpty
-        ? const Center(child: Text('기록이 없습니다.'))
-        : ListView.separated(
-            controller: _controller,
-            padding: const EdgeInsets.all(16),
-            separatorBuilder: (_, __) => const SizedBox(height: 16),
-            itemCount: mqttLogList.length,
-            itemBuilder: (context, index) {
-              final mqttLog = mqttLogList[index];
+    if (mqttLogList.isEmpty) {
+      return const Center(child: Text('기록이 없습니다.'));
+    }
 
-              return AppCard(
-                color: AppColors.cardPrimary,
-                child: AppListTile(
-                  title: mqttLog.topic,
-                  subtitle:
-                      '${mqttLog.deviceId} • ${DateTimeUtils.ymdHms(mqttLog.receivedAt)}',
-                  onTap: () {
-                    context.push('/mqtt_log_detail', extra: mqttLog.id);
-                  },
-                ),
-              );
-            },
-          );
+    return Stack(
+      children: [
+        ListView.separated(
+          controller: _controller,
+          padding: const EdgeInsets.all(16),
+          separatorBuilder: (_, __) => const SizedBox(height: 16),
+          itemCount: mqttLogList.length,
+          itemBuilder: (context, index) {
+            final mqttLog = mqttLogList[index];
+
+            return AppCard(
+              color: AppColors.cardPrimary,
+              child: AppListTile(
+                title: mqttLog.topic,
+                subtitle:
+                    '${mqttLog.deviceId} • ${DateTimeUtils.ymdHms(mqttLog.receivedAt)}',
+                onTap: () {
+                  context.push('/mqtt_log_detail', extra: mqttLog.id);
+                },
+              ),
+            );
+          },
+        ),
+        Positioned(
+          right: 16,
+          bottom: 16,
+          child: IconButton(
+            onPressed: _scrollToTop,
+            icon: const Icon(Icons.arrow_upward),
+          ),
+        ),
+      ],
+    );
   }
 }
