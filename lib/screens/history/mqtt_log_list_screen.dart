@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:smart_feeder_remote/models/mqtt_log/item/mqtt_log_display.dart';
 import 'package:smart_feeder_remote/providers/mqtt_log/mqtt_log_page_provider.dart';
 import 'package:smart_feeder_remote/theme/app_colors.dart';
 import 'package:smart_feeder_remote/utils/datetime_utils.dart';
@@ -67,17 +68,17 @@ class _MqttLogListScreenState extends ConsumerState<MqttLogListScreen> {
           itemCount: mqttLogList.length,
           itemBuilder: (context, index) {
             final mqttLog = mqttLogList[index];
-            final payload = mqttLog.payload;
-            final title = payload == null
-                ? mqttLog.topic
-                : '${mqttLog.topic}/$payload';
+            final display = MqttLogDisplay.parse(
+              topic: mqttLog.topic,
+              payload: mqttLog.payload,
+            );
 
             return AppCard(
               color: AppColors.cardPrimary,
               child: AppListTile(
-                title: title,
+                title: display.title,
                 subtitle:
-                    '${mqttLog.deviceId} • ${DateTimeUtils.ymdHms(mqttLog.receivedAt)}',
+                    '${display.category} • ${mqttLog.deviceId} • ${DateTimeUtils.ymdHms(mqttLog.receivedAt)}',
                 onTap: () {
                   context.push('/mqtt_log_detail', extra: mqttLog.id);
                 },
