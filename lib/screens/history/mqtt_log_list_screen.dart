@@ -67,11 +67,15 @@ class _MqttLogListScreenState extends ConsumerState<MqttLogListScreen> {
           itemCount: mqttLogList.length,
           itemBuilder: (context, index) {
             final mqttLog = mqttLogList[index];
+            final payload = mqttLog.payload;
+            final title = payload == null
+                ? mqttLog.topic
+                : '${mqttLog.topic}/$payload';
 
             return AppCard(
               color: AppColors.cardPrimary,
               child: AppListTile(
-                title: mqttLog.topic,
+                title: title,
                 subtitle:
                     '${mqttLog.deviceId} • ${DateTimeUtils.ymdHms(mqttLog.receivedAt)}',
                 onTap: () {
