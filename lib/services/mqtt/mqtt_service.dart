@@ -77,17 +77,19 @@ class MqttService {
           );
 
           /// payload 없음
-          /// 예시) mqtt received:feeder/SF-CF3B015C/feed_button
-          /// 예시) mqtt received:feeder/SF-CF3B015C/factory_reset
+          /// mqtt received:feeder/SF-CF3B015C/feed_button
+          /// mqtt received:feeder/SF-CF3B015C/factory_reset
           ///
           /// payload 있음
-          /// 예시) mqtt received:feeder/SF-CF3B015C/presence/online
-          /// 예시) mqtt received:feeder/SF-CF3B015C/presence/offline
-          /// 예시) mqtt received:feeder/SF-CF3B015C/activity/state/feeding
-          /// 예시) mqtt received:feeder/SF-CF3B015C/activity/state/idle
-          /// 예시) mqtt received:feeder/SF-CF3B015C/activity/state/unknown
-          /// 예시) mqtt received:feeder/SF-CF3B015C/activity/event/feeding_started_remote
-          /// 예시) mqtt received:feeder/SF-CF3B015C/activity/event/feeding_finished_remote
+          /// mqtt received:feeder/SF-CF3B015C/presence/online
+          /// mqtt received:feeder/SF-CF3B015C/presence/offline
+          /// mqtt received:feeder/SF-CF3B015C/activity/state/feeding
+          /// mqtt received:feeder/SF-CF3B015C/activity/state/idle
+          /// mqtt received:feeder/SF-CF3B015C/activity/state/unknown
+          /// mqtt received:feeder/SF-CF3B015C/activity/event/feeding_started_remote
+          /// mqtt received:feeder/SF-CF3B015C/activity/event/feeding_finished_remote
+          /// mqtt received:feeder/SF-CF3B015C/activity/event/feeding_started_local
+          /// mqtt received:feeder/SF-CF3B015C/activity/event/feeding_finished_local
           if (message.isEmpty) {
             LogUtils.d('mqtt received:$topic');
           } else {
@@ -95,20 +97,17 @@ class MqttService {
           }
 
           final parts = topic.split('/');
-          if (parts.length < 3) continue;
 
           final deviceId = parts[1];
           if (deviceId != primaryDeviceId) continue;
 
           final action = parts[2];
-
           switch (action) {
             case 'presence':
               primaryDevicePresence.value = message;
               break;
 
             case 'activity':
-              if (parts.length < 4) break;
               final subAction = parts[3];
               if (subAction == 'state') {
                 primaryDeviceActivityState.value = message;
