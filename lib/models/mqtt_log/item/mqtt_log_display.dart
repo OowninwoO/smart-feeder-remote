@@ -53,6 +53,10 @@ class MqttLogDisplay {
                 return const MqttLogDisplay(category: '활동', title: '원격 급식 시작');
               case 'feeding_finished_remote':
                 return const MqttLogDisplay(category: '활동', title: '원격 급식 완료');
+              case 'feeding_started_local':
+                return const MqttLogDisplay(category: '활동', title: '수동 급식 시작');
+              case 'feeding_finished_local':
+                return const MqttLogDisplay(category: '활동', title: '수동 급식 완료');
               default:
                 return unknown;
             }
