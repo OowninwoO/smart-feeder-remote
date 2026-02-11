@@ -24,9 +24,12 @@ class FcmNotificationService {
       final mqttLog = MqttLog.fromFcm(data);
       ref.read(mqttLogPageProvider.notifier).prepend(mqttLog);
 
+      /// notification 없으면 로컬 알림 안 띄움
+      if (notification == null) return;
+
       await LocalNotificationService.show(
-        title: notification?.title,
-        body: notification?.body,
+        title: notification.title,
+        body: notification.body,
         payload: jsonEncode(data),
       );
     });
