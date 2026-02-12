@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_feeder_remote/models/mqtt_log/item/mqtt_log.dart';
 import 'package:smart_feeder_remote/providers/mqtt_log/mqtt_log_page_provider.dart';
+import 'package:smart_feeder_remote/services/mqtt/mqtt_log_bg_store.dart';
 import 'package:smart_feeder_remote/services/notifications/local_notification_service.dart';
 import 'package:smart_feeder_remote/utils/log_utils.dart';
 
@@ -65,4 +66,6 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     'backgroundMessage notification title=${notification?.title} body=${notification?.body}',
   );
   LogUtils.d('backgroundMessage data=${jsonEncode(message.data)}');
+
+  await MqttLogBgStore.appendFromFcm(message.data);
 }
