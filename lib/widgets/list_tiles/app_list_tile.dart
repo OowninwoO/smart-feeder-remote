@@ -30,6 +30,7 @@ class AppListTile extends StatelessWidget {
       leading: leading != null
           ? Text(
               leading!,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: color,
                 fontSize: 18,
