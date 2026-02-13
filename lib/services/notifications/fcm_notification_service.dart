@@ -22,6 +22,11 @@ class FcmNotificationService {
       );
       LogUtils.d('onMessage data=${jsonEncode(data)}');
 
+      /// 알림을 스와이프로 삭제하면 onMessage가 빈 payload로 한 번 더 호출될 수 있습니다.
+      /// 이때 notification은 null, data는 {}로 들어올 수 있습니다.
+      /// 설계상 notification 포함 여부와 관계없이 data는 항상 존재하므로, data가 비어 있으면 return 합니다.
+      if (data.isEmpty) return;
+
       final mqttLog = MqttLog.fromFcm(data);
       ref.read(mqttLogPageProvider.notifier).prepend(mqttLog);
 
