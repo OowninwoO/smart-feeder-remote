@@ -26,6 +26,10 @@ class _MqttLogListScreenState extends ConsumerState<MqttLogListScreen>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     _controller.addListener(_onScroll);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _takeAllBgLogs();
+    });
   }
 
   @override
