@@ -15,7 +15,7 @@ class AppListTile extends StatelessWidget {
   });
 
   final bool onDark;
-  final Widget? leading;
+  final String? leading;
   final String title;
   final String? subtitle;
   final bool showTrailing;
@@ -27,7 +27,16 @@ class AppListTile extends StatelessWidget {
     final color = onDark ? AppColors.textOnDark : AppColors.textOnLight;
 
     return ListTile(
-      leading: leading,
+      leading: leading != null
+          ? Text(
+              leading!,
+              style: TextStyle(
+                color: color,
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+              ),
+            )
+          : null,
       title: Text(
         title,
         style: TextStyle(
