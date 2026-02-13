@@ -39,6 +39,14 @@ class _MqttLogListScreenState extends ConsumerState<MqttLogListScreen>
     }
   }
 
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _controller.removeListener(_onScroll);
+    _controller.dispose();
+    super.dispose();
+  }
+
   Future<void> _takeAllBgLogs() async {
     final bgMqttLogs = await MqttLogBgStore.takeAll();
 
@@ -63,14 +71,6 @@ class _MqttLogListScreenState extends ConsumerState<MqttLogListScreen>
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeOut,
     );
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    _controller.removeListener(_onScroll);
-    _controller.dispose();
-    super.dispose();
   }
 
   @override
