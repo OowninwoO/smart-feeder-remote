@@ -58,7 +58,16 @@ class MqttLogPageProvider extends _$MqttLogPageProvider {
     final exists = current.items.any((e) => e.id == mqttLog.id);
     if (exists) return;
 
-    state = current.copyWith(items: [mqttLog, ...current.items]);
+    /// receivedAt 최신순으로 정렬합니다.
+    /// receivedAt이 같으면 id 최신순으로 정렬합니다.
+    final items = [mqttLog, ...current.items]
+      ..sort((a, b) {
+        final t = b.receivedAt.compareTo(a.receivedAt);
+        if (t != 0) return t;
+        return b.id.compareTo(a.id);
+      });
+
+    state = current.copyWith(items: items);
   }
 
   void clear() {
