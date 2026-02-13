@@ -66,11 +66,15 @@ class FcmNotificationService {
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   final notification = message.notification;
+  final data = message.data;
 
   LogUtils.d(
     'backgroundMessage notification title=${notification?.title} body=${notification?.body}',
   );
-  LogUtils.d('backgroundMessage data=${jsonEncode(message.data)}');
+  LogUtils.d('backgroundMessage data=${jsonEncode(data)}');
 
-  await MqttLogBgStore.appendFromFcm(message.data);
+  if (data.isEmpty) return;
+
+  final mqttLog = MqttLog.fromFcm(data);
+  await MqttLogBgStore.append(mqttLog);
 }
