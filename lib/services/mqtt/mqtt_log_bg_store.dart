@@ -22,6 +22,10 @@ class MqttLogBgStore {
   static Future<List<MqttLog>> takeAll() async {
     final prefs = await SharedPreferences.getInstance();
 
+    /// SharedPreferences는 isolate별로 캐시를 사용합니다.
+    /// 백그라운드에서 저장된 값을 읽기 전에 reload가 필요합니다.
+    await prefs.reload();
+
     final raw = prefs.getString(_key);
     if (raw == null) return [];
 
