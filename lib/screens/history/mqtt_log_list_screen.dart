@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_feeder_remote/models/mqtt_log/item/mqtt_log_display.dart';
 import 'package:smart_feeder_remote/providers/mqtt_log/mqtt_log_page_provider.dart';
+import 'package:smart_feeder_remote/services/mqtt/mqtt_log_bg_store.dart';
 import 'package:smart_feeder_remote/theme/app_colors.dart';
 import 'package:smart_feeder_remote/utils/datetime_utils.dart';
 import 'package:smart_feeder_remote/widgets/buttons/app_icon_button.dart';
@@ -16,13 +17,30 @@ class MqttLogListScreen extends ConsumerStatefulWidget {
   ConsumerState<MqttLogListScreen> createState() => _MqttLogListScreenState();
 }
 
-class _MqttLogListScreenState extends ConsumerState<MqttLogListScreen> {
+class _MqttLogListScreenState extends ConsumerState<MqttLogListScreen>
+    with WidgetsBindingObserver {
   final _controller = ScrollController();
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _controller.addListener(_onScroll);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      _takeAllBgLogs();
+    }
+  }
+
+  Future<void> _takeAllBgLogs() async {
+    final bgMqttLogs = await MqttLogBgStore.takeAll();
+
+    for (final log in bgMqttLogs.reversed) {
+      ref.read(mqttLogPageProvider.notifier).prepend(log);
+    }
   }
 
   void _onScroll() {
@@ -45,6 +63,7 @@ class _MqttLogListScreenState extends ConsumerState<MqttLogListScreen> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _controller.removeListener(_onScroll);
     _controller.dispose();
     super.dispose();
