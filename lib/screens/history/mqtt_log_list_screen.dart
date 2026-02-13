@@ -76,6 +76,7 @@ class _MqttLogListScreenState extends ConsumerState<MqttLogListScreen> {
             return AppCard(
               color: AppColors.cardPrimary,
               child: AppListTile(
+                leading: mqttLog.id.toString(),
                 title: display.title,
                 subtitle:
                     '${display.category} • ${mqttLog.deviceId} • ${DateTimeUtils.ymdHms(mqttLog.receivedAt)}',
