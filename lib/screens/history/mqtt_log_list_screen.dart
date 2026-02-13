@@ -50,7 +50,7 @@ class _MqttLogListScreenState extends ConsumerState<MqttLogListScreen>
   Future<void> _takeAllBgLogs() async {
     final bgMqttLogs = await MqttLogBgStore.takeAll();
 
-    for (final log in bgMqttLogs.reversed) {
+    for (final log in bgMqttLogs) {
       ref.read(mqttLogPageProvider.notifier).prepend(log);
     }
   }
