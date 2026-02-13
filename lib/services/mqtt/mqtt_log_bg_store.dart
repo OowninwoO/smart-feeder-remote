@@ -8,13 +8,13 @@ class MqttLogBgStore {
 
   static const _key = 'bg_mqtt_logs';
 
-  static Future<void> appendFromFcm(Map<String, dynamic> data) async {
+  static Future<void> append(MqttLog mqttLog) async {
     final prefs = await SharedPreferences.getInstance();
 
     final raw = prefs.getString(_key);
     final list = raw == null ? [] : jsonDecode(raw);
 
-    list.add(MqttLog.fromFcm(data).toJson());
+    list.add(mqttLog.toJson());
 
     await prefs.setString(_key, jsonEncode(list));
   }
