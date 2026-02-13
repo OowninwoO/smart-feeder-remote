@@ -6,6 +6,7 @@ class AppListTile extends StatelessWidget {
   const AppListTile({
     super.key,
     this.onDark = false,
+    this.leading,
     required this.title,
     this.subtitle,
     this.showTrailing = false,
@@ -14,6 +15,7 @@ class AppListTile extends StatelessWidget {
   });
 
   final bool onDark;
+  final Widget? leading;
   final String title;
   final String? subtitle;
   final bool showTrailing;
@@ -25,6 +27,7 @@ class AppListTile extends StatelessWidget {
     final color = onDark ? AppColors.textOnDark : AppColors.textOnLight;
 
     return ListTile(
+      leading: leading,
       title: Text(
         title,
         style: TextStyle(
