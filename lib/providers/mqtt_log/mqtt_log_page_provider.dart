@@ -21,21 +21,23 @@ class MqttLogPageProvider extends _$MqttLogPageProvider {
 
   Future<void> fetchNext() async {
     if (_isLoadingMore) return;
-    if (state!.hasMore != true) return;
+
+    final current = state;
+    if (current == null) return;
+    if (current.hasMore != true) return;
 
     _isLoadingMore = true;
 
     try {
       final res = await MqttLogsApi.logs(
-        cursorAt: state!.cursorAt?.toIso8601String(),
-        cursorId: state!.cursorId,
+        cursorAt: current.cursorAt?.toIso8601String(),
+        cursorId: current.cursorId,
       );
 
-      final data = res['data'];
-      final nextPage = MqttLogPage.fromJson(data);
+      final nextPage = MqttLogPage.fromJson(res['data']);
 
-      state = state!.copyWith(
-        items: [...state!.items, ...nextPage.items],
+      state = current.copyWith(
+        items: [...current.items, ...nextPage.items],
         cursorAt: nextPage.cursorAt,
         cursorId: nextPage.cursorId,
         hasMore: nextPage.hasMore,
@@ -51,6 +53,10 @@ class MqttLogPageProvider extends _$MqttLogPageProvider {
   void prepend(MqttLog mqttLog) {
     final current = state;
     if (current == null) return;
+
+    /// 중복 방지
+    final exists = current.items.any((e) => e.id == mqttLog.id);
+    if (exists) return;
 
     state = current.copyWith(items: [mqttLog, ...current.items]);
   }
