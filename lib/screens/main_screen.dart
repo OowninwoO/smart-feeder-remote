@@ -35,7 +35,7 @@ class MainScreen extends StatelessWidget {
         onDestinationSelected: (i) => navigationShell.goBranch(i),
         destinations: const [
           NavigationDestination(icon: Icon(Icons.pets), label: '급식'),
-          NavigationDestination(icon: Icon(Icons.schedule), label: '스케줄'),
+          // NavigationDestination(icon: Icon(Icons.schedule), label: '스케줄'),
           NavigationDestination(icon: Icon(Icons.history), label: '기록'),
           NavigationDestination(icon: Icon(Icons.info_outline), label: '정보'),
         ],

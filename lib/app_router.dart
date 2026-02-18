@@ -10,7 +10,6 @@ import 'package:smart_feeder_remote/screens/info/info_screen.dart';
 import 'package:smart_feeder_remote/screens/info/my_devices/device_detail_screen.dart';
 import 'package:smart_feeder_remote/screens/info/my_devices/device_list_screen.dart';
 import 'package:smart_feeder_remote/screens/main_screen.dart';
-import 'package:smart_feeder_remote/screens/schedule/schedule_screen.dart';
 import 'package:smart_feeder_remote/services/auth/auth_service.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -93,15 +92,15 @@ final GoRouter appRouter = GoRouter(
             ),
           ],
         ),
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: '/schedule',
-              name: 'schedule',
-              builder: (context, state) => const ScheduleScreen(),
-            ),
-          ],
-        ),
+        // StatefulShellBranch(
+        //   routes: [
+        //     GoRoute(
+        //       path: '/schedule',
+        //       name: 'schedule',
+        //       builder: (context, state) => const ScheduleScreen(),
+        //     ),
+        //   ],
+        // ),
         StatefulShellBranch(
           routes: [
             GoRoute(
