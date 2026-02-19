@@ -48,3 +48,4 @@ app.*.map.json
 
 android/key.properties
 android/app/app_keystore.jks
+android/app/google-services.json
