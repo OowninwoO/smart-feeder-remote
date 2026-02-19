@@ -92,6 +92,7 @@ class DeviceDetailScreen extends ConsumerWidget {
                         );
 
                         await ref.read(userDataSyncProvider).loadDevices();
+                        await ref.read(userDataSyncProvider).loadMqttLogs();
 
                         ToastUtils.success('기기를 삭제했습니다.');
                         context.pop();
