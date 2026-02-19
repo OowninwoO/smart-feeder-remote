@@ -47,6 +47,7 @@ class _DeviceRegisterScreenState extends ConsumerState<DeviceRegisterScreen> {
       );
 
       await ref.read(userDataSyncProvider).loadDevices();
+      await ref.read(userDataSyncProvider).loadMqttLogs();
 
       ToastUtils.success('기기가 성공적으로 등록되었습니다.');
       context.pop();
