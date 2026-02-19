@@ -42,10 +42,12 @@ class MqttLogDisplay {
         switch (topicRest[1]) {
           case 'state':
             switch (payload) {
-              case 'feeding':
-                return const MqttLogDisplay(category: '상태', title: '급식 중');
               case 'idle':
                 return const MqttLogDisplay(category: '상태', title: '대기');
+              case 'feeding':
+                return const MqttLogDisplay(category: '상태', title: '급식 중');
+              case 'unknown':
+                return unknown;
               default:
                 return unknown;
             }

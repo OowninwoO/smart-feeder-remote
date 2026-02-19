@@ -13,6 +13,8 @@ enum ActivityState {
         return ActivityState.idle;
       case 'feeding':
         return ActivityState.feeding;
+      case 'unknown':
+        return ActivityState.unknown;
       default:
         return ActivityState.unknown;
     }
