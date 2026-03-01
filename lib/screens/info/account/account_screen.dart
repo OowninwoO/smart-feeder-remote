@@ -86,6 +86,24 @@ class AccountScreen extends StatelessWidget {
               },
             ),
             const Divider(color: AppColors.divider),
+            AppListTile(
+              onDark: true,
+              title: '회원탈퇴',
+              onTap: () async {
+                final confirmed = await showDialog<bool>(
+                  context: context,
+                  builder: (ctx) => const AppConfirmDialog(
+                    title: '회원탈퇴',
+                    content: '정말 회원탈퇴하시겠습니까?\n탈퇴 시 계정이 삭제되며, 연결된 기기는 해제됩니다.',
+                    confirmText: '탈퇴',
+                    cancelText: '취소',
+                  ),
+                );
+
+                if (confirmed != true) return;
+              },
+            ),
+            const Divider(color: AppColors.divider),
           ],
         ),
       ),
