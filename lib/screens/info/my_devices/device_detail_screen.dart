@@ -5,7 +5,6 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:smart_feeder_remote/api/devices_api.dart';
 import 'package:smart_feeder_remote/providers/device/device_list_provider.dart';
 import 'package:smart_feeder_remote/providers/user_data_sync_provider.dart';
-import 'package:smart_feeder_remote/services/mqtt/mqtt_service.dart';
 import 'package:smart_feeder_remote/utils/datetime_utils.dart';
 import 'package:smart_feeder_remote/utils/toast_utils.dart';
 import 'package:smart_feeder_remote/widgets/buttons/app_icon_text_button.dart';
@@ -84,9 +83,6 @@ class DeviceDetailScreen extends ConsumerWidget {
                       context.loaderOverlay.show();
 
                       try {
-                        final topic = 'feeder/${device.deviceId}/factory_reset';
-                        MqttService.publish(topic: topic);
-
                         await DevicesApi.deleteDevice(
                           deviceId: device.deviceId,
                         );
