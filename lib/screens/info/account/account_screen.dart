@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-
-import '../../../services/auth/auth_service.dart';
-import '../../../services/mqtt/mqtt_service.dart';
-import '../../../theme/app_colors.dart';
-import '../../../utils/log_utils.dart';
-import '../../../widgets/dialogs/app_confirm_dialog.dart';
-import '../../../widgets/list_tiles/app_list_tile.dart';
+import 'package:smart_feeder_remote/services/auth/auth_service.dart';
+import 'package:smart_feeder_remote/services/mqtt/mqtt_service.dart';
+import 'package:smart_feeder_remote/theme/app_colors.dart';
+import 'package:smart_feeder_remote/utils/log_utils.dart';
+import 'package:smart_feeder_remote/utils/toast_utils.dart';
+import 'package:smart_feeder_remote/widgets/dialogs/app_confirm_dialog.dart';
+import 'package:smart_feeder_remote/widgets/list_tiles/app_list_tile.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
@@ -80,9 +80,13 @@ class AccountScreen extends StatelessWidget {
 
                 if (confirmed != true) return;
 
-                MqttService.disconnect();
-                await AuthService.signOut();
-                Phoenix.rebirth(context);
+                try {
+                  MqttService.disconnect();
+                  await AuthService.signOut();
+                  Phoenix.rebirth(context);
+                } catch (e) {
+                  ToastUtils.error('로그아웃에 실패했습니다. 다시 시도해주세요.');
+                }
               },
             ),
             const Divider(color: AppColors.divider),
@@ -101,6 +105,14 @@ class AccountScreen extends StatelessWidget {
                 );
 
                 if (confirmed != true) return;
+
+                try {
+                  MqttService.disconnect();
+                  await AuthService.withdraw();
+                  Phoenix.rebirth(context);
+                } catch (e) {
+                  ToastUtils.error('회원탈퇴에 실패했습니다. 다시 시도해주세요.');
+                }
               },
             ),
             const Divider(color: AppColors.divider),

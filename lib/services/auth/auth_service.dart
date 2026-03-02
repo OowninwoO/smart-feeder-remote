@@ -47,4 +47,9 @@ class AuthService {
         break;
     }
   }
+
+  static Future<void> withdraw() async {
+    await UsersApi.withdraw();
+    await signOut();
+  }
 }

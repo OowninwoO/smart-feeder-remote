@@ -14,4 +14,10 @@ class UsersApi {
 
     return response.data;
   }
+
+  static Future<Map<String, dynamic>> withdraw() async {
+    final response = await DioClient.dio.delete('/api/users/withdraw');
+
+    return response.data;
+  }
 }
