@@ -15,6 +15,7 @@ class MainScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Smart Feeder Remote'),
         centerTitle: true,
+        actionsPadding: const EdgeInsets.only(right: 16),
         actions: [
           AppIconButton(
             bgColor: Colors.transparent,
