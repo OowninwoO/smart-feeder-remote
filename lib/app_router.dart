@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:smart_feeder_remote/screens/auth/login_screen.dart';
+import 'package:smart_feeder_remote/screens/feed/ai_chatbot_screen.dart';
 import 'package:smart_feeder_remote/screens/feed/device_register_screen.dart';
 import 'package:smart_feeder_remote/screens/feed/feed_screen.dart';
 import 'package:smart_feeder_remote/screens/feed/wifi_setup_webview_screen.dart';
@@ -45,6 +46,11 @@ final GoRouter appRouter = GoRouter(
         final deviceId = state.extra as String;
         return DeviceRegisterScreen(deviceId: deviceId);
       },
+    ),
+    GoRoute(
+      path: '/ai_chatbot',
+      name: 'ai_chatbot',
+      builder: (context, state) => const AiChatbotScreen(),
     ),
 
     /// 기록

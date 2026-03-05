@@ -246,7 +246,7 @@ class FeedScreen extends ConsumerWidget {
           bottom: 16,
           child: AppIconButton(
             icon: Icons.smart_toy_outlined,
-            onPressed: () {},
+            onPressed: () => context.push('/ai_chatbot'),
           ),
         ),
       ],
