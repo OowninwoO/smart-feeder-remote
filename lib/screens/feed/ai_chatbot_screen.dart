@@ -1,10 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:smart_feeder_remote/api/qnas_api.dart';
 import 'package:smart_feeder_remote/theme/app_colors.dart';
+import 'package:smart_feeder_remote/utils/toast_utils.dart';
 import 'package:smart_feeder_remote/widgets/buttons/app_icon_button.dart';
 import 'package:smart_feeder_remote/widgets/cards/app_card.dart';
 
-class AiChatbotScreen extends StatelessWidget {
+class AiChatbotScreen extends StatefulWidget {
   const AiChatbotScreen({super.key});
+
+  @override
+  State<AiChatbotScreen> createState() => _AiChatbotScreenState();
+}
+
+class _AiChatbotScreenState extends State<AiChatbotScreen> {
+  final _textController = TextEditingController();
+
+  Future<void> _sendMessage() async {
+    final text = _textController.text.trim();
+    if (text.isEmpty) return;
+
+    try {
+      final response = await QnasApi.getAnswer(text: text);
+      _textController.clear();
+      ToastUtils.success(response.toString());
+    } catch (e) {
+      ToastUtils.error(e.toString());
+    }
+  }
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +78,10 @@ class AiChatbotScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: TextField(
-                      decoration: InputDecoration(
+                      controller: _textController,
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(
                           borderSide: BorderSide(color: AppColors.secondary),
                         ),
@@ -64,13 +93,14 @@ class AiChatbotScreen extends StatelessWidget {
                         ),
                         hintText: '메시지를 입력하세요',
                       ),
-                      textInputAction: TextInputAction.send,
                       minLines: 1,
                       maxLines: 5,
+                      textInputAction: TextInputAction.send,
+                      onSubmitted: (_) => _sendMessage(),
                     ),
                   ),
                   const SizedBox(width: 16),
-                  AppIconButton(icon: Icons.send, onPressed: () {}),
+                  AppIconButton(icon: Icons.send, onPressed: _sendMessage),
                 ],
               ),
             ),
