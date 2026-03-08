@@ -110,6 +110,7 @@ class _AiChatbotScreenState extends State<AiChatbotScreen> {
                                       height: 20,
                                       child: CircularProgressIndicator(
                                         strokeWidth: 2,
+                                        color: AppColors.textOnLight,
                                       ),
                                     )
                                   : Text(
