@@ -14,6 +14,8 @@ class AiChatbotScreen extends StatefulWidget {
 
 class _AiChatbotScreenState extends State<AiChatbotScreen> {
   final _textController = TextEditingController();
+  final _scrollController = ScrollController();
+
   final List<ChatMessage> _messages = [];
 
   Future<void> _sendMessage() async {
@@ -27,6 +29,7 @@ class _AiChatbotScreenState extends State<AiChatbotScreen> {
     });
 
     _textController.clear();
+    _scrollToBottom();
 
     try {
       final response = await QnasApi.getAnswer(text: text);
@@ -42,12 +45,27 @@ class _AiChatbotScreenState extends State<AiChatbotScreen> {
           answer: '응답을 불러오지 못했습니다.',
         );
       });
+    } finally {
+      _scrollToBottom();
     }
+  }
+
+  void _scrollToBottom() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_scrollController.hasClients) return;
+
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    });
   }
 
   @override
   void dispose() {
     _textController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -61,6 +79,7 @@ class _AiChatbotScreenState extends State<AiChatbotScreen> {
           children: [
             Expanded(
               child: ListView.separated(
+                controller: _scrollController,
                 padding: const EdgeInsets.all(16),
                 itemCount: _messages.length,
                 separatorBuilder: (context, index) =>
