@@ -20,8 +20,10 @@ class _AiChatbotScreenState extends State<AiChatbotScreen> {
     final text = _textController.text.trim();
     if (text.isEmpty) return;
 
+    final messageIndex = _messages.length;
+
     setState(() {
-      _messages.add(ChatMessage(text: text, isMe: true));
+      _messages.add(ChatMessage(question: text));
     });
 
     _textController.clear();
@@ -30,11 +32,15 @@ class _AiChatbotScreenState extends State<AiChatbotScreen> {
       final response = await QnasApi.getAnswer(text: text);
 
       setState(() {
-        _messages.add(ChatMessage(text: response.toString(), isMe: false));
+        _messages[messageIndex] = _messages[messageIndex].copyWith(
+          answer: response.toString(),
+        );
       });
     } catch (e) {
       setState(() {
-        _messages.add(const ChatMessage(text: '응답을 불러오지 못했습니다.', isMe: false));
+        _messages[messageIndex] = _messages[messageIndex].copyWith(
+          answer: '응답을 불러오지 못했습니다.',
+        );
       });
     }
   }
@@ -56,33 +62,65 @@ class _AiChatbotScreenState extends State<AiChatbotScreen> {
             Expanded(
               child: ListView.separated(
                 padding: const EdgeInsets.all(16),
+                itemCount: _messages.length,
                 separatorBuilder: (context, index) =>
                     const SizedBox(height: 16),
-                itemCount: _messages.length,
                 itemBuilder: (context, index) {
                   final message = _messages[index];
 
-                  return Row(
-                    mainAxisAlignment: message.isMe
-                        ? MainAxisAlignment.end
-                        : MainAxisAlignment.start,
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      AppCard(
-                        color: message.isMe
-                            ? AppColors.cardSecondary
-                            : AppColors.cardPrimary,
-                        child: Container(
-                          constraints: BoxConstraints(
-                            maxWidth: MediaQuery.of(context).size.width * 0.7,
-                          ),
-                          padding: const EdgeInsets.all(16),
-                          child: Text(
-                            message.text,
-                            style: const TextStyle(
-                              color: AppColors.textOnLight,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          AppCard(
+                            color: AppColors.cardSecondary,
+                            child: Container(
+                              constraints: BoxConstraints(
+                                maxWidth:
+                                    MediaQuery.of(context).size.width * 0.7,
+                              ),
+                              padding: const EdgeInsets.all(16),
+                              child: Text(
+                                message.question,
+                                style: const TextStyle(
+                                  color: AppColors.textOnLight,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          AppCard(
+                            color: AppColors.cardPrimary,
+                            child: Container(
+                              constraints: BoxConstraints(
+                                maxWidth:
+                                    MediaQuery.of(context).size.width * 0.7,
+                              ),
+                              padding: const EdgeInsets.all(16),
+                              child: message.answer == null
+                                  ? const SizedBox(
+                                      width: 20,
+                                      height: 20,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                      ),
+                                    )
+                                  : Text(
+                                      message.answer!,
+                                      style: const TextStyle(
+                                        color: AppColors.textOnLight,
+                                      ),
+                                    ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   );

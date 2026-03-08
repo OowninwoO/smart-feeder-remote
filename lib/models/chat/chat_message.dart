@@ -1,6 +1,14 @@
-class ChatMessage {
-  const ChatMessage({required this.text, required this.isMe});
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  final String text;
-  final bool isMe;
+part 'chat_message.freezed.dart';
+
+part 'chat_message.g.dart';
+
+@freezed
+abstract class ChatMessage with _$ChatMessage {
+  const factory ChatMessage({required String question, String? answer}) =
+      _ChatMessage;
+
+  factory ChatMessage.fromJson(Map<String, dynamic> json) =>
+      _$ChatMessageFromJson(json);
 }
