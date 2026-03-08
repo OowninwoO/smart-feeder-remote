@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:smart_feeder_remote/api/qnas_api.dart';
 import 'package:smart_feeder_remote/theme/app_colors.dart';
-import 'package:smart_feeder_remote/utils/toast_utils.dart';
 import 'package:smart_feeder_remote/widgets/buttons/app_icon_button.dart';
 import 'package:smart_feeder_remote/widgets/cards/app_card.dart';
+
+class ChatMessage {
+  const ChatMessage({required this.text, required this.isMe});
+
+  final String text;
+  final bool isMe;
+}
 
 class AiChatbotScreen extends StatefulWidget {
   const AiChatbotScreen({super.key});
@@ -14,17 +20,28 @@ class AiChatbotScreen extends StatefulWidget {
 
 class _AiChatbotScreenState extends State<AiChatbotScreen> {
   final _textController = TextEditingController();
+  final List<ChatMessage> _messages = [];
 
   Future<void> _sendMessage() async {
     final text = _textController.text.trim();
     if (text.isEmpty) return;
 
+    setState(() {
+      _messages.add(ChatMessage(text: text, isMe: true));
+    });
+
+    _textController.clear();
+
     try {
       final response = await QnasApi.getAnswer(text: text);
-      _textController.clear();
-      ToastUtils.success(response.toString());
+
+      setState(() {
+        _messages.add(ChatMessage(text: response.toString(), isMe: false));
+      });
     } catch (e) {
-      ToastUtils.error(e.toString());
+      setState(() {
+        _messages.add(const ChatMessage(text: '응답을 불러오지 못했습니다.', isMe: false));
+      });
     }
   }
 
@@ -47,22 +64,26 @@ class _AiChatbotScreenState extends State<AiChatbotScreen> {
                 padding: const EdgeInsets.all(16),
                 separatorBuilder: (context, index) =>
                     const SizedBox(height: 16),
-                itemCount: 10,
+                itemCount: _messages.length,
                 itemBuilder: (context, index) {
+                  final message = _messages[index];
+
                   return Row(
-                    mainAxisAlignment: index.isEven
-                        ? MainAxisAlignment.start
-                        : MainAxisAlignment.end,
+                    mainAxisAlignment: message.isMe
+                        ? MainAxisAlignment.end
+                        : MainAxisAlignment.start,
                     children: [
                       AppCard(
-                        color: index.isEven
-                            ? AppColors.cardPrimary
-                            : AppColors.cardSecondary,
+                        color: message.isMe
+                            ? AppColors.cardSecondary
+                            : AppColors.cardPrimary,
                         child: Container(
-                          width: MediaQuery.of(context).size.width * 0.4,
+                          constraints: BoxConstraints(
+                            maxWidth: MediaQuery.of(context).size.width * 0.7,
+                          ),
                           padding: const EdgeInsets.all(16),
                           child: Text(
-                            '임시 채팅 $index',
+                            message.text,
                             style: const TextStyle(
                               color: AppColors.textOnLight,
                             ),
