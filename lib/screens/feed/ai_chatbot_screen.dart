@@ -1,32 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_feeder_remote/api/chatbot/qnas_api.dart';
-import 'package:smart_feeder_remote/models/chat/chat_message.dart';
+import 'package:smart_feeder_remote/providers/chatbot/chatbot_message_list_provider.dart';
 import 'package:smart_feeder_remote/theme/app_colors.dart';
 import 'package:smart_feeder_remote/widgets/buttons/app_icon_button.dart';
 import 'package:smart_feeder_remote/widgets/cards/app_card.dart';
 
-class AiChatbotScreen extends StatefulWidget {
+class AiChatbotScreen extends ConsumerStatefulWidget {
   const AiChatbotScreen({super.key});
 
   @override
-  State<AiChatbotScreen> createState() => _AiChatbotScreenState();
+  ConsumerState<AiChatbotScreen> createState() => _AiChatbotScreenState();
 }
 
-class _AiChatbotScreenState extends State<AiChatbotScreen> {
+class _AiChatbotScreenState extends ConsumerState<AiChatbotScreen> {
   final _textController = TextEditingController();
   final _scrollController = ScrollController();
-
-  final List<ChatMessage> _messages = [];
 
   Future<void> _sendMessage() async {
     final text = _textController.text.trim();
     if (text.isEmpty) return;
 
-    final messageIndex = _messages.length;
-
-    setState(() {
-      _messages.add(ChatMessage(question: text));
-    });
+    final messageIndex = ref
+        .read(chatbotMessageListProvider.notifier)
+        .addQuestion(text);
 
     _textController.clear();
     _scrollToBottom();
@@ -34,17 +31,13 @@ class _AiChatbotScreenState extends State<AiChatbotScreen> {
     try {
       final response = await QnasApi.getAnswer(text: text);
 
-      setState(() {
-        _messages[messageIndex] = _messages[messageIndex].copyWith(
-          answer: response.toString(),
-        );
-      });
+      ref
+          .read(chatbotMessageListProvider.notifier)
+          .setAnswer(index: messageIndex, answer: response.toString());
     } catch (e) {
-      setState(() {
-        _messages[messageIndex] = _messages[messageIndex].copyWith(
-          answer: '응답을 불러오지 못했습니다.',
-        );
-      });
+      ref
+          .read(chatbotMessageListProvider.notifier)
+          .setAnswer(index: messageIndex, answer: '응답을 불러오지 못했습니다.');
     } finally {
       _scrollToBottom();
     }
@@ -71,6 +64,8 @@ class _AiChatbotScreenState extends State<AiChatbotScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final messages = ref.watch(chatbotMessageListProvider);
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(title: const Text('AI 챗봇'), centerTitle: true),
@@ -81,11 +76,11 @@ class _AiChatbotScreenState extends State<AiChatbotScreen> {
               child: ListView.separated(
                 controller: _scrollController,
                 padding: const EdgeInsets.all(16),
-                itemCount: _messages.length,
+                itemCount: messages.length,
                 separatorBuilder: (context, index) =>
                     const SizedBox(height: 16),
                 itemBuilder: (context, index) {
-                  final message = _messages[index];
+                  final message = messages[index];
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
