@@ -1,5 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:smart_feeder_remote/api/mqtt_logs_api.dart';
+import 'package:smart_feeder_remote/api/main/mqtt_logs_api.dart';
 import 'package:smart_feeder_remote/models/mqtt_log/item/mqtt_log.dart';
 import 'package:smart_feeder_remote/models/mqtt_log/mqtt_log_page.dart';
 import 'package:smart_feeder_remote/utils/log_utils.dart';

@@ -3,11 +3,11 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:smart_feeder_remote/services/auth/auth_service.dart';
 import 'package:smart_feeder_remote/utils/log_utils.dart';
 
-class DioClient {
+class MainDioClient {
   static final Dio dio =
       Dio(
           BaseOptions(
-            baseUrl: dotenv.env['API_BASE_URL']!,
+            baseUrl: dotenv.env['MAIN_API_BASE_URL']!,
             connectTimeout: const Duration(seconds: 10),
             receiveTimeout: const Duration(minutes: 1),
             headers: {'Content-Type': 'application/json'},

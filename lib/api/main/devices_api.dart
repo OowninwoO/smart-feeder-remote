@@ -1,4 +1,4 @@
-import 'dio_client.dart';
+import 'main_dio_client.dart';
 
 class DevicesApi {
   static Future<Map<String, dynamic>> register({
@@ -6,7 +6,7 @@ class DevicesApi {
     required String deviceName,
     required String location,
   }) async {
-    final response = await DioClient.dio.post(
+    final response = await MainDioClient.dio.post(
       '/api/devices/register',
       data: {
         'deviceId': deviceId,
@@ -19,7 +19,7 @@ class DevicesApi {
   }
 
   static Future<Map<String, dynamic>> myDevices() async {
-    final response = await DioClient.dio.get('/api/devices/my-devices');
+    final response = await MainDioClient.dio.get('/api/devices/my-devices');
 
     return response.data;
   }
@@ -27,7 +27,7 @@ class DevicesApi {
   static Future<Map<String, dynamic>> deleteDevice({
     required String deviceId,
   }) async {
-    final response = await DioClient.dio.delete('/api/devices/$deviceId');
+    final response = await MainDioClient.dio.delete('/api/devices/$deviceId');
 
     return response.data;
   }

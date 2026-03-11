@@ -1,4 +1,4 @@
-import 'dio_client.dart';
+import 'main_dio_client.dart';
 
 class FcmTokensApi {
   /// provider/providerUserId는 미들웨어에서 자동으로 식별되므로 요청에 포함하지 않습니다.
@@ -6,7 +6,7 @@ class FcmTokensApi {
   static Future<Map<String, dynamic>> upsertFcmToken({
     required String token,
   }) async {
-    final response = await DioClient.dio.post(
+    final response = await MainDioClient.dio.post(
       '/api/fcmTokens/upsert',
       data: {'token': token},
     );

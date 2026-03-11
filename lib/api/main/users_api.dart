@@ -1,4 +1,4 @@
-import 'dio_client.dart';
+import 'main_dio_client.dart';
 
 class UsersApi {
   /// provider/providerUserId는 미들웨어에서 자동으로 생성/조회되므로 요청에 포함하지 않습니다.
@@ -7,7 +7,7 @@ class UsersApi {
     String? nickname,
     String? profileImageUrl,
   }) async {
-    final response = await DioClient.dio.post(
+    final response = await MainDioClient.dio.post(
       '/api/users/upsertMe',
       data: {'nickname': nickname, 'profileImageUrl': profileImageUrl},
     );
@@ -16,7 +16,7 @@ class UsersApi {
   }
 
   static Future<Map<String, dynamic>> withdraw() async {
-    final response = await DioClient.dio.delete('/api/users/withdraw');
+    final response = await MainDioClient.dio.delete('/api/users/withdraw');
 
     return response.data;
   }

@@ -1,9 +1,9 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:smart_feeder_remote/api/devices_api.dart';
-import 'package:smart_feeder_remote/api/fcm_tokens_api.dart';
-import 'package:smart_feeder_remote/api/mqtt_logs_api.dart';
+import 'package:smart_feeder_remote/api/main/devices_api.dart';
+import 'package:smart_feeder_remote/api/main/fcm_tokens_api.dart';
+import 'package:smart_feeder_remote/api/main/mqtt_logs_api.dart';
 import 'package:smart_feeder_remote/models/device/device.dart';
 import 'package:smart_feeder_remote/models/mqtt_log/mqtt_log_page.dart';
 import 'package:smart_feeder_remote/providers/device/device_list_provider.dart';

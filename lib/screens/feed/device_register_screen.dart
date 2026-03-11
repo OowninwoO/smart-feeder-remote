@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:smart_feeder_remote/api/devices_api.dart';
+import 'package:smart_feeder_remote/api/main/devices_api.dart';
 import 'package:smart_feeder_remote/providers/user_data_sync_provider.dart';
 import 'package:smart_feeder_remote/utils/log_utils.dart';
 import 'package:smart_feeder_remote/utils/toast_utils.dart';

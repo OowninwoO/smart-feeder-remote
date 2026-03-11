@@ -1,11 +1,11 @@
-import 'dio_client.dart';
+import 'main_dio_client.dart';
 
 class MqttLogsApi {
   static Future<Map<String, dynamic>> logs({
     String? cursorAt,
     int? cursorId,
   }) async {
-    final response = await DioClient.dio.get(
+    final response = await MainDioClient.dio.get(
       '/api/mqtt-logs/logs',
       queryParameters: {
         if (cursorAt != null) 'cursorAt': cursorAt,

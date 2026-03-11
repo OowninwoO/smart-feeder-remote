@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_feeder_remote/api/qnas_api.dart';
+import 'package:smart_feeder_remote/api/chatbot/qnas_api.dart';
 import 'package:smart_feeder_remote/models/chat/chat_message.dart';
 import 'package:smart_feeder_remote/theme/app_colors.dart';
 import 'package:smart_feeder_remote/widgets/buttons/app_icon_button.dart';
