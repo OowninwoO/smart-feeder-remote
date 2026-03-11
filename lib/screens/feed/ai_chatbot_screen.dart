@@ -29,11 +29,12 @@ class _AiChatbotScreenState extends ConsumerState<AiChatbotScreen> {
     _scrollToBottom();
 
     try {
-      final response = await QnasApi.getAnswer(text: text);
+      final res = await QnasApi.getAnswer(text: text);
+      final answer = res['data']['answer'];
 
       ref
           .read(chatbotMessageListProvider.notifier)
-          .setAnswer(index: messageIndex, answer: response.toString());
+          .setAnswer(index: messageIndex, answer: answer);
     } catch (e) {
       ref
           .read(chatbotMessageListProvider.notifier)
