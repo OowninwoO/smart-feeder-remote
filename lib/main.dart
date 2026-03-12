@@ -6,7 +6,6 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:smart_feeder_remote/app_router.dart';
-import 'package:smart_feeder_remote/auto_login_gate.dart';
 import 'package:smart_feeder_remote/firebase_options.dart';
 import 'package:smart_feeder_remote/services/notifications/fcm_notification_service.dart';
 import 'package:smart_feeder_remote/services/notifications/local_notification_service.dart';
@@ -55,7 +54,6 @@ class _MyAppState extends ConsumerState<MyApp> {
         routerConfig: appRouter,
         title: 'Smart Feeder Remote',
         theme: AppTheme.dark,
-        builder: (context, child) => AutoLoginGate(child: child!),
       ),
     );
   }
