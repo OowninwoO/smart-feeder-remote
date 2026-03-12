@@ -17,11 +17,14 @@ final GoRouter appRouter = GoRouter(
   initialLocation: '/feed',
   redirect: (context, state) {
     final isLoggedIn = AuthService.currentUser != null;
-
     final isLoginScreen = state.matchedLocation == '/login';
 
-    if (!isLoggedIn && !isLoginScreen) {
-      return '/login';
+    if (!isLoggedIn) {
+      return isLoginScreen ? null : '/login';
+    }
+
+    if (isLoginScreen) {
+      return '/feed';
     }
 
     return null;
