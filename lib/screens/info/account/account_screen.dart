@@ -3,7 +3,6 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:smart_feeder_remote/services/auth/auth_service.dart';
 import 'package:smart_feeder_remote/services/mqtt/mqtt_service.dart';
 import 'package:smart_feeder_remote/theme/app_colors.dart';
-import 'package:smart_feeder_remote/utils/log_utils.dart';
 import 'package:smart_feeder_remote/utils/toast_utils.dart';
 import 'package:smart_feeder_remote/widgets/dialogs/app_confirm_dialog.dart';
 import 'package:smart_feeder_remote/widgets/list_tiles/app_list_tile.dart';
@@ -37,9 +36,6 @@ class AccountScreen extends StatelessWidget {
                     foregroundImage: (photoUrl != null && photoUrl.isNotEmpty)
                         ? NetworkImage(photoUrl)
                         : null,
-                    onForegroundImageError: (e, s) {
-                      LogUtils.e(e);
-                    },
                   ),
                   const SizedBox(width: 8),
                   Column(
