@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:smart_feeder_remote/providers/user_data_sync_provider.dart';
 import 'package:smart_feeder_remote/services/auth/auth_service.dart';
@@ -56,7 +55,6 @@ class LoginScreen extends ConsumerWidget {
                     await ref.read(userDataSyncProvider).loadDevices();
                     await ref.read(userDataSyncProvider).loadMqttLogs();
                     await ref.read(userDataSyncProvider).initMqttSub();
-                    context.go('/feed');
                   } catch (e) {
                     LogUtils.e(e);
                     ToastUtils.error('로그인에 실패했습니다. 다시 시도해 주세요.');
