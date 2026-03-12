@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_feeder_remote/screens/auth/login_screen.dart';
 import 'package:smart_feeder_remote/screens/feed/ai_chatbot_screen.dart';
@@ -13,8 +16,27 @@ import 'package:smart_feeder_remote/screens/info/my_devices/device_list_screen.d
 import 'package:smart_feeder_remote/screens/main_screen.dart';
 import 'package:smart_feeder_remote/services/auth/auth_service.dart';
 
+class GoRouterRefreshStream extends ChangeNotifier {
+  GoRouterRefreshStream(Stream<dynamic> stream) {
+    _subscription = stream.asBroadcastStream().listen((_) {
+      notifyListeners();
+    });
+  }
+
+  late final StreamSubscription<dynamic> _subscription;
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
+  }
+}
+
 final GoRouter appRouter = GoRouter(
   initialLocation: '/feed',
+  refreshListenable: GoRouterRefreshStream(
+    AuthService.firebaseAuth.authStateChanges(),
+  ),
   redirect: (context, state) {
     final isLoggedIn = AuthService.currentUser != null;
     final isLoginScreen = state.matchedLocation == '/login';
