@@ -23,15 +23,7 @@ class AuthService {
       idToken: googleAuth.idToken,
     );
 
-    final userCredential = await firebaseAuth.signInWithCredential(credential);
-
-    final user = userCredential.user;
-    if (user != null) {
-      await UsersApi.upsertMe(
-        nickname: user.displayName,
-        profileImageUrl: user.photoURL,
-      );
-    }
+    await firebaseAuth.signInWithCredential(credential);
   }
 
   static Future<void> signOut() async {
